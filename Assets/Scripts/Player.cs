@@ -83,7 +83,7 @@ public class Player : MonoBehaviour {
         if(!string.IsNullOrEmpty(gameController.lastLoadedScene))
         {
             Debug.Log(gameController.lastLoadedScene);
-            sceneInitialSpawnPoint = GameObject.FindGameObjectWithTag(gameController.lastLoadedScene + "_sp").transform;
+            sceneInitialSpawnPoint = GameObject.Find(gameController.lastLoadedScene + "_sp").transform;
             transform.position = sceneInitialSpawnPoint.position;
         }
         
