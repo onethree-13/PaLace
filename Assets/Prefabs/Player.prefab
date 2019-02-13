@@ -300,13 +300,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c64effc771110d34e8a1e28cf86ad2a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enableControl: 1
+  runSpeed: 40
+  m_CrouchSpeed: 0.36
+  m_MovementSmoothing: 0.05
+  m_JumpSpeed: 20
+  m_JumpCancelSpeed: 10
+  m_AirControl: 1
+  m_airborneSpeed: 0.8
+  m_DamageArea: {fileID: 5615965413059359794}
+  m_AttackPeriod: 0.7
   stats:
-    maxHealth: 10
-  characterController2d: {fileID: 7835878199792621700}
+    maxHealth: 1
   sceneInitialSpawnPoint: {fileID: 0}
   lastSpawnPoint: {fileID: 0}
   spawnDelay: 0.5
-  statusIndicator: {fileID: 0}
 --- !u!114 &7835878199792621700
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -319,21 +327,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 216df66a98e6ad54f8b06a0906e2c667, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enableControl: 1
-  m_MaxJump: 1
-  m_JumpSpeed: 20
-  m_JumpCancelSpeed: 16
-  m_JumpInterval: 1.5
-  runSpeed: 32
-  m_CrouchSpeed: 0.36
-  m_airborneSpeed: 0.8
-  m_MovementSmoothing: 0.05
-  m_AirControl: 1
+  isGrounded: 0
   m_WhatIsGround:
     serializedVersion: 2
     m_Bits: 1079
   m_GroundCheck: {fileID: 7835878199427161878}
   m_CeilingCheck: {fileID: 7835878199342638813}
-  m_Animator: {fileID: 7835878199792621816}
-  m_DamageArea: {fileID: 5615965413059359794}
-  m_AttackPeriod: 1
