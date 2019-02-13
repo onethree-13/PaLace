@@ -1,6 +1,8 @@
 using UnityEngine;
 using System.Collections;
 
+[RequireComponent(typeof(CharacterController2D))]
+[RequireComponent(typeof(Animator))]
 public class Player : MonoBehaviour {
 
     public bool enableControl = true;                                           // Enable player input.
@@ -13,6 +15,8 @@ public class Player : MonoBehaviour {
     
     [SerializeField] private bool m_AirControl = false;                         // Whether or not a player can steer while jumping;
     [Range(0, 1)] [SerializeField] private float m_airborneSpeed = .8f;         // Amount of maxSpeed applied to airborne movement. 1 = 100%
+
+    public bool detectable;     // Whether player could be detected by enemies.
 
     [SerializeField] private Collider2D m_DamageArea;                           // An area where object will get damage when player press attack
     [SerializeField] private float m_AttackPeriod = .7f;                        // How long the player cannot cast another attack
@@ -72,7 +76,8 @@ public class Player : MonoBehaviour {
         gameController = GameObject.FindGameObjectWithTag("GameCtrl").GetComponent<GameController>();
         characterController2d = GetComponent<CharacterController2D>();
         m_Animator = GetComponent<Animator>();
-        m_DamageArea.enabled = false;
+        if (m_DamageArea != null)
+            m_DamageArea.enabled = false;
     }
 
     void Start()

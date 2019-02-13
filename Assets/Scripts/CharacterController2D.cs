@@ -1,5 +1,6 @@
 using UnityEngine;
 
+[RequireComponent(typeof(Rigidbody2D))]
 public class CharacterController2D : MonoBehaviour
 {
     public bool isGrounded;             // Whether or not the player is grounded.
@@ -11,9 +12,9 @@ public class CharacterController2D : MonoBehaviour
     const float k_GroundedRadius = .2f; // Radius of the overlap circle to determine if grounded
     const float k_CeilingRadius = .2f;  // Radius of the overlap circle to determine if the player can stand up
     private bool m_FacingRight = true;  // For determining which way the player is currently facing.
-    
 
-    private void Awake()
+
+private void Awake()
     {
         m_Rigidbody2D = GetComponent<Rigidbody2D>();
     }
@@ -43,6 +44,11 @@ public class CharacterController2D : MonoBehaviour
     public Vector2 GetVelocity()
     {
         return m_Rigidbody2D.velocity;
+    }
+
+    public bool GetFacingRight()
+    {
+        return m_FacingRight;
     }
 
     public void AddVelocity(float x, float y)
