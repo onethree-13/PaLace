@@ -4,10 +4,9 @@ using UnityEngine;
 
 public class Arrow : MonoBehaviour
 {
-    public float speed = 20f;
+    public float speed = 20f; // arrow speed
     public Rigidbody2D rb;
-    public int damage = 1;
-    public float autoDestroy = 1f;
+    public float autoDestroy = 1f;  // in seconds
 
     // Start is called before the first frame update
     void Start()
@@ -22,7 +21,7 @@ public class Arrow : MonoBehaviour
         Player player = collision.GetComponent<Player>();
         if(player != null)
         {
-            player.Damage(damage);
+            player.Damage(1);
         }
         Destroy(gameObject);
     }
