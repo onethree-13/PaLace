@@ -36,7 +36,7 @@ private void Awake()
         Collider2D[] colliders = Physics2D.OverlapCircleAll(m_GroundCheck.position, k_GroundedRadius, m_WhatIsGround);
         for (int i = 0; i < colliders.Length; i++)
         {
-            if (colliders[i].gameObject != gameObject && colliders[i].gameObject.name != "Water")
+            if (colliders[i].gameObject != gameObject)
                 isGrounded = true;
         }
     }
