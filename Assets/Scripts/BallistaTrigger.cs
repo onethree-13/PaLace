@@ -8,6 +8,9 @@ public class BallistaTrigger : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        BallistaPrefab.Shoot();
+        if (collision.gameObject.name == "Player")
+        {
+            BallistaPrefab.Shoot();
+        }
     }
 }
