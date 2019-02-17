@@ -6,6 +6,9 @@ public class TrapTile : MonoBehaviour
 {
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        Destroy(gameObject);
+        if (collision.gameObject.name == "Player")
+        {
+            Destroy(gameObject);
+        }
     }
 }
