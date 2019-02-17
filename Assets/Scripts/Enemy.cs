@@ -28,10 +28,14 @@ public class Enemy : MonoBehaviour {
 	}
 	
 	public EnemyStats stats = new EnemyStats();
+    [Tooltip("If the sprite face left initially, enable this. Otherwise, leave disabled")]
+    private bool m_InitialFacingRight = true;  // For determining which way this enemy is initially facing.
+    protected Vector2 m_SpriteForward;         // The forward vector of this enemy.
 
     public int touchDamage = 1;
     public int attackDamage = 1;
-    public float meleeRange = 1.0f;
+    public float meleeRange = .0f;
+    public float meleeAngle = 60.0f;
     [SerializeField] private Collider2D m_DamageArea;   // An area where object will get damage when player press attack
     [SerializeField] private StatusIndicator statusIndicator;
 
@@ -45,13 +49,13 @@ public class Enemy : MonoBehaviour {
     [Range(0.0f, 360.0f)]
     public float viewFov = 30f;
     public float viewDistance = 6.0f;
+    public float traceViewDistance = 6.0f;
     [Tooltip("Time in seconds without the target in the view cone before the target is considered lost from sight")]
-    public float timeBeforeTargetLost = 3.0f;
+    public float timeBeforeTargetLost = 6.0f;
 
     // Move related parameters
-    private bool isGrounded;            // Whether or not the player is grounded. (Update from CharacterController2D)
     private Vector2 velocity = Vector2.zero;    // current speed of player movement, will be modified by Move()
-
+    
     // View related
     protected Transform m_Target;
     protected float m_TimeSinceLastTargetView;
@@ -73,8 +77,11 @@ public class Enemy : MonoBehaviour {
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
         characterController2d = GetComponent<CharacterController2D>();
         m_Animator = GetComponent<Animator>();
-        if (m_DamageArea != null)
-            m_DamageArea.enabled = false;
+
+        if (m_InitialFacingRight)
+            m_SpriteForward = Vector2.right;
+        else
+            m_SpriteForward = Vector2.left;
     }
 
     void Start()
@@ -89,34 +96,53 @@ public class Enemy : MonoBehaviour {
 
     private void FixedUpdate()
     {
-        // Update isGrounded form characterController2d
-        isGrounded = characterController2d.isGrounded;
+        
 
         if (m_Target == null && player.detectable)
             ScanForPlayer();
+        
+        if (m_Target == null)
+        {
+            //Patrol(); //todo
+        }
         else
         {
             CheckTargetStillVisible();
+            OrientToTarget();
             MoveToTarget();
         }
 
         // Update timer
         if (m_TimeSinceLastTargetView > 0.0f)
             m_TimeSinceLastTargetView -= Time.deltaTime;
+
+    }
+
+    public void UpdateFacing(float facing)
+    {
+        if (facing > 0 && m_SpriteForward == Vector2.left)
+        {
+            m_SpriteForward = Vector2.right;
+            characterController2d.Flip();
+        }
+        else if (facing < 0 && m_SpriteForward == Vector2.right)
+        {
+            m_SpriteForward = Vector2.left;
+            characterController2d.Flip();
+        }
+    }
+
+    private void SetSpeedWithSmoothing(Vector2 targetVelocity)
+    {
+        //Smoothing character velocity from current speed to target speed 
+        characterController2d.SetVelocity(Vector2.SmoothDamp(characterController2d.GetVelocity(), targetVelocity, ref velocity, m_MovementSmoothing));
     }
 
     public void ScanForPlayer()
     {
         if (!player.detectable)
             return;
-
-        bool spriteFacingRight = characterController2d.GetFacingRight();
-        Vector2 spriteForward;
-        if (spriteFacingRight)
-            spriteForward = Vector2.right;
-        else
-            spriteForward = Vector2.left;
-
+        
         // If the player don't have control, they can't react, so do not pursue them
         if (!player.enableControl)
             return;
@@ -125,88 +151,114 @@ public class Enemy : MonoBehaviour {
 
         // Check if distance to player is close enough for detection 
         if (dir.sqrMagnitude > viewDistance * viewDistance)
-        {
             return;
-        }
         
         // Check if the player is in the enemy's sight
-        Vector3 testForward = Quaternion.Euler(0, 0, Mathf.Sign(spriteForward.x) * viewDirection) * spriteForward;
-
+        Vector3 testForward = Quaternion.Euler(0, 0, Mathf.Sign(m_SpriteForward.x) * viewDirection) * m_SpriteForward;
         float angle = Vector3.Angle(testForward, dir);
-
         if (angle > viewFov * 0.5f)
-        {
             return;
-        }
 
-        // Set player detected
-        m_Target = player.transform;
-        m_TimeSinceLastTargetView = timeBeforeTargetLost;
+        // Check if there are obstacle between player and this enemy
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, dir);
+        Debug.Log(hit.transform.gameObject.name);
+        if (hit)
+        {
+            if (hit.transform.gameObject.tag == "Player")
+            {
+                // Set player detected
+                m_Target = player.transform;
+                m_TimeSinceLastTargetView = timeBeforeTargetLost;
+            }
+        }        
+    }
+
+    public void OrientToTarget()
+    {
+        if (m_Target == null)
+            return;
+
+        Vector3 toTarget = m_Target.position - transform.position;
+
+        if (Vector2.Dot(toTarget, m_SpriteForward) < 0)
+        {
+            UpdateFacing(-m_SpriteForward.x);
+        }
     }
 
     public void MoveToTarget()
     {
+
+        Debug.Log(m_Target.name);
         // Stand still if haven't detect player
         if (m_Target == null)
             return;
 
         float distance = m_Target.position.x - transform.position.x;
-        if (distance < meleeRange)
+        if (Mathf.Abs(distance) < meleeRange)
         {
             // Close enough for melee attack, stop moving
+            SetSpeedWithSmoothing(Vector2.zero);
             return;
         }
 
-        // Player is at the right if distance is positive, vice versa。
+        // Player is at the right if distance is positive, vice versa.
         float move = Mathf.Sign(distance) * runSpeed * Time.fixedDeltaTime * 10;
 
-        // Current velocity of player rigidbody
+        Debug.Log(move);
+
+        UpdateFacing(move);
+
+        // Move enemy to player based on move 
         Vector2 currentVelocity = characterController2d.GetVelocity();
-        // Move the character by finding the target velocity
-        Vector3 targetVelocity = new Vector2(move, currentVelocity.y);
-        // And then smoothing it out and applying it to the character
-        characterController2d.SetVelocity(Vector2.SmoothDamp(currentVelocity, targetVelocity, ref velocity, m_MovementSmoothing));
+        SetSpeedWithSmoothing(new Vector2(move, currentVelocity.y));
     }
 
     public void CheckTargetStillVisible()
     {
-        if (!player.detectable)
-        {
-            ForgetTarget();
-            return;
-        }
-
+        // Stand still if haven't detect player
         if (m_Target == null)
             return;
-
-        
-
-        bool spriteFacingRight = characterController2d.GetFacingRight();
-        Vector2 spriteForward;
-        if (spriteFacingRight)
-            spriteForward = Vector2.right;
-        else
-            spriteForward = Vector2.left;
-
         Vector3 toTarget = m_Target.position - transform.position;
 
-        if (toTarget.sqrMagnitude < viewDistance * viewDistance)
+        if (toTarget.sqrMagnitude < traceViewDistance * traceViewDistance)
         {
-            Vector3 testForward = Quaternion.Euler(0, 0, viewDirection) * spriteForward;
+            // Check if there are obstacle between player and this enemy
+            RaycastHit2D hit = Physics2D.Raycast(transform.position, toTarget, viewDistance);
 
-            float angle = Vector3.Angle(testForward, toTarget);
-
-            if (angle <= viewFov * 0.5f)
+            if (hit)
             {
-                //we reset the timer if the target is at viewing distance.
-                m_TimeSinceLastTargetView = timeBeforeTargetLost;
+                if (hit.transform.gameObject.tag == "Player")
+                {
+                    //we reset the timer if the target is at trace viewing distance.
+                    m_TimeSinceLastTargetView = timeBeforeTargetLost;
+                }
             }
         }
 
         if (m_TimeSinceLastTargetView <= 0.0f)
-        {
             ForgetTarget();
-        }
+    }
+
+    public void MeleeAttack()
+    {
+        // Stand still if haven't detect player
+        if (m_Target == null)
+            return;
+
+        // Check if the player is in the enemy's melee range
+        Vector3 toTarget = m_Target.position - transform.position;
+        if (toTarget.sqrMagnitude >= meleeRange * meleeRange)
+            return;
+        
+        // Check if the player is in the enemy's melee angle
+        Vector3 testForward = Quaternion.Euler(0, 0, Mathf.Sign(m_SpriteForward.x) * viewDirection) * m_SpriteForward;
+        float angle = Vector3.Angle(testForward, toTarget);
+        if (angle > meleeAngle * 0.5f)
+            return;
+
+        // Attaack the player
+        player.Damage(1);
     }
 
     // Reset target if player escape from enemy's sight for timeBeforeTargetLost
@@ -250,20 +302,21 @@ public class Enemy : MonoBehaviour {
 #if UNITY_EDITOR
     private void OnDrawGizmosSelected()
     {
-        //draw the cone of view
+        //Draw the cone of view
         Vector3 forward =  Vector2.right;
         forward = Quaternion.Euler(0, 0, viewDirection) * forward;
 
         if (GetComponent<SpriteRenderer>().flipX) forward.x = -forward.x;
 
-        Vector3 endpoint = transform.position + (Quaternion.Euler(0, 0, viewFov * 0.5f) * forward);
+        Vector3 viewEndpoint = transform.position + (Quaternion.Euler(0, 0, viewFov * 0.5f) * forward);
 
         Handles.color = new Color(0, 1.0f, 0, 0.2f);
-        Handles.DrawSolidArc(transform.position, -Vector3.forward, (endpoint - transform.position).normalized, viewFov, viewDistance);
+        Handles.DrawSolidArc(transform.position, -Vector3.forward, (viewEndpoint - transform.position).normalized, viewFov, viewDistance);
 
-        //Draw attack range
-        //Handles.color = new Color(1.0f, 0, 0, 0.1f);
-        //Handles.DrawSolidDisc(transform.position, Vector3.back, meleeRange);
+        //Draw the cone of melee attack range
+        Vector3 meleeEndpoint = transform.position + (Quaternion.Euler(0, 0, meleeAngle * 0.5f) * forward);
+        Handles.color = new Color(1.0f, 0, 0, 0.1f);
+        Handles.DrawSolidArc(transform.position, -Vector3.forward, (meleeEndpoint - transform.position).normalized, meleeAngle, meleeRange);
     }
 #endif
 }

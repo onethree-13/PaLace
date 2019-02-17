@@ -11,20 +11,25 @@ public class CharacterController2D : MonoBehaviour
 
     const float k_GroundedRadius = .2f; // Radius of the overlap circle to determine if grounded
     const float k_CeilingRadius = .2f;  // Radius of the overlap circle to determine if the player can stand up
-    private bool m_FacingRight = true;  // For determining which way the player is currently facing.
-
 
 private void Awake()
     {
         m_Rigidbody2D = GetComponent<Rigidbody2D>();
+
+        if (m_CeilingCheck == null)
+        {
+            m_CeilingCheck = transform.Find("CeilingCheck").transform;
+            if (m_CeilingCheck == null)
+                Debug.LogError("CeilingCheck not found");
+        }
+        if (m_GroundCheck == null)
+        {
+            m_GroundCheck = transform.Find("GroundCheck").transform;
+            if (m_GroundCheck == null)
+                Debug.LogError("GroundCheck not found");
+        }
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
-
+    
     // Update is called once per tick
     // modified in project stting -> time -> fix timestamp
     private void FixedUpdate()
@@ -46,30 +51,19 @@ private void Awake()
         return m_Rigidbody2D.velocity;
     }
 
-    public bool GetFacingRight()
-    {
-        return m_FacingRight;
-    }
-
     public void AddVelocity(float x, float y)
     {
         m_Rigidbody2D.velocity += new Vector2(x, y);
-
-        FixFacingDirection();
     }
 
     public void SetVelocity(Vector2 newSpeed)
     {
         m_Rigidbody2D.velocity = newSpeed;
-
-        FixFacingDirection();
     }
 
     public void SetHorizontalSpeed(float horizontalDeltaSpeed)
     {
         m_Rigidbody2D.velocity = new Vector2(horizontalDeltaSpeed, m_Rigidbody2D.velocity.y);
-
-        FixFacingDirection();
     }
 
     public void SetVeticalSpeed(float veticalDeltaSpeed)
@@ -80,29 +74,16 @@ private void Awake()
     // This moves the character without any implied velocity.
     public void Teleport(Vector2 position)
     {
-        m_Rigidbody2D.MovePosition(position);
+        transform.position = position;
     }
 
-    private void FixFacingDirection()
+    public void SetRagdoll(bool enable)
     {
-        if (m_Rigidbody2D.velocity.x > 0 && !m_FacingRight)
-        {
-            // ... flip the player.
-            Flip();
-        }
-        // Otherwise if the input is moving the player left and the player is facing right...
-        else if (m_Rigidbody2D.velocity.x < 0 && m_FacingRight)
-        {
-            // ... flip the player.
-            Flip();
-        }
+        m_Rigidbody2D.isKinematic = enable;
     }
 
-    private void Flip()
+    public void Flip()
     {
-        // Switch the way the player is labelled as facing.
-        m_FacingRight = !m_FacingRight;
-
         // Multiply the player's x local scale by -1.
         Vector3 theScale = transform.localScale;
         theScale.x *= -1;

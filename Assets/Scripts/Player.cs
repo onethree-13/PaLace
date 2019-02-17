@@ -3,6 +3,7 @@ using System.Collections;
 
 [RequireComponent(typeof(CharacterController2D))]
 [RequireComponent(typeof(Animator))]
+[RequireComponent(typeof(SpriteRenderer))]
 public class Player : MonoBehaviour {
 
     public bool enableControl = true;                                           // Enable player input.
@@ -16,9 +17,11 @@ public class Player : MonoBehaviour {
     [SerializeField] private bool m_AirControl = false;                         // Whether or not a player can steer while jumping;
     [Range(0, 1)] [SerializeField] private float m_airborneSpeed = .8f;         // Amount of maxSpeed applied to airborne movement. 1 = 100%
 
-    public bool detectable;     // Whether player could be detected by enemies.
+    public bool detectable = true;     // Whether player could be detected by enemies.
+    public bool invincible = false;    // Whether player could get damage from enemies's attack.
 
     [SerializeField] private Collider2D m_DamageArea;                           // An area where object will get damage when player press attack
+    [SerializeField] private float m_AttackPreparePeriod = .7f;                 // How long the attacking animation plays before the player can really cause damage
     [SerializeField] private float m_AttackPeriod = .7f;                        // How long the player cannot cast another attack
 
     [System.Serializable]
@@ -40,13 +43,16 @@ public class Player : MonoBehaviour {
     }
 
 	public PlayerStats stats = new PlayerStats();
+    private bool m_FacingRight = true;  // For determining which way the player is currently facing.
 
     private CharacterController2D characterController2d;
     private GameController gameController;
 
     public Transform sceneInitialSpawnPoint;
     public Transform lastSpawnPoint;
-    public float spawnDelay = 2f;
+    public float spawnDelay = 2.0f;
+    public float spawnInvincibleDuration = 2.0f;
+    public float blinkInterval = 0.2f; // Blink interval when being invincible
 
     // Player input related, passing from update() to fixUpdate()
     private bool jump = false;          // Whether the player is pressing jump
@@ -65,6 +71,7 @@ public class Player : MonoBehaviour {
 
     // Animation Related
     protected Animator m_Animator;   // Animation controller of player
+    protected SpriteRenderer m_renderer; // Sprite renderer of player
     public void PlayAttackAnimation() => m_Animator.SetTrigger("Attacking");
     public void PlayHitAnimation() => m_Animator.SetTrigger("NormalHit");
     public void PlayDeathAnimation() => m_Animator.SetTrigger("DeadlyHit");
@@ -76,6 +83,8 @@ public class Player : MonoBehaviour {
         gameController = GameObject.FindGameObjectWithTag("GameCtrl").GetComponent<GameController>();
         characterController2d = GetComponent<CharacterController2D>();
         m_Animator = GetComponent<Animator>();
+        m_renderer = GetComponent<SpriteRenderer>();
+
         if (m_DamageArea != null)
             m_DamageArea.enabled = false;
     }
@@ -175,6 +184,20 @@ public class Player : MonoBehaviour {
         jumpCancel = false;
     }
 
+    private void UpdateFacing(float facing)
+    {
+        if (facing > 0 && !m_FacingRight)
+        {
+            m_FacingRight = true;
+            characterController2d.Flip();
+        }
+        else if (facing < 0 && m_FacingRight)
+        {
+            m_FacingRight = false;
+            characterController2d.Flip();
+        }
+    }
+
     // Move the player, should only be used in FixUpdate()
     public void Move(float move, bool crouch, bool shouldJump, bool shouldCancelJump)
     {
@@ -198,6 +221,8 @@ public class Player : MonoBehaviour {
                 move *= m_airborneSpeed;
             }
             
+            UpdateFacing(move);
+
             // Move the character by finding the target velocity
             Vector3 targetVelocity = new Vector2(move * 10, currentVelocity.y);
             // And then smoothing it out and applying it to the character
@@ -219,20 +244,17 @@ public class Player : MonoBehaviour {
     }
 
     public void Damage (int damage, bool respawn = false) {
+        if (stats.curHealth <= 0 || invincible)
+        {
+            // when the player is dead or invincible, player should not recieve any damage.
+            return;
+        }
+
         Debug.Log(string.Format("Player get {0} damage", damage));
         stats.curHealth -= damage;
         if (stats.curHealth <= 0)
         {
-            // ToDo Let player choose which reset the level
-            PlayDeathAnimation();
             StartCoroutine(RespawnPlayer(sceneInitialSpawnPoint));
-
-            // ToDo: reset the level
-            // Maybe calling gameMaster.resetLevel() ?
-
-            // Reset current health of the player.
-            // ToDo: obtain a copy of Player.stats from last scene.
-            stats.Init();
         }
         else
         {
@@ -244,12 +266,30 @@ public class Player : MonoBehaviour {
 
     public IEnumerator RespawnPlayer (Transform spawnPoint)
     {
+        // Unfix Bug: Player flip for no reason before respawn
+
+        characterController2d.SetRagdoll(false);
+        PlayDeathAnimation();
         enableControl = false;
 
         yield return new WaitForSeconds(spawnDelay);
+        
+        // hide player before respawn 
+        m_renderer.enabled = false;
 
-        transform.position = spawnPoint.position;
+        characterController2d.Teleport(spawnPoint.position);
 
+        // ToDo: reset the level
+        // Maybe calling gameMaster.resetLevel() ?    
+
+        characterController2d.SetRagdoll(false);
+        m_Animator.SetTrigger("Respawning");
+        m_renderer.enabled = true;
         enableControl = true;
+
+        yield return new WaitForSeconds(spawnInvincibleDuration);
+
+        // Recover initial status. Player is invincible before this operation.
+        stats.Init();
     }
 }

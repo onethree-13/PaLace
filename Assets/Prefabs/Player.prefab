@@ -308,13 +308,18 @@ MonoBehaviour:
   m_JumpCancelSpeed: 10
   m_AirControl: 1
   m_airborneSpeed: 0.8
+  detectable: 1
+  invincible: 0
   m_DamageArea: {fileID: 5615965413059359794}
+  m_AttackPreparePeriod: 0.7
   m_AttackPeriod: 0.7
   stats:
     maxHealth: 1
   sceneInitialSpawnPoint: {fileID: 0}
   lastSpawnPoint: {fileID: 0}
-  spawnDelay: 0.5
+  spawnDelay: 2
+  spawnInvincibleDuration: 2
+  blinkInterval: 0.2
 --- !u!114 &7835878199792621700
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -330,6 +335,6 @@ MonoBehaviour:
   isGrounded: 0
   m_WhatIsGround:
     serializedVersion: 2
-    m_Bits: 1079
+    m_Bits: 1025
   m_GroundCheck: {fileID: 7835878199427161878}
   m_CeilingCheck: {fileID: 7835878199342638813}
