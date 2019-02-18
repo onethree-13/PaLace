@@ -20,9 +20,18 @@ public class Player : MonoBehaviour {
     public bool detectable = true;     // Whether player could be detected by enemies.
     public bool invincible = false;    // Whether player could get damage from enemies's attack.
 
-    [SerializeField] private Collider2D m_DamageArea;                           // An area where object will get damage when player press attack
-    [SerializeField] private float m_AttackPreparePeriod = .7f;                 // How long the attacking animation plays before the player can really cause damage
-    [SerializeField] private float m_AttackPeriod = .7f;                        // How long the player cannot cast another attack
+    public Transform sceneInitialSpawnPoint;        // Spawn point for respawning player when player die 
+    public Transform lastSpawnPoint;                // (Deprecated) Nearest Spawn point for some trap
+    public float spawnDelay = 2.0f;                 // How long between player die and player respawn
+    public float spawnInvincibleDuration = 2.0f;    // How long player would be invincible after 
+    public float blinkInterval = 0.2f;              // Blink interval when being invincible
+
+    public float attackDamage = 1f;                                 // How much damage normal attack will cause.
+    public float sneeakMultiplier = 2f;                             // Damage Multiplier which applys when player attacks without being detected by target enemy
+    public float airborneMultiplier = 2f;                           // Damage Multiplier which applys when player attacks during jumping
+    [SerializeField] private Collider2D m_DamageArea;               // An area where object will get damage when player press attack
+    [SerializeField] private float m_AttackPreparePeriod = .04f;    // How long the attacking animation plays before the player can really cause damage
+    [SerializeField] private float m_AttackPeriod = .08f;           // How long the player cannot cast another attack
 
     [System.Serializable]
 	public class PlayerStats {
@@ -33,8 +42,9 @@ public class Player : MonoBehaviour {
 		public int curHealth
 		{
 			get { return _curHealth; }
-			set { _curHealth = Mathf.Clamp(value, 0, maxHealth); }
-		}
+            // Ensure the range of _curHealth is [0, maxHealth]
+            set { _curHealth = Mathf.Clamp(value, 0, maxHealth); } 
+        }
 
 		public void Init()
 		{
@@ -48,11 +58,7 @@ public class Player : MonoBehaviour {
     private CharacterController2D characterController2d;
     private GameController gameController;
 
-    public Transform sceneInitialSpawnPoint;
-    public Transform lastSpawnPoint;
-    public float spawnDelay = 2.0f;
-    public float spawnInvincibleDuration = 2.0f;
-    public float blinkInterval = 0.2f; // Blink interval when being invincible
+    
 
     // Player input related, passing from update() to fixUpdate()
     private bool jump = false;          // Whether the player is pressing jump
@@ -65,7 +71,7 @@ public class Player : MonoBehaviour {
     private float horizontalMove = 0f;  // the length of horizontal move with direction, 
                                         // (Warning) final movement may be less than horizontalMove because of crouching or air movement
     private Vector2 velocity = Vector2.zero;    // current speed of player movement, will be modified by Move()
-
+    
     // Attack related paramaters
     private float atkTimer = 0f;
 
@@ -75,6 +81,7 @@ public class Player : MonoBehaviour {
     public void PlayAttackAnimation() => m_Animator.SetTrigger("Attacking");
     public void PlayHitAnimation() => m_Animator.SetTrigger("NormalHit");
     public void PlayDeathAnimation() => m_Animator.SetTrigger("DeadlyHit");
+    public void PlayRespawnAnimation() => m_Animator.SetTrigger("Respawning");
 
     //public int fallBoundary = -20;
 
@@ -84,9 +91,6 @@ public class Player : MonoBehaviour {
         characterController2d = GetComponent<CharacterController2D>();
         m_Animator = GetComponent<Animator>();
         m_renderer = GetComponent<SpriteRenderer>();
-
-        if (m_DamageArea != null)
-            m_DamageArea.enabled = false;
     }
 
     void Start()
@@ -124,13 +128,9 @@ public class Player : MonoBehaviour {
         horizontalMove = Input.GetAxisRaw("Horizontal") * runSpeed;
 
         if (Input.GetButtonDown("Crouch"))
-        {
             crouch = true;
-        }
         else if (Input.GetButtonUp("Crouch"))
-        {
             crouch = false;
-        }
 
         if (Input.GetButtonDown("Jump") && isGrounded && jump == false)
         {
@@ -144,39 +144,23 @@ public class Player : MonoBehaviour {
         }
 
         // Player begins to attack 
-        if (Input.GetButtonDown("Fire1") && !attack)
-        {
-            attack = true;
-            atkTimer = m_AttackPeriod;
-            PlayAttackAnimation();
-        }
-        // Maintain attack status
-        if (attack)
-        {
-            if (atkTimer > 0.0)
-            {
-                atkTimer = atkTimer - Time.deltaTime;
-            }
-            else
-            {
-                // stop attack if passed AttackPeriod(finished attack animation)
-                attack = false;
-            }
-        }
+        if (Input.GetButtonDown("Fire1") && atkTimer <= 0.0)
+            StartCoroutine(AttackCoroutine());
 
         // Update animation
         m_Animator.SetFloat("Speed", Mathf.Abs(horizontalMove));
         m_Animator.SetBool("IsGrounded", isGrounded);
         m_Animator.SetBool("Sneaking", crouch);
-
-        // Contoll Damage Area based on attack status
-        m_DamageArea.enabled = attack;
     }
 
     private void FixedUpdate()
     {
         // Update isGrounded form characterController2d
         isGrounded = characterController2d.isGrounded;
+
+        // Maintain attack status
+        if (atkTimer > 0.0f)
+            atkTimer -= Time.fixedDeltaTime;
 
         // Move our character
         Move(horizontalMove * Time.fixedDeltaTime, crouch, jump, jumpCancel);
@@ -186,6 +170,8 @@ public class Player : MonoBehaviour {
 
     private void UpdateFacing(float facing)
     {
+        // Ensure the sprite faces right when facing is larger than zero
+        // And it faces left when facing is smaller than zero
         if (facing > 0 && !m_FacingRight)
         {
             m_FacingRight = true;
@@ -229,29 +215,30 @@ public class Player : MonoBehaviour {
             characterController2d.SetVelocity(Vector2.SmoothDamp(currentVelocity, targetVelocity, ref velocity, m_MovementSmoothing));
         }
 
-        // If the player is pressing jumping and can jump...
+        // If the player is pressing jump...
         if (shouldJump)
         {
             // Add a vertical speed to the player.
             isGrounded = false;
             characterController2d.AddVelocity(0.0f, m_JumpSpeed);
         }
+        // If the player is releasing jumping...
         else if (shouldCancelJump)
         {
+            // If player vertical speed is higher than m_JumpCancelSpeed, limit it ot m_JumpCancelSpeed
             if (currentVelocity.y > m_JumpCancelSpeed)
                 characterController2d.SetVeticalSpeed(m_JumpCancelSpeed);
         }
     }
 
     public void Damage (int damage, bool respawn = false) {
+        // when the player is dead or invincible, player should not recieve any damage.
         if (stats.curHealth <= 0 || invincible)
-        {
-            // when the player is dead or invincible, player should not recieve any damage.
             return;
-        }
 
         Debug.Log(string.Format("Player get {0} damage", damage));
         stats.curHealth -= damage;
+
         if (stats.curHealth <= 0)
         {
             StartCoroutine(RespawnPlayer(sceneInitialSpawnPoint));
@@ -266,7 +253,7 @@ public class Player : MonoBehaviour {
 
     public IEnumerator RespawnPlayer (Transform spawnPoint)
     {
-        // Unfix Bug: Player flip for no reason before respawn
+        // Unfixed Bug: Player flip for no reason before respawn
 
         characterController2d.SetRagdoll(false);
         PlayDeathAnimation();
@@ -274,7 +261,7 @@ public class Player : MonoBehaviour {
 
         yield return new WaitForSeconds(spawnDelay);
         
-        // hide player before respawn 
+        // hide player before teleporting 
         m_renderer.enabled = false;
 
         characterController2d.Teleport(spawnPoint.position);
@@ -283,13 +270,52 @@ public class Player : MonoBehaviour {
         // Maybe calling gameMaster.resetLevel() ?    
 
         characterController2d.SetRagdoll(false);
-        m_Animator.SetTrigger("Respawning");
+        PlayRespawnAnimation();
         m_renderer.enabled = true;
         enableControl = true;
 
-        yield return new WaitForSeconds(spawnInvincibleDuration);
-
-        // Recover initial status. Player is invincible before this operation.
+        // Recover initial status.
         stats.Init();
+        yield return StartCoroutine(InvincibleCoroutine(spawnInvincibleDuration));
+    }
+
+    public IEnumerator InvincibleCoroutine(float duration)
+    {
+        float timer = duration;
+        invincible = true;
+
+        // blinking effect
+        m_renderer.enabled = false;
+        while (timer > 0)
+        {
+            yield return new WaitForSeconds(blinkInterval);
+            timer -= blinkInterval;
+            m_renderer.enabled = !m_renderer.enabled;
+        }
+        m_renderer.enabled = true;
+
+        invincible = false;
+    }
+
+    public IEnumerator AttackCoroutine()
+    {
+        enableControl = false;
+
+        // Initial timer for when player can cast next attack
+        atkTimer = m_AttackPeriod;
+
+        PlayAttackAnimation();
+
+        yield return new WaitForSeconds(m_AttackPreparePeriod);
+
+        // Calculate final damage
+        float damage = attackDamage;
+        if (!isGrounded)
+            damage *= airborneMultiplier;
+
+        // Cast damage to enemy in m_DamageArea
+        m_DamageArea.GetComponent<DamageArea>().CommitDamage(damage, sneeakMultiplier);
+
+        enableControl = true;
     }
 }

@@ -12,10 +12,10 @@ public class Enemy : MonoBehaviour {
 
 	[System.Serializable]
 	public class EnemyStats {
-		public int maxHealth = 5;
+		public float maxHealth = 8f;
 
-		private int _curHealth;
-		public int curHealth
+		private float _curHealth;
+		public float curHealth
 		{
 			get { return _curHealth; }
 			set { _curHealth = Mathf.Clamp (value, 0, maxHealth); }
@@ -55,9 +55,9 @@ public class Enemy : MonoBehaviour {
 
     // Move related parameters
     private Vector2 velocity = Vector2.zero;    // current speed of player movement, will be modified by Move()
-    
+
     // View related
-    protected Transform m_Target;
+    public Transform target;
     protected float m_TimeSinceLastTargetView;
 
     // Attack related
@@ -65,6 +65,9 @@ public class Enemy : MonoBehaviour {
 
     // Animation Related
     protected Animator m_Animator;   // Animation controller of player
+    public void PlayAttackAnimation() => m_Animator.SetTrigger("Attacking");
+    public void PlayHitAnimation() => m_Animator.SetTrigger("NormalHit");
+    public void PlayDeathAnimation() => m_Animator.SetTrigger("DeadlyHit");
 
     // Other Controller and entity
     private CharacterController2D characterController2d;
@@ -98,10 +101,10 @@ public class Enemy : MonoBehaviour {
     {
         
 
-        if (m_Target == null && player.detectable)
+        if (target == null && player.detectable)
             ScanForPlayer();
         
-        if (m_Target == null)
+        if (target == null)
         {
             //Patrol(); //todo
         }
@@ -167,7 +170,7 @@ public class Enemy : MonoBehaviour {
             if (hit.transform.gameObject.tag == "Player")
             {
                 // Set player detected
-                m_Target = player.transform;
+                target = player.transform;
                 m_TimeSinceLastTargetView = timeBeforeTargetLost;
             }
         }        
@@ -175,10 +178,10 @@ public class Enemy : MonoBehaviour {
 
     public void OrientToTarget()
     {
-        if (m_Target == null)
+        if (target == null)
             return;
 
-        Vector3 toTarget = m_Target.position - transform.position;
+        Vector3 toTarget = target.position - transform.position;
 
         if (Vector2.Dot(toTarget, m_SpriteForward) < 0)
         {
@@ -189,12 +192,12 @@ public class Enemy : MonoBehaviour {
     public void MoveToTarget()
     {
 
-        Debug.Log(m_Target.name);
+        Debug.Log(target.name);
         // Stand still if haven't detect player
-        if (m_Target == null)
+        if (target == null)
             return;
 
-        float distance = m_Target.position.x - transform.position.x;
+        float distance = target.position.x - transform.position.x;
         if (Mathf.Abs(distance) < meleeRange)
         {
             // Close enough for melee attack, stop moving
@@ -217,9 +220,9 @@ public class Enemy : MonoBehaviour {
     public void CheckTargetStillVisible()
     {
         // Stand still if haven't detect player
-        if (m_Target == null)
+        if (target == null)
             return;
-        Vector3 toTarget = m_Target.position - transform.position;
+        Vector3 toTarget = target.position - transform.position;
 
         if (toTarget.sqrMagnitude < traceViewDistance * traceViewDistance)
         {
@@ -243,11 +246,11 @@ public class Enemy : MonoBehaviour {
     public void MeleeAttack()
     {
         // Stand still if haven't detect player
-        if (m_Target == null)
+        if (target == null)
             return;
 
         // Check if the player is in the enemy's melee range
-        Vector3 toTarget = m_Target.position - transform.position;
+        Vector3 toTarget = target.position - transform.position;
         if (toTarget.sqrMagnitude >= meleeRange * meleeRange)
             return;
         
@@ -264,10 +267,10 @@ public class Enemy : MonoBehaviour {
     // Reset target if player escape from enemy's sight for timeBeforeTargetLost
     public void ForgetTarget()
     {
-        m_Target = null;
+        target = null;
     }
 
-    public void Damage(int damage)
+    public void Damage(float damage)
     {
         Debug.Log(string.Format("An enemy get {0} damage", damage));
         stats.curHealth -= damage;
@@ -279,13 +282,24 @@ public class Enemy : MonoBehaviour {
 
         if (stats.curHealth <= 0)
         {
-            gameController.KillEnemy(this);
+            StartCoroutine(DeathCoroutine(this));
         }
+    }
+
+    IEnumerator DeathCoroutine(Enemy enemy)
+    {
+        PlayDeathAnimation();
+        yield return new WaitForSeconds(5); //todo 
+        gameController.KillObject(enemy.gameObject);
     }
 
     // Damage player if player's collider touch enemy's collider
     void OnCollisionEnter2D(Collision2D _colInfo)
 	{
+        // Dead object cannot attack
+        if (stats.curHealth <= 0)
+            return;
+
 		Player _player = _colInfo.collider.GetComponent<Player>();
 		if (_player != null)
 		{
