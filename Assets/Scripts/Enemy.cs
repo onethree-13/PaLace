@@ -272,6 +272,10 @@ public class Enemy : MonoBehaviour {
 
     public void Damage(float damage)
     {
+        // when being dead, this enemy should not recieve any damage.
+        if (stats.curHealth <= 0)
+            return;
+
         Debug.Log(string.Format("An enemy get {0} damage", damage));
         stats.curHealth -= damage;
 
