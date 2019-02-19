@@ -268,7 +268,7 @@ public class Enemy : MonoBehaviour {
 
         // Check if the player is in the enemy's melee range and angle
         // If yes, cast damage to player
-        if (!TestPlayerinArc(transform.position, meleeRange, meleeAngle))
+        if (TestPlayerinArc(transform.position, meleeRange, meleeAngle))
             player.Damage(meleeDamage);
 
         yield return new WaitForSeconds(m_AttackPeriod - m_AttackPreparePeriod);
