@@ -34,16 +34,19 @@ public class Enemy : MonoBehaviour {
     [SerializeField]
     [Tooltip("If the sprite face left initially, enable this. Otherwise, leave disabled")]
     private bool spriteFaceRight = true;  // For determining which way this enemy is initially facing.
-    
 
     [Header("Move settings")]
-    [SerializeField] private float runSpeed = 32f;                              // setting the rate of horizontal move
+    public float runSpeed = 32f;                              // setting the rate of horizontal move
     [Range(0, .3f)] [SerializeField] private float m_MovementSmoothing = .05f;  // How much to smooth out the movement
+
+    [Header("Patrol settings")]
+    public bool repeatingPointSet = true;   // Repeating visit the point set during patrol
+    public Transform[] points;            // Points to be visit during patrol
 
     [Header("Attack settings")]
     public int touchDamage = 1;
     public int meleeDamage = 1;
-    public float meleeRange = .0f;
+    public float meleeRange = 1.0f;
     public float meleeAngle = 60.0f;
     [SerializeField] private float m_AttackPreparePeriod = .9f; // How long the attacking animation plays before the enemy can really cause damage
     [SerializeField] private float m_AttackPeriod = 1f;         // How long the enemy freezes after an attack
@@ -61,10 +64,14 @@ public class Enemy : MonoBehaviour {
     public bool isChasingPlayer = false;
 
     // Sprite Facing related parameters
-    protected Vector2 m_SpriteForward;         // The forward vector of this enemy.
+    protected Vector2 m_SpriteForward;  // The forward vector of this enemy.
+    protected bool beenHit = false; // Whether the enemy has hit at last frame.
 
     // Enemey move related parameters
     private Vector2 velocity = Vector2.zero;    // current speed of player movement, will be modified by Move()
+
+    // Enemey patrol related parameters
+    private int destPoint = -1; // which point of pointSet enemy should go now
 
     // Enemey view related
     protected float m_TimeSinceLastTargetView;
@@ -76,14 +83,14 @@ public class Enemy : MonoBehaviour {
     public void PlayDeathAnimation() => m_Animator.SetTrigger("DeadlyHit");
 
     // Other Controller and entity
-    private CharacterController2D characterController2d;
+    private CharacterController2D characterController;
     private GameController gameController;
     private Player player;
 
     void Awake()
     {
         gameController = GameObject.FindGameObjectWithTag("GameCtrl").GetComponent<GameController>();
-        characterController2d = GetComponent<CharacterController2D>();
+        characterController = GetComponent<CharacterController2D>();
         m_Animator = GetComponent<Animator>();
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
 
@@ -105,28 +112,38 @@ public class Enemy : MonoBehaviour {
 
     private void FixedUpdate()
     {
-        if (!enable)
-            return;
-
-        // Try to find player if this enemy is not chasing player
-        if (!isChasingPlayer && player.detectable)
-            ScanForPlayer();
-        
-        if (!isChasingPlayer)
+        if (enable)
         {
-            //Patrol(); //todo
-        }
-        else
-        {
-            CheckTargetStillVisible();
-            OrientToTarget();
-            MoveToTarget();
-            TryMeleeAttack();
+            // Check if player is backward if recieve sneaking hit
+            if (!isChasingPlayer && beenHit)
+                TurnAround();
+
+            beenHit = false;
+
+            // Try to find player if this enemy is not chasing player
+            if (!isChasingPlayer && player.detectable)
+                ScanForPlayer();
+
+            // Detect the player, try to chase and destroy
+            if (isChasingPlayer)
+            {
+                CheckTargetStillVisible();
+                OrientTo(player.transform.position);
+                MoveToPlayer();
+                TryMeleeAttack();
+            }
+
+            // If the player is out of sight and out of mind, maintian patrol process
+            if (!isChasingPlayer && m_TimeSinceLastTargetView <= 0)
+                GoNextPatrolPoint();
         }
 
-        // Update timer
+        // Update chasing timer
         if (m_TimeSinceLastTargetView > 0.0f)
             m_TimeSinceLastTargetView -= Time.deltaTime;
+
+        // Update move anmiation
+        m_Animator.SetFloat("Speed", Mathf.Abs(characterController.GetVelocity().x));
     }
 
     public void UpdateFacing(float facing)
@@ -135,17 +152,15 @@ public class Enemy : MonoBehaviour {
         {
             spriteFaceRight = true;
             m_SpriteForward = Vector2.right;
-            characterController2d.Flip();
+            characterController.Flip();
         }
         else if (facing < 0 && spriteFaceRight)
         {
             spriteFaceRight = false;
             m_SpriteForward = Vector2.left;
-            characterController2d.Flip();
+            characterController.Flip();
         }
     }
-
-    public void MemoryTarget() => isChasingPlayer = true;
 
     private bool TestPlayerinArc(Vector3 position, float distance, float fov)
     {
@@ -198,12 +213,9 @@ public class Enemy : MonoBehaviour {
             isChasingPlayer = false;
     }
 
-    public void OrientToTarget()
+    public void OrientTo(Vector3 position)
     {
-        if (!isChasingPlayer)
-            return;
-
-        Vector3 toTarget = player.transform.position - transform.position;
+        Vector2 toTarget = position - transform.position;
 
         if (Vector2.Dot(toTarget, m_SpriteForward) < 0)
         {
@@ -211,13 +223,37 @@ public class Enemy : MonoBehaviour {
         }
     }
 
+    public void TurnAround() => UpdateFacing(spriteFaceRight ? -1 : 1);
+
     private void SetSpeedWithSmoothing(Vector2 targetVelocity)
     {
+        Vector2 smoothedSpeed = Vector2.SmoothDamp(characterController.GetVelocity(), targetVelocity, ref velocity, m_MovementSmoothing);
+
         //Smoothing character velocity from current speed to target speed 
-        characterController2d.SetVelocity(Vector2.SmoothDamp(characterController2d.GetVelocity(), targetVelocity, ref velocity, m_MovementSmoothing));
+        characterController.SetVelocity(smoothedSpeed);
     }
 
-    public void MoveToTarget()
+    public void MoveTo(Vector3 destination)
+    {
+        float distance = destination.x - transform.position.x;
+
+        // Stop moving if cloase enough
+        if (Mathf.Abs(distance) < 0.5)
+        {
+            SetSpeedWithSmoothing(Vector2.zero);
+            return;
+        }
+
+        float move = Mathf.Sign(distance) * runSpeed * Time.fixedDeltaTime * 10;
+
+        UpdateFacing(move);
+
+        // Move enemy to destination based on move 
+        Vector2 currentVelocity = characterController.GetVelocity();
+        SetSpeedWithSmoothing(new Vector2(move, currentVelocity.y));
+    }
+
+    public void MoveToPlayer()
     {
         // Stand still if haven't detect player
         if (!isChasingPlayer)
@@ -237,8 +273,39 @@ public class Enemy : MonoBehaviour {
         UpdateFacing(move);
 
         // Move enemy to player based on move 
-        Vector2 currentVelocity = characterController2d.GetVelocity();
+        Vector2 currentVelocity = characterController.GetVelocity();
         SetSpeedWithSmoothing(new Vector2(move, currentVelocity.y));
+    }
+
+    public void GoNextPatrolPoint()
+    {
+        // Returns if no points have been set up
+        if (points.Length == 0)
+            return;
+
+        // Inital phase (destPoint = -1)
+        if (destPoint == -1)
+            destPoint = 1;
+
+        float distance = transform.position.x - points[destPoint].position.x;
+
+        // If close to current destination
+        if (Mathf.Abs(distance) < 0.5f)
+        {
+            // Choose the next point in the array as the destination
+            destPoint += 1;
+
+            // If running out of destination
+            if (destPoint >= points.Length)
+            {
+                // repeat the set again
+                if (repeatingPointSet)
+                    destPoint = destPoint % points.Length;
+                else
+                    return;
+            }
+        }
+        MoveTo(points[destPoint].position);
     }
 
     public void TryMeleeAttack()
@@ -313,6 +380,11 @@ public class Enemy : MonoBehaviour {
         if (stats.curHealth <= 0)
         {
             StartCoroutine(DeathCoroutine(this));
+        }
+        else
+        {
+            PlayHitAnimation();
+            beenHit = true;
         }
     }
 
