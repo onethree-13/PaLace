@@ -10,13 +10,15 @@ public class DamageArea : MonoBehaviour
     // Record all emeny entered Damage Area into nearEnemy.
     void OnTriggerEnter2D(Collider2D col)
     {
-        if (col.gameObject.tag == "Damageable") nearDamageable.Add(col.gameObject);
+        if (col.gameObject.tag == "Damageable" || col.gameObject.tag == "Enemy")
+            nearDamageable.Add(col.gameObject);
     }
 
     // Remove emeny who is in nearEnemy but leaves Damage Area.
     void OnTriggerExit2D(Collider2D col)
     {
-        if (col.gameObject.tag == "Damageable") nearDamageable.Remove(col.gameObject);
+        if (col.gameObject.tag == "Damageable" || col.gameObject.tag == "Enemy")
+            nearDamageable.Remove(col.gameObject);
     }
 
     // Cast damage to enemy in nearEnemy.
