@@ -267,7 +267,7 @@ public class Player : MonoBehaviour {
         characterController2d.Teleport(spawnPoint.position);
 
         // ToDo: reset the level
-        // Maybe calling gameMaster.resetLevel() ?    
+        // Maybe calling gameMaster.resetLevel() ?
 
         characterController2d.SetRagdoll(false);
         PlayRespawnAnimation();
