@@ -36,8 +36,10 @@ public class Enemy : MonoBehaviour {
     private bool spriteFaceRight = true;  // For determining which way this enemy is initially facing.
 
     [Header("Move settings")]
-    public float runSpeed = 32f;                              // setting the rate of horizontal move
+    public float runSpeed = 32f;    // setting the rate of horizontal move
     [Range(0, .3f)] [SerializeField] private float m_MovementSmoothing = .05f;  // How much to smooth out the movement
+    public float brakingDirection = .0f;    // When non-zero, the emeny will stop moving to an direction
+                                            // (Left: Less than zero, Right: Greater than zero)
 
     [Header("Patrol settings")]
     public bool repeatingPointSet = true;   // Repeating visit the point set during patrol
@@ -138,12 +140,14 @@ public class Enemy : MonoBehaviour {
                 GoNextPatrolPoint();
         }
 
-        // Update chasing timer
-        if (m_TimeSinceLastTargetView > 0.0f)
-            m_TimeSinceLastTargetView -= Time.deltaTime;
+        CheckBrake();
 
         // Update move anmiation
         m_Animator.SetFloat("Speed", Mathf.Abs(characterController.GetVelocity().x));
+
+        // Update chasing timer
+        if (m_TimeSinceLastTargetView > 0.0f)
+            m_TimeSinceLastTargetView -= Time.deltaTime;
     }
 
     public void UpdateFacing(float facing)
@@ -160,6 +164,19 @@ public class Enemy : MonoBehaviour {
             m_SpriteForward = Vector2.left;
             characterController.Flip();
         }
+    }
+
+    public void SetBrake(float direction)
+    {
+        brakingDirection = direction;
+    }
+
+    public void CheckBrake()
+    {
+        // Reduce horizontal speed to zero if the enemy going to the forbidden derection
+        Vector2 currentVelocity = characterController.GetVelocity();
+        if (currentVelocity.x * brakingDirection > 0.0f)
+            characterController.SetVelocity(new Vector2(0, currentVelocity.y));
     }
 
     private bool TestPlayerinArc(Vector3 position, float distance, float fov)
