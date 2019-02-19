@@ -27,10 +27,16 @@ public class DamageArea : MonoBehaviour
             if (gb.GetComponent<Enemy>() != null)
             {
                 Enemy enemy = gb.GetComponent<Enemy>();
-                if (enemy.target == null)
-                    enemy.Damage(damage * sneakingMultiplier);
-                else
+                if (enemy.isChasingPlayer)
+                {
+                    // Detected by this enemy
                     enemy.Damage(damage);
+                }
+                else
+                {
+                    // Not detected by this enemy
+                    enemy.Damage(damage * sneakingMultiplier);
+                }
             }
             
             //todo deal with other kinds of damageable object

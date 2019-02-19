@@ -17,7 +17,7 @@ GameObject:
   - component: {fileID: 2987361807692495879}
   m_Layer: 9
   m_Name: EnemySH
-  m_TagString: Damageable
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -172,21 +172,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1f91922de0203ed4aa43925d3e3d7e4e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enable: 1
+  statusIndicator: {fileID: 0}
   stats:
     maxHealth: 2
-  touchDamage: 1
-  attackDamage: 1
-  meleeRange: 5
-  meleeAngle: 60
-  m_DamageArea: {fileID: 0}
-  statusIndicator: {fileID: 0}
-  runSpeed: 32
+  spriteFaceRight: 1
+  runSpeed: 16
   m_MovementSmoothing: 0.05
+  touchDamage: 1
+  meleeDamage: 1
+  meleeRange: 1.65
+  meleeAngle: 120
+  m_AttackPreparePeriod: 0.9
+  m_AttackPeriod: 1
   viewDirection: 0
   viewFov: 30
   viewDistance: 6
   traceViewDistance: 6
   timeBeforeTargetLost: 3
+  isChasingPlayer: 0
 --- !u!1 &2987361807703809763
 GameObject:
   m_ObjectHideFlags: 0

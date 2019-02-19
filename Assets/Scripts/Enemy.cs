@@ -10,7 +10,9 @@ using UnityEditor;
 [RequireComponent(typeof(Animator))]
 public class Enemy : MonoBehaviour {
 
-	[System.Serializable]
+    public bool enable = true;  // Enable AI of this enemy.
+
+    [System.Serializable]
 	public class EnemyStats {
 		public float maxHealth = 8f;
 
@@ -26,23 +28,27 @@ public class Enemy : MonoBehaviour {
 			curHealth = maxHealth;
 		}
 	}
-	
-	public EnemyStats stats = new EnemyStats();
-    [Tooltip("If the sprite face left initially, enable this. Otherwise, leave disabled")]
-    private bool m_InitialFacingRight = true;  // For determining which way this enemy is initially facing.
-    protected Vector2 m_SpriteForward;         // The forward vector of this enemy.
-
-    public int touchDamage = 1;
-    public int attackDamage = 1;
-    public float meleeRange = .0f;
-    public float meleeAngle = 60.0f;
-    [SerializeField] private Collider2D m_DamageArea;   // An area where object will get damage when player press attack
     [SerializeField] private StatusIndicator statusIndicator;
 
+    public EnemyStats stats = new EnemyStats();
+    [SerializeField]
+    [Tooltip("If the sprite face left initially, enable this. Otherwise, leave disabled")]
+    private bool spriteFaceRight = true;  // For determining which way this enemy is initially facing.
+    
+
+    [Header("Move settings")]
     [SerializeField] private float runSpeed = 32f;                              // setting the rate of horizontal move
     [Range(0, .3f)] [SerializeField] private float m_MovementSmoothing = .05f;  // How much to smooth out the movement
 
-    [Header("Scanning settings")]
+    [Header("Attack settings")]
+    public int touchDamage = 1;
+    public int meleeDamage = 1;
+    public float meleeRange = .0f;
+    public float meleeAngle = 60.0f;
+    [SerializeField] private float m_AttackPreparePeriod = .9f; // How long the attacking animation plays before the enemy can really cause damage
+    [SerializeField] private float m_AttackPeriod = 1f;         // How long the enemy freezes after an attack
+
+    [Header("Scan settings")]
     [Tooltip("The angle of the forward of the view cone. 0 is forward of the sprite, 90 is up, 180 behind etc.")]
     [Range(0.0f, 360.0f)]
     public float viewDirection = 0.0f;
@@ -52,16 +58,16 @@ public class Enemy : MonoBehaviour {
     public float traceViewDistance = 6.0f;
     [Tooltip("Time in seconds without the target in the view cone before the target is considered lost from sight")]
     public float timeBeforeTargetLost = 6.0f;
+    public bool isChasingPlayer = false;
 
-    // Move related parameters
+    // Sprite Facing related parameters
+    protected Vector2 m_SpriteForward;         // The forward vector of this enemy.
+
+    // Enemey move related parameters
     private Vector2 velocity = Vector2.zero;    // current speed of player movement, will be modified by Move()
 
-    // View related
-    public Transform target;
+    // Enemey view related
     protected float m_TimeSinceLastTargetView;
-
-    // Attack related
-    // todo
 
     // Animation Related
     protected Animator m_Animator;   // Animation controller of player
@@ -77,11 +83,11 @@ public class Enemy : MonoBehaviour {
     void Awake()
     {
         gameController = GameObject.FindGameObjectWithTag("GameCtrl").GetComponent<GameController>();
-        player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
         characterController2d = GetComponent<CharacterController2D>();
         m_Animator = GetComponent<Animator>();
+        player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
 
-        if (m_InitialFacingRight)
+        if (spriteFaceRight)
             m_SpriteForward = Vector2.right;
         else
             m_SpriteForward = Vector2.left;
@@ -99,12 +105,14 @@ public class Enemy : MonoBehaviour {
 
     private void FixedUpdate()
     {
-        
+        if (!enable)
+            return;
 
-        if (target == null && player.detectable)
+        // Try to find player if this enemy is not chasing player
+        if (!isChasingPlayer && player.detectable)
             ScanForPlayer();
         
-        if (target == null)
+        if (!isChasingPlayer)
         {
             //Patrol(); //todo
         }
@@ -113,25 +121,93 @@ public class Enemy : MonoBehaviour {
             CheckTargetStillVisible();
             OrientToTarget();
             MoveToTarget();
+            TryMeleeAttack();
         }
 
         // Update timer
         if (m_TimeSinceLastTargetView > 0.0f)
             m_TimeSinceLastTargetView -= Time.deltaTime;
-
     }
 
     public void UpdateFacing(float facing)
     {
-        if (facing > 0 && m_SpriteForward == Vector2.left)
+        if (facing > 0 && !spriteFaceRight)
         {
+            spriteFaceRight = true;
             m_SpriteForward = Vector2.right;
             characterController2d.Flip();
         }
-        else if (facing < 0 && m_SpriteForward == Vector2.right)
+        else if (facing < 0 && spriteFaceRight)
         {
+            spriteFaceRight = false;
             m_SpriteForward = Vector2.left;
             characterController2d.Flip();
+        }
+    }
+
+    public void MemoryTarget() => isChasingPlayer = true;
+
+    private bool TestPlayerinArc(Vector3 position, float distance, float fov)
+    {
+        Vector3 dir = player.transform.position - position;
+
+        // Check if distance to player is close enough for detection 
+        if (dir.sqrMagnitude > distance * distance)
+            return false;
+
+        // Check if the player is in the enemy's sight
+        Vector3 testForward = Quaternion.Euler(0, 0, spriteFaceRight ? Mathf.Sign(m_SpriteForward.x) * viewDirection : Mathf.Sign(m_SpriteForward.x) * -viewDirection) * m_SpriteForward;
+        float angle = Vector3.Angle(testForward, dir);
+        if (angle > fov * 0.5f)
+            return false;
+
+        // Check if there are obstacle between player and this enemy
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, dir);
+        if (hit && hit.transform.gameObject.tag == "Player")
+            return true;
+        else
+            return false;
+    }
+
+    public void ScanForPlayer()
+    {
+        isChasingPlayer = false;
+
+        // Do not chase invisible player or dead player
+        if (!player.detectable || player.stats.curHealth <= 0)
+            return;
+
+        if (TestPlayerinArc(transform.position, viewDistance, viewFov))
+            isChasingPlayer = true;
+    }
+
+    public void CheckTargetStillVisible()
+    {
+        // Stand still if haven't detect player
+        if (!isChasingPlayer)
+            return;
+
+        if (TestPlayerinArc(transform.position, viewDistance, viewFov))
+        {
+            // Player is still in sight, so reset the timer
+            m_TimeSinceLastTargetView = timeBeforeTargetLost;
+        }
+
+        // Player is out of sight for some time, so stop chasing it.
+        if (m_TimeSinceLastTargetView <= 0.0f)
+            isChasingPlayer = false;
+    }
+
+    public void OrientToTarget()
+    {
+        if (!isChasingPlayer)
+            return;
+
+        Vector3 toTarget = player.transform.position - transform.position;
+
+        if (Vector2.Dot(toTarget, m_SpriteForward) < 0)
+        {
+            UpdateFacing(-m_SpriteForward.x);
         }
     }
 
@@ -141,74 +217,22 @@ public class Enemy : MonoBehaviour {
         characterController2d.SetVelocity(Vector2.SmoothDamp(characterController2d.GetVelocity(), targetVelocity, ref velocity, m_MovementSmoothing));
     }
 
-    public void ScanForPlayer()
-    {
-        if (!player.detectable)
-            return;
-        
-        // If the player don't have control, they can't react, so do not pursue them
-        if (!player.enableControl)
-            return;
-
-        Vector3 dir = player.transform.position - transform.position;
-
-        // Check if distance to player is close enough for detection 
-        if (dir.sqrMagnitude > viewDistance * viewDistance)
-            return;
-        
-        // Check if the player is in the enemy's sight
-        Vector3 testForward = Quaternion.Euler(0, 0, Mathf.Sign(m_SpriteForward.x) * viewDirection) * m_SpriteForward;
-        float angle = Vector3.Angle(testForward, dir);
-        if (angle > viewFov * 0.5f)
-            return;
-
-        // Check if there are obstacle between player and this enemy
-        RaycastHit2D hit = Physics2D.Raycast(transform.position, dir);
-        Debug.Log(hit.transform.gameObject.name);
-        if (hit)
-        {
-            if (hit.transform.gameObject.tag == "Player")
-            {
-                // Set player detected
-                target = player.transform;
-                m_TimeSinceLastTargetView = timeBeforeTargetLost;
-            }
-        }        
-    }
-
-    public void OrientToTarget()
-    {
-        if (target == null)
-            return;
-
-        Vector3 toTarget = target.position - transform.position;
-
-        if (Vector2.Dot(toTarget, m_SpriteForward) < 0)
-        {
-            UpdateFacing(-m_SpriteForward.x);
-        }
-    }
-
     public void MoveToTarget()
     {
-
-        Debug.Log(target.name);
         // Stand still if haven't detect player
-        if (target == null)
+        if (!isChasingPlayer)
             return;
 
-        float distance = target.position.x - transform.position.x;
-        if (Mathf.Abs(distance) < meleeRange)
+        // If close enough for melee attack, stop moving
+        float distance = player.transform.position.x - transform.position.x;
+        if (Mathf.Abs(distance) < 0.5 * meleeRange)
         {
-            // Close enough for melee attack, stop moving
             SetSpeedWithSmoothing(Vector2.zero);
             return;
         }
 
         // Player is at the right if distance is positive, vice versa.
         float move = Mathf.Sign(distance) * runSpeed * Time.fixedDeltaTime * 10;
-
-        Debug.Log(move);
 
         UpdateFacing(move);
 
@@ -217,63 +241,65 @@ public class Enemy : MonoBehaviour {
         SetSpeedWithSmoothing(new Vector2(move, currentVelocity.y));
     }
 
-    public void CheckTargetStillVisible()
+    public void TryMeleeAttack()
     {
         // Stand still if haven't detect player
-        if (target == null)
-            return;
-        Vector3 toTarget = target.position - transform.position;
-
-        if (toTarget.sqrMagnitude < traceViewDistance * traceViewDistance)
-        {
-            // Check if there are obstacle between player and this enemy
-            RaycastHit2D hit = Physics2D.Raycast(transform.position, toTarget, viewDistance);
-
-            if (hit)
-            {
-                if (hit.transform.gameObject.tag == "Player")
-                {
-                    //we reset the timer if the target is at trace viewing distance.
-                    m_TimeSinceLastTargetView = timeBeforeTargetLost;
-                }
-            }
-        }
-
-        if (m_TimeSinceLastTargetView <= 0.0f)
-            ForgetTarget();
-    }
-
-    public void MeleeAttack()
-    {
-        // Stand still if haven't detect player
-        if (target == null)
+        if (!isChasingPlayer)
             return;
 
-        // Check if the player is in the enemy's melee range
-        Vector3 toTarget = target.position - transform.position;
-        if (toTarget.sqrMagnitude >= meleeRange * meleeRange)
+        // Check if the player is in the enemy's melee range and angle
+        if (!TestPlayerinArc(transform.position, meleeRange, meleeAngle))
             return;
-        
-        // Check if the player is in the enemy's melee angle
-        Vector3 testForward = Quaternion.Euler(0, 0, Mathf.Sign(m_SpriteForward.x) * viewDirection) * m_SpriteForward;
-        float angle = Vector3.Angle(testForward, toTarget);
-        if (angle > meleeAngle * 0.5f)
+
+        // when player is dead, this enemy should not attack
+        if (player.stats.curHealth <= 0)
             return;
 
         // Attaack the player
-        player.Damage(1);
+        StartCoroutine(AttackCoroutine());
     }
 
-    // Reset target if player escape from enemy's sight for timeBeforeTargetLost
-    public void ForgetTarget()
+    public IEnumerator AttackCoroutine()
     {
-        target = null;
+        enable = false;
+        PlayAttackAnimation();
+
+        yield return new WaitForSeconds(m_AttackPreparePeriod);
+
+        // Check if the player is in the enemy's melee range and angle
+        // If yes, cast damage to player
+        if (!TestPlayerinArc(transform.position, meleeRange, meleeAngle))
+            player.Damage(meleeDamage);
+
+        yield return new WaitForSeconds(m_AttackPeriod - m_AttackPreparePeriod);
+
+        enable = true;
+    }
+
+    // Damage player if player's collider touch enemy's collider
+    void OnCollisionEnter2D(Collision2D _colInfo)
+    {
+        // Dead object cannot attack
+        if (stats.curHealth <= 0.0f)
+            return;
+
+        Player _player = _colInfo.collider.GetComponent<Player>();
+        if (_player != null)
+        {
+            _player.Damage(touchDamage);
+
+            if (_player.stats.curHealth <= 0)
+            {
+                // Stop chasing player if player is dead
+                isChasingPlayer = false;
+            }
+        }
     }
 
     public void Damage(float damage)
     {
         // when being dead, this enemy should not recieve any damage.
-        if (stats.curHealth <= 0)
+        if (stats.curHealth <= 0.0f)
             return;
 
         Debug.Log(string.Format("An enemy get {0} damage", damage));
@@ -297,32 +323,12 @@ public class Enemy : MonoBehaviour {
         gameController.KillObject(enemy.gameObject);
     }
 
-    // Damage player if player's collider touch enemy's collider
-    void OnCollisionEnter2D(Collision2D _colInfo)
-	{
-        // Dead object cannot attack
-        if (stats.curHealth <= 0)
-            return;
-
-		Player _player = _colInfo.collider.GetComponent<Player>();
-		if (_player != null)
-		{
-			_player.Damage(touchDamage);
-
-            if (_player.stats.curHealth <= 0)
-            {
-                // Forget target if target is dead
-                ForgetTarget();
-            }
-		}
-	}
-
 #if UNITY_EDITOR
     private void OnDrawGizmosSelected()
     {
         //Draw the cone of view
-        Vector3 forward =  Vector2.right;
-        forward = Quaternion.Euler(0, 0, viewDirection) * forward;
+        Vector3 forward = spriteFaceRight ? Vector2.right : Vector2.left;
+        forward = Quaternion.Euler(0, 0, spriteFaceRight ?  viewDirection : -viewDirection) * forward;
 
         if (GetComponent<SpriteRenderer>().flipX) forward.x = -forward.x;
 
