@@ -34,6 +34,7 @@ private void Awake()
     // modified in project stting -> time -> fix timestamp
     private void FixedUpdate()
     {
+        Debug.Log(m_Rigidbody2D.velocity);
         isGrounded = false;
 
         // The player is grounded if a circlecast to the groundcheck position hits anything designated as ground
@@ -66,9 +67,9 @@ private void Awake()
         m_Rigidbody2D.velocity = new Vector2(horizontalDeltaSpeed, m_Rigidbody2D.velocity.y);
     }
 
-    public void SetVeticalSpeed(float veticalDeltaSpeed)
+    public void SetVerticalSpeed(float verticalDeltaSpeed)
     {
-        m_Rigidbody2D.velocity = new Vector2(m_Rigidbody2D.velocity.x, veticalDeltaSpeed);
+        m_Rigidbody2D.velocity = new Vector2(m_Rigidbody2D.velocity.x, verticalDeltaSpeed);
     }
 
     // This moves the character without any implied velocity.

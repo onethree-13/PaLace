@@ -201,11 +201,11 @@ public class Player : MonoBehaviour {
             }
 
             // if not grounded
-            if (!isGrounded && m_AirControl)
-            {
-                // Reduce the speed by the airborneSpeed multiplier
-                move *= m_airborneSpeed;
-            }
+            //if (!isGrounded && m_AirControl)
+            //{
+            //    // Reduce the speed by the airborneSpeed multiplier
+            //    move *= m_airborneSpeed;
+            //}
             
             UpdateFacing(move);
 
@@ -227,7 +227,7 @@ public class Player : MonoBehaviour {
         {
             // If player vertical speed is higher than m_JumpCancelSpeed, limit it ot m_JumpCancelSpeed
             if (currentVelocity.y > m_JumpCancelSpeed)
-                characterController2d.SetVeticalSpeed(m_JumpCancelSpeed);
+                characterController2d.SetVerticalSpeed(m_JumpCancelSpeed);
         }
     }
 
