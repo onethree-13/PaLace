@@ -179,7 +179,7 @@ public class Enemy : MonoBehaviour {
             characterController.SetVelocity(new Vector2(0, currentVelocity.y));
     }
 
-    private bool TestPlayerinArc(Vector3 position, float distance, float fov)
+    private bool TestPlayerInArc(Vector3 position, float distance, float fov)
     {
         Vector3 dir = player.transform.position - position;
 
@@ -195,6 +195,8 @@ public class Enemy : MonoBehaviour {
 
         // Check if there are obstacle between player and this enemy
         RaycastHit2D hit = Physics2D.Raycast(transform.position, dir);
+        if (hit)
+            Debug.Log(hit.transform.gameObject.name);
         if (hit && hit.transform.gameObject.tag == "Player")
             return true;
         else
@@ -209,7 +211,7 @@ public class Enemy : MonoBehaviour {
         if (!player.detectable || player.stats.curHealth <= 0)
             return;
 
-        if (TestPlayerinArc(transform.position, viewDistance, viewFov))
+        if (TestPlayerInArc(transform.position, viewDistance, viewFov))
             isChasingPlayer = true;
     }
 
@@ -219,7 +221,7 @@ public class Enemy : MonoBehaviour {
         if (!isChasingPlayer)
             return;
 
-        if (TestPlayerinArc(transform.position, viewDistance, viewFov))
+        if (TestPlayerInArc(transform.position, viewDistance, viewFov))
         {
             // Player is still in sight, so reset the timer
             m_TimeSinceLastTargetView = timeBeforeTargetLost;
@@ -332,7 +334,7 @@ public class Enemy : MonoBehaviour {
             return;
 
         // Check if the player is in the enemy's melee range and angle
-        if (!TestPlayerinArc(transform.position, meleeRange, meleeAngle))
+        if (!TestPlayerInArc(transform.position, meleeRange, meleeAngle))
             return;
 
         // when player is dead, this enemy should not attack
@@ -352,7 +354,7 @@ public class Enemy : MonoBehaviour {
 
         // Check if the player is in the enemy's melee range and angle
         // If yes, cast damage to player
-        if (TestPlayerinArc(transform.position, meleeRange, meleeAngle))
+        if (TestPlayerInArc(transform.position, meleeRange, meleeAngle))
             player.Damage(meleeDamage);
 
         yield return new WaitForSeconds(m_AttackPeriod - m_AttackPreparePeriod);
