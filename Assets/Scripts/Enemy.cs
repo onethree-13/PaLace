@@ -114,7 +114,7 @@ public class Enemy : MonoBehaviour {
 
     private void FixedUpdate()
     {
-        if (enable)
+        if (enable && stats.curHealth > 0.0f)
         {
             // Check if player is backward if recieve sneaking hit
             if (!isChasingPlayer && beenHit)
