@@ -36,11 +36,11 @@ public class Player : MonoBehaviour {
 
     [System.Serializable]
 	public class PlayerStats {
-        private int _curHealth;
+        private float _curHealth;
         
-        public int maxHealth = 1;
+        public float maxHealth = 1.0f;
 
-		public int curHealth
+		public float curHealth
 		{
 			get { return _curHealth; }
             // Ensure the range of _curHealth is [0, maxHealth]
