@@ -10,7 +10,7 @@ using UnityEditor;
 [RequireComponent(typeof(Animator))]
 public class Enemy : MonoBehaviour {
 
-    public bool enable = true;  // Enable AI of this enemy.
+    public bool enableMovement = true;  // Enable AI of this enemy.
 
     [System.Serializable]
 	public class EnemyStats {
@@ -51,7 +51,7 @@ public class Enemy : MonoBehaviour {
     public float meleeRange = 1.0f;
     public float meleeAngle = 60.0f;
     [SerializeField] private float m_AttackPreparePeriod = .9f; // How long the attacking animation plays before the enemy can really cause damage
-    [SerializeField] private float m_AttackPeriod = 1f;         // How long the enemy freezes after an attack
+    [SerializeField] private float m_AttackColdDown = 1f;       // How long the enemy freezes after finish an attack
 
     [Header("Scan settings")]
     [Tooltip("The angle of the forward of the view cone. 0 is forward of the sprite, 90 is up, 180 behind etc.")]
@@ -114,7 +114,7 @@ public class Enemy : MonoBehaviour {
 
     private void FixedUpdate()
     {
-        if (enable && stats.curHealth > 0.0f)
+        if (enableMovement && stats.curHealth > 0.0f)
         {
             // Check if player is backward if recieve sneaking hit
             if (!isChasingPlayer && beenHit)
@@ -347,7 +347,7 @@ public class Enemy : MonoBehaviour {
 
     public IEnumerator AttackCoroutine()
     {
-        enable = false;
+        enableMovement = false;
         PlayAttackAnimation();
 
         yield return new WaitForSeconds(m_AttackPreparePeriod);
@@ -357,9 +357,9 @@ public class Enemy : MonoBehaviour {
         if (TestPlayerInArc(transform.position, meleeRange, meleeAngle))
             player.Damage(meleeDamage);
 
-        yield return new WaitForSeconds(m_AttackPeriod - m_AttackPreparePeriod);
+        yield return new WaitForSeconds(m_AttackColdDown - m_AttackPreparePeriod);
 
-        enable = true;
+        enableMovement = true;
     }
 
     // Damage player if player's collider touch enemy's collider

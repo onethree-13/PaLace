@@ -46,7 +46,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.0159837, y: -0.28993297}
+  m_Offset: {x: 0.125, y: -0.25}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -57,7 +57,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.8946664, y: 2.3901725}
+  m_Size: {x: 1.5, y: 2.5}
   m_EdgeRadius: 0
 --- !u!114 &778872495
 MonoBehaviour:
@@ -71,6 +71,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a09406dd2b4c5e3409482520b38c3001, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  overlapCacheSize: 10
+  m_DamageableArea:
+    serializedVersion: 2
+    m_Bits: 512
 --- !u!114 &949650928
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -83,6 +87,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a09406dd2b4c5e3409482520b38c3001, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  overlapCacheSize: 10
+  m_DamageableArea:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!1 &7835878199342638812
 GameObject:
   m_ObjectHideFlags: 0
@@ -317,8 +325,9 @@ MonoBehaviour:
   sneeakMultiplier: 2
   airborneMultiplier: 2
   m_DamageArea: {fileID: 5615965413059359794}
-  m_AttackPreparePeriod: 0.4
-  m_AttackPeriod: 0.9
+  m_AttackPreparePeriod: 0.2
+  m_AttackPeriod: 0.5
+  m_AttackColdDown: 0.1
   stats:
     maxHealth: 1
 --- !u!114 &7835878199792621700

@@ -30,8 +30,9 @@ public class Player : MonoBehaviour {
     public float sneeakMultiplier = 2f;                             // Damage Multiplier which applys when player attacks without being detected by target enemy
     public float airborneMultiplier = 2f;                           // Damage Multiplier which applys when player attacks during jumping
     [SerializeField] private Collider2D m_DamageArea;               // An area where object will get damage when player press attack
-    [SerializeField] private float m_AttackPreparePeriod = .04f;    // How long the attacking animation plays before the player can really cause damage
-    [SerializeField] private float m_AttackPeriod = .08f;           // How long the player cannot cast another attack
+    [SerializeField] private float m_AttackPreparePeriod = .02f;    // How long the attacking animation plays before the player can really cause damage
+    [SerializeField] private float m_AttackPeriod = .04f;           // How long the player attack last
+    [SerializeField] private float m_AttackColdDown = .02f;         // How long the player cannot cast another attack after finish one
 
     [System.Serializable]
 	public class PlayerStats {
@@ -64,16 +65,15 @@ public class Player : MonoBehaviour {
     private bool jump = false;          // Whether the player is pressing jump
     private bool jumpCancel = false;    // Whether the player is releasing jump
     private bool crouch = false;        // Whether the player is crouching (sneaking)
-    private bool attack = false;        // Whether the player is attacking
 
     // Move related parameters, passing from update() to fixUpdate()
     private bool isGrounded;            // Whether or not the player is grounded. (Update from CharacterController2D)
     private float horizontalMove = 0f;  // the length of horizontal move with direction, 
                                         // (Warning) final movement may be less than horizontalMove because of crouching or air movement
     private Vector2 velocity = Vector2.zero;    // current speed of player movement, will be modified by Move()
-    
+
     // Attack related paramaters
-    private float atkTimer = 0f;
+    private bool attack = false;        // Whether the player is attacking
 
     // Animation Related
     protected Animator m_Animator;   // Animation controller of player
@@ -113,6 +113,10 @@ public class Player : MonoBehaviour {
         }
 
         lastSpawnPoint = sceneInitialSpawnPoint;
+
+        // reset DamageArea physic state in game engine.
+        m_DamageArea.enabled = true;
+        m_DamageArea.enabled = false;
     }
 
 	void Update () {
@@ -144,7 +148,7 @@ public class Player : MonoBehaviour {
         }
 
         // Player begins to attack 
-        if (Input.GetButtonDown("Fire1") && atkTimer <= 0.0)
+        if (Input.GetButtonDown("Fire1") && !attack)
             StartCoroutine(AttackCoroutine());
 
         // Update animation
@@ -157,10 +161,6 @@ public class Player : MonoBehaviour {
     {
         // Update isGrounded form characterController2d
         isGrounded = characterController2d.isGrounded;
-
-        // Maintain attack status
-        if (atkTimer > 0.0f)
-            atkTimer -= Time.fixedDeltaTime;
 
         // Move our character
         Move(horizontalMove * Time.fixedDeltaTime, crouch, jump, jumpCancel);
@@ -299,14 +299,20 @@ public class Player : MonoBehaviour {
 
     public IEnumerator AttackCoroutine()
     {
-        enableControl = false;
+        attack = true;
 
-        // Initial timer for when player can cast next attack
-        atkTimer = m_AttackPeriod;
+        enableControl = false;
 
         PlayAttackAnimation();
 
         yield return new WaitForSeconds(m_AttackPreparePeriod);
+
+        m_DamageArea.enabled = true;
+
+        // Force game engine to calculate physic
+        m_DamageArea.transform.position = m_DamageArea.transform.position + Vector3.zero;
+
+        yield return new WaitForSeconds(m_AttackPeriod);
 
         // Calculate final damage
         float damage = attackDamage;
@@ -316,6 +322,11 @@ public class Player : MonoBehaviour {
         // Cast damage to enemy in m_DamageArea
         m_DamageArea.GetComponent<DamageArea>().CommitDamage(damage, sneeakMultiplier);
 
+        m_DamageArea.enabled = false;
         enableControl = true;
+
+        yield return new WaitForSeconds(m_AttackColdDown);
+
+        attack = false;
     }
 }
