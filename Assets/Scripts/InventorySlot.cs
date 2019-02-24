@@ -5,7 +5,6 @@ public class InventorySlot : MonoBehaviour
 {
     public Image icon;
     Item item;
-    public Transform ItemParent;
 
     public void ShowItem(Item newItem)
     {

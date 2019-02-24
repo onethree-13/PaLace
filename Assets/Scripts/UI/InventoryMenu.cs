@@ -11,8 +11,9 @@ public class InventoryMenu : MonoBehaviour
     void Start()
     {
         inventory = Inventory.instance;
-        inventory.onItemChangedCallback += UpdateUI;
+        inventory.onItemChangedCallback = UpdateUI;
         slots = ItemParent.GetComponentsInChildren<InventorySlot>();
+        UpdateUI();
         
     }
     
