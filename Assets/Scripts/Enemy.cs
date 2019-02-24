@@ -10,7 +10,7 @@ using UnityEditor;
 [RequireComponent(typeof(Animator))]
 public class Enemy : MonoBehaviour {
 
-    public bool enable = true;  // Enable AI of this enemy.
+    public bool enableMovement = true;  // Enable AI of this enemy.
 
     [System.Serializable]
 	public class EnemyStats {
@@ -51,7 +51,7 @@ public class Enemy : MonoBehaviour {
     public float meleeRange = 1.0f;
     public float meleeAngle = 60.0f;
     [SerializeField] private float m_AttackPreparePeriod = .9f; // How long the attacking animation plays before the enemy can really cause damage
-    [SerializeField] private float m_AttackPeriod = 1f;         // How long the enemy freezes after an attack
+    [SerializeField] private float m_AttackColdDown = 1f;       // How long the enemy freezes after finish an attack
 
     [Header("Scan settings")]
     [Tooltip("The angle of the forward of the view cone. 0 is forward of the sprite, 90 is up, 180 behind etc.")]
@@ -114,7 +114,7 @@ public class Enemy : MonoBehaviour {
 
     private void FixedUpdate()
     {
-        if (enable)
+        if (enableMovement && stats.curHealth > 0.0f)
         {
             // Check if player is backward if recieve sneaking hit
             if (!isChasingPlayer && beenHit)
@@ -179,7 +179,7 @@ public class Enemy : MonoBehaviour {
             characterController.SetVelocity(new Vector2(0, currentVelocity.y));
     }
 
-    private bool TestPlayerinArc(Vector3 position, float distance, float fov)
+    private bool TestPlayerInArc(Vector3 position, float distance, float fov)
     {
         Vector3 dir = player.transform.position - position;
 
@@ -195,6 +195,8 @@ public class Enemy : MonoBehaviour {
 
         // Check if there are obstacle between player and this enemy
         RaycastHit2D hit = Physics2D.Raycast(transform.position, dir);
+        if (hit)
+            Debug.Log(hit.transform.gameObject.name);
         if (hit && hit.transform.gameObject.tag == "Player")
             return true;
         else
@@ -209,7 +211,7 @@ public class Enemy : MonoBehaviour {
         if (!player.detectable || player.stats.curHealth <= 0)
             return;
 
-        if (TestPlayerinArc(transform.position, viewDistance, viewFov))
+        if (TestPlayerInArc(transform.position, viewDistance, viewFov))
             isChasingPlayer = true;
     }
 
@@ -219,7 +221,7 @@ public class Enemy : MonoBehaviour {
         if (!isChasingPlayer)
             return;
 
-        if (TestPlayerinArc(transform.position, viewDistance, viewFov))
+        if (TestPlayerInArc(transform.position, viewDistance, viewFov))
         {
             // Player is still in sight, so reset the timer
             m_TimeSinceLastTargetView = timeBeforeTargetLost;
@@ -332,7 +334,7 @@ public class Enemy : MonoBehaviour {
             return;
 
         // Check if the player is in the enemy's melee range and angle
-        if (!TestPlayerinArc(transform.position, meleeRange, meleeAngle))
+        if (!TestPlayerInArc(transform.position, meleeRange, meleeAngle))
             return;
 
         // when player is dead, this enemy should not attack
@@ -345,19 +347,19 @@ public class Enemy : MonoBehaviour {
 
     public IEnumerator AttackCoroutine()
     {
-        enable = false;
+        enableMovement = false;
         PlayAttackAnimation();
 
         yield return new WaitForSeconds(m_AttackPreparePeriod);
 
         // Check if the player is in the enemy's melee range and angle
         // If yes, cast damage to player
-        if (TestPlayerinArc(transform.position, meleeRange, meleeAngle))
+        if (TestPlayerInArc(transform.position, meleeRange, meleeAngle))
             player.Damage(meleeDamage);
 
-        yield return new WaitForSeconds(m_AttackPeriod - m_AttackPreparePeriod);
+        yield return new WaitForSeconds(m_AttackColdDown - m_AttackPreparePeriod);
 
-        enable = true;
+        enableMovement = true;
     }
 
     // Damage player if player's collider touch enemy's collider
