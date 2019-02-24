@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3855169023796207028}
   - component: {fileID: 3855169023796207029}
   - component: {fileID: 3855169023796207030}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Falling Leaves
   m_TagString: Untagged
   m_Icon: {fileID: 0}

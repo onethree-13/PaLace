@@ -20,7 +20,7 @@ public class StatusIndicator : MonoBehaviour {
 		}
 	}
 
-	public void SetHealth(int _cur, int _max)
+	public void SetHealth(float _cur, float _max)
 	{
 		float _value = (float)_cur / _max;
 

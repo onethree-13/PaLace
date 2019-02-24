@@ -22,8 +22,8 @@ public class GameController : MonoBehaviour
     }
 
     // Remove an Object from scense
-    public void KillEnemy(Enemy enemy)
+    public void KillObject(GameObject obj)
     {
-        Destroy(enemy.gameObject);
+        Destroy(obj);
     }
 }

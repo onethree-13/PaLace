@@ -11,6 +11,7 @@ TagManager:
   - RiverSceneSwitcher
   - SpawnPoint
   - wharf
+  - Enemy
   layers:
   - Default
   - TransparentFX
