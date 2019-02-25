@@ -5,6 +5,15 @@ using UnityEngine;
 public class ItemPickup : MonoBehaviour
 {
     public Item item;
+
+    private void Start()
+    {
+        if (Inventory.instance.checkItemStatus(item.id))
+        {
+            gameObject.SetActive(false);
+        }
+    }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.name == "Player")
@@ -18,10 +27,5 @@ public class ItemPickup : MonoBehaviour
     {
         Debug.Log("Picking up " + item.name);
         Inventory.instance.Add(item);
-    }
-
-    public void Reset()
-    {
-        gameObject.SetActive(true);
     }
 }

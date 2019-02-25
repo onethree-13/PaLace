@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8693357447214683536}
   - component: {fileID: 8693357447214683537}
+  - component: {fileID: 459675940}
   m_Layer: 0
   m_Name: Game Controller
   m_TagString: GameCtrl
@@ -43,4 +44,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2517c45088b144625beafa195aaf7f07, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lastLoadScene: 
+  lastLoadedScene: 
+--- !u!114 &459675940
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8693357447214683538}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 05ccf1b8a1d6e5346ad9535fefee6b0d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  items:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}

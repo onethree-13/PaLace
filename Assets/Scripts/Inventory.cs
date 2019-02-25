@@ -9,12 +9,15 @@ public class Inventory : MonoBehaviour
     public static Inventory instance;
     void Awake()
     {
-        if (instance != null)
+        if (instance == null)
         {
-            Debug.LogWarning("More than one inventory!");
-            return;
+            instance = this;
+            DontDestroyOnLoad(gameObject);
         }
-        instance = this;
+        else if (instance != this)
+        {
+            Destroy(gameObject);
+        }
     }
     #endregion
 
@@ -38,8 +41,14 @@ public class Inventory : MonoBehaviour
 
     public void Reset()
     {
-        items = new Item[9];
+        items = new Item[space];
         if (onItemChangedCallback != null)
             onItemChangedCallback.Invoke();
+    }
+
+    public bool checkItemStatus(int id)
+    {
+        Debug.Assert(id < space);
+        return (items[id] != null);
     }
 }
