@@ -307,13 +307,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enableControl: 1
-  runSpeed: 40
+  runSpeed: 42
   m_CrouchSpeed: 0.36
   m_MovementSmoothing: 0.05
   m_JumpSpeed: 20
   m_JumpCancelSpeed: 10
   m_AirControl: 1
-  m_airborneSpeed: 0.8
+  m_airborneSpeed: 1
   detectable: 1
   invincible: 0
   sceneInitialSpawnPoint: {fileID: 0}
