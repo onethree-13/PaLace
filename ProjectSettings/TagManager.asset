@@ -12,6 +12,7 @@ TagManager:
   - SpawnPoint
   - wharf
   - Enemy
+  - RollingStone
   layers:
   - Default
   - TransparentFX

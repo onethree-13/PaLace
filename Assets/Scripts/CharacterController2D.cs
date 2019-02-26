@@ -34,7 +34,6 @@ private void Awake()
     // modified in project stting -> time -> fix timestamp
     private void FixedUpdate()
     {
-        Debug.Log(m_Rigidbody2D.velocity);
         isGrounded = false;
 
         // The player is grounded if a circlecast to the groundcheck position hits anything designated as ground
