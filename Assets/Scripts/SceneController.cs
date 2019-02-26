@@ -22,5 +22,4 @@ public class SceneController : MonoBehaviour
             SceneManager.LoadScene(gameObject.tag);
         }
     }
-
 }

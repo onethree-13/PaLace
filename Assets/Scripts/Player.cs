@@ -266,17 +266,20 @@ public class Player : MonoBehaviour {
 
         characterController2d.Teleport(spawnPoint.position);
 
+        // Relaod Scence
+        gameController.ResetScene();
+
         // ToDo: reset the level
         // Maybe calling gameMaster.resetLevel() ?
 
-        characterController2d.SetRagdoll(false);
-        PlayRespawnAnimation();
-        m_renderer.enabled = true;
-        enableControl = true;
+        //characterController2d.SetRagdoll(false);
+        //PlayRespawnAnimation();
+        //m_renderer.enabled = true;
+        //enableControl = true;
 
         // Recover initial status.
-        stats.Init();
-        yield return StartCoroutine(InvincibleCoroutine(spawnInvincibleDuration));
+        //stats.Init();
+        //yield return StartCoroutine(InvincibleCoroutine(spawnInvincibleDuration));
     }
 
     public IEnumerator InvincibleCoroutine(float duration)
