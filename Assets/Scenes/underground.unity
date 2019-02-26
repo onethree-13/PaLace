@@ -350,7 +350,7 @@ PrefabInstance:
     - target: {fileID: 2748003267265788334, guid: 29934b2b86dd3b44db5fc3c2b61bafe9,
         type: 3}
       propertyPath: gravityThreshold
-      value: 3
+      value: 4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 29934b2b86dd3b44db5fc3c2b61bafe9, type: 3}
@@ -84668,7 +84668,7 @@ PrefabInstance:
     - target: {fileID: 8332981020335968365, guid: 115fa7c6cfe0e421eb12ae15d5463ade,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 5.2395535
+      value: 5.2180247
       objectReference: {fileID: 0}
     - target: {fileID: 8332981020335968365, guid: 115fa7c6cfe0e421eb12ae15d5463ade,
         type: 3}
@@ -84678,7 +84678,7 @@ PrefabInstance:
     - target: {fileID: 8332981020980108596, guid: 115fa7c6cfe0e421eb12ae15d5463ade,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 5.2395535
+      value: 5.2180247
       objectReference: {fileID: 0}
     - target: {fileID: 8332981020980108596, guid: 115fa7c6cfe0e421eb12ae15d5463ade,
         type: 3}
@@ -85052,36 +85052,6 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 333591439501312518, guid: b6ad9b233ee7d483887345ce80d4009b,
-        type: 3}
-      propertyPath: m_Layer
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 333591440413684338, guid: b6ad9b233ee7d483887345ce80d4009b,
-        type: 3}
-      propertyPath: m_Layer
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 333591441051012866, guid: b6ad9b233ee7d483887345ce80d4009b,
-        type: 3}
-      propertyPath: velocityThreshold
-      value: 50
-      objectReference: {fileID: 0}
-    - target: {fileID: 333591441051012866, guid: b6ad9b233ee7d483887345ce80d4009b,
-        type: 3}
-      propertyPath: startLeft
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 333591441051012866, guid: b6ad9b233ee7d483887345ce80d4009b,
-        type: 3}
-      propertyPath: leftPushRange
-      value: -0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 333591441051012866, guid: b6ad9b233ee7d483887345ce80d4009b,
-        type: 3}
-      propertyPath: rightPushRange
-      value: 0.5
-      objectReference: {fileID: 0}
     - target: {fileID: 333591441051012867, guid: b6ad9b233ee7d483887345ce80d4009b,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -85161,6 +85131,36 @@ PrefabInstance:
         type: 3}
       propertyPath: m_ConnectedAnchor.y
       value: -30.087511
+      objectReference: {fileID: 0}
+    - target: {fileID: 333591441051012866, guid: b6ad9b233ee7d483887345ce80d4009b,
+        type: 3}
+      propertyPath: velocityThreshold
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 333591441051012866, guid: b6ad9b233ee7d483887345ce80d4009b,
+        type: 3}
+      propertyPath: startLeft
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 333591441051012866, guid: b6ad9b233ee7d483887345ce80d4009b,
+        type: 3}
+      propertyPath: leftPushRange
+      value: -0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 333591441051012866, guid: b6ad9b233ee7d483887345ce80d4009b,
+        type: 3}
+      propertyPath: rightPushRange
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 333591440413684338, guid: b6ad9b233ee7d483887345ce80d4009b,
+        type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 333591439501312518, guid: b6ad9b233ee7d483887345ce80d4009b,
+        type: 3}
+      propertyPath: m_Layer
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 333591440413684341, guid: b6ad9b233ee7d483887345ce80d4009b, type: 3}
@@ -86215,7 +86215,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c94dd6653d4bf46008a0f486359d5a93, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gravityScaleThreshold: 0
+  gravityScaleThreshold: 2
 --- !u!50 &434482245
 Rigidbody2D:
   serializedVersion: 4
@@ -86412,36 +86412,6 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 333591439501312518, guid: b6ad9b233ee7d483887345ce80d4009b,
-        type: 3}
-      propertyPath: m_Layer
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 333591440413684338, guid: b6ad9b233ee7d483887345ce80d4009b,
-        type: 3}
-      propertyPath: m_Layer
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 333591441051012866, guid: b6ad9b233ee7d483887345ce80d4009b,
-        type: 3}
-      propertyPath: velocityThreshold
-      value: 50
-      objectReference: {fileID: 0}
-    - target: {fileID: 333591441051012866, guid: b6ad9b233ee7d483887345ce80d4009b,
-        type: 3}
-      propertyPath: startLeft
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 333591441051012866, guid: b6ad9b233ee7d483887345ce80d4009b,
-        type: 3}
-      propertyPath: leftPushRange
-      value: -0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 333591441051012866, guid: b6ad9b233ee7d483887345ce80d4009b,
-        type: 3}
-      propertyPath: rightPushRange
-      value: 0.5
-      objectReference: {fileID: 0}
     - target: {fileID: 333591441051012867, guid: b6ad9b233ee7d483887345ce80d4009b,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -86531,6 +86501,36 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Anchor.x
       value: 0.18583679
+      objectReference: {fileID: 0}
+    - target: {fileID: 333591441051012866, guid: b6ad9b233ee7d483887345ce80d4009b,
+        type: 3}
+      propertyPath: velocityThreshold
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 333591441051012866, guid: b6ad9b233ee7d483887345ce80d4009b,
+        type: 3}
+      propertyPath: startLeft
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 333591441051012866, guid: b6ad9b233ee7d483887345ce80d4009b,
+        type: 3}
+      propertyPath: leftPushRange
+      value: -0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 333591441051012866, guid: b6ad9b233ee7d483887345ce80d4009b,
+        type: 3}
+      propertyPath: rightPushRange
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 333591440413684338, guid: b6ad9b233ee7d483887345ce80d4009b,
+        type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 333591439501312518, guid: b6ad9b233ee7d483887345ce80d4009b,
+        type: 3}
+      propertyPath: m_Layer
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 333591440413684341, guid: b6ad9b233ee7d483887345ce80d4009b, type: 3}
@@ -87651,10 +87651,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d0ec0ddcd651f4da4b14bee16763d5e7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  leftPushRange: 0
-  rightPushRange: 0
-  velocityThreshold: 0
-  startLeft: 0
+  leftPushRange: -0.25
+  rightPushRange: 0.25
+  velocityThreshold: 40
+  startLeft: 1
 --- !u!233 &625780757
 HingeJoint2D:
   m_ObjectHideFlags: 0
@@ -89218,9 +89218,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d0ec0ddcd651f4da4b14bee16763d5e7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  leftPushRange: 0
-  rightPushRange: 0
-  velocityThreshold: 0
+  leftPushRange: -0.25
+  rightPushRange: 0.25
+  velocityThreshold: 40
   startLeft: 0
 --- !u!233 &802573079
 HingeJoint2D:
@@ -90754,7 +90754,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c94dd6653d4bf46008a0f486359d5a93, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gravityScaleThreshold: 0
+  gravityScaleThreshold: 2
 --- !u!1 &1087516772
 GameObject:
   m_ObjectHideFlags: 0
@@ -91812,36 +91812,6 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 333591439501312518, guid: b6ad9b233ee7d483887345ce80d4009b,
-        type: 3}
-      propertyPath: m_Layer
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 333591440413684338, guid: b6ad9b233ee7d483887345ce80d4009b,
-        type: 3}
-      propertyPath: m_Layer
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 333591441051012866, guid: b6ad9b233ee7d483887345ce80d4009b,
-        type: 3}
-      propertyPath: velocityThreshold
-      value: 50
-      objectReference: {fileID: 0}
-    - target: {fileID: 333591441051012866, guid: b6ad9b233ee7d483887345ce80d4009b,
-        type: 3}
-      propertyPath: startLeft
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 333591441051012866, guid: b6ad9b233ee7d483887345ce80d4009b,
-        type: 3}
-      propertyPath: leftPushRange
-      value: -0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 333591441051012866, guid: b6ad9b233ee7d483887345ce80d4009b,
-        type: 3}
-      propertyPath: rightPushRange
-      value: 0.5
-      objectReference: {fileID: 0}
     - target: {fileID: 333591441051012867, guid: b6ad9b233ee7d483887345ce80d4009b,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -91921,6 +91891,36 @@ PrefabInstance:
         type: 3}
       propertyPath: m_UseLimits
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 333591441051012866, guid: b6ad9b233ee7d483887345ce80d4009b,
+        type: 3}
+      propertyPath: velocityThreshold
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 333591441051012866, guid: b6ad9b233ee7d483887345ce80d4009b,
+        type: 3}
+      propertyPath: startLeft
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 333591441051012866, guid: b6ad9b233ee7d483887345ce80d4009b,
+        type: 3}
+      propertyPath: leftPushRange
+      value: -0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 333591441051012866, guid: b6ad9b233ee7d483887345ce80d4009b,
+        type: 3}
+      propertyPath: rightPushRange
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 333591440413684338, guid: b6ad9b233ee7d483887345ce80d4009b,
+        type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 333591439501312518, guid: b6ad9b233ee7d483887345ce80d4009b,
+        type: 3}
+      propertyPath: m_Layer
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 333591440413684341, guid: b6ad9b233ee7d483887345ce80d4009b, type: 3}
@@ -97357,36 +97357,6 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 333591439501312518, guid: b6ad9b233ee7d483887345ce80d4009b,
-        type: 3}
-      propertyPath: m_Layer
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 333591440413684338, guid: b6ad9b233ee7d483887345ce80d4009b,
-        type: 3}
-      propertyPath: m_Layer
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 333591441051012866, guid: b6ad9b233ee7d483887345ce80d4009b,
-        type: 3}
-      propertyPath: velocityThreshold
-      value: 50
-      objectReference: {fileID: 0}
-    - target: {fileID: 333591441051012866, guid: b6ad9b233ee7d483887345ce80d4009b,
-        type: 3}
-      propertyPath: startLeft
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 333591441051012866, guid: b6ad9b233ee7d483887345ce80d4009b,
-        type: 3}
-      propertyPath: leftPushRange
-      value: -0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 333591441051012866, guid: b6ad9b233ee7d483887345ce80d4009b,
-        type: 3}
-      propertyPath: rightPushRange
-      value: 0.5
-      objectReference: {fileID: 0}
     - target: {fileID: 333591441051012867, guid: b6ad9b233ee7d483887345ce80d4009b,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -97471,6 +97441,36 @@ PrefabInstance:
         type: 3}
       propertyPath: m_UseLimits
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 333591441051012866, guid: b6ad9b233ee7d483887345ce80d4009b,
+        type: 3}
+      propertyPath: velocityThreshold
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 333591441051012866, guid: b6ad9b233ee7d483887345ce80d4009b,
+        type: 3}
+      propertyPath: startLeft
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 333591441051012866, guid: b6ad9b233ee7d483887345ce80d4009b,
+        type: 3}
+      propertyPath: leftPushRange
+      value: -0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 333591441051012866, guid: b6ad9b233ee7d483887345ce80d4009b,
+        type: 3}
+      propertyPath: rightPushRange
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 333591440413684338, guid: b6ad9b233ee7d483887345ce80d4009b,
+        type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 333591439501312518, guid: b6ad9b233ee7d483887345ce80d4009b,
+        type: 3}
+      propertyPath: m_Layer
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 333591440413684341, guid: b6ad9b233ee7d483887345ce80d4009b, type: 3}
@@ -102224,9 +102224,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d0ec0ddcd651f4da4b14bee16763d5e7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  leftPushRange: 0
-  rightPushRange: 0
-  velocityThreshold: 0
+  leftPushRange: -0.25
+  rightPushRange: 0.25
+  velocityThreshold: 40
   startLeft: 0
 --- !u!4 &4474465761997374233
 Transform:
