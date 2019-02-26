@@ -303,9 +303,16 @@ public class Player : MonoBehaviour {
 
         enableControl = false;
 
+        // Avoid dead player attack enemy.
+        if (stats.curHealth <= 0.0f)
+            yield break;
         PlayAttackAnimation();
 
         yield return new WaitForSeconds(m_AttackPreparePeriod);
+
+        // Avoid dead player attack enemy.
+        if (stats.curHealth <= 0.0f)
+            yield break;
 
         m_DamageArea.enabled = true;
 

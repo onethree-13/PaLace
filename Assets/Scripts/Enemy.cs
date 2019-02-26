@@ -370,9 +370,17 @@ public class Enemy : MonoBehaviour {
     public IEnumerator AttackCoroutine()
     {
         enableMovement = false;
+
+        // Avoid dead enemy attack player.
+        if (stats.curHealth <= 0.0f)
+            yield break;
         PlayAttackAnimation();
 
         yield return new WaitForSeconds(m_AttackPreparePeriod);
+
+        // Avoid dead enemy attack player.
+        if (stats.curHealth <= 0.0f)
+            yield break;
 
         // Check if the player is in the enemy's melee range and angle
         // If yes, cast damage to player
