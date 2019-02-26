@@ -13,6 +13,8 @@ TagManager:
   - wharf
   - Enemy
   - RollingStone
+  - central
+  - underground
   layers:
   - Default
   - TransparentFX
