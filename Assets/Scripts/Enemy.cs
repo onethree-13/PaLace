@@ -36,14 +36,16 @@ public class Enemy : MonoBehaviour {
     private bool spriteFaceRight = true;  // For determining which way this enemy is initially facing.
 
     [Header("Move settings")]
-    public float runSpeed = 32f;    // setting the rate of horizontal move
+    public float patrolSpeed = 32f;         // setting the rate of horizontal move for patroling
+    public float chaseSpeed = 32f;          // setting the rate of horizontal move for chasing palyer
     [Range(0, .3f)] [SerializeField] private float m_MovementSmoothing = .05f;  // How much to smooth out the movement
     public float brakingDirection = .0f;    // When non-zero, the emeny will stop moving to an direction
                                             // (Left: Less than zero, Right: Greater than zero)
 
     [Header("Patrol settings")]
     public bool repeatingPointSet = true;   // Repeating visit the point set during patrol
-    public Transform[] points;            // Points to be visit during patrol
+    public float waitAtPoint = 2.0f;        // How long enemy wait before heading to next point
+    public Transform[] points;              // Points to be visit during patrol
 
     [Header("Attack settings")]
     public int touchDamage = 1;
@@ -73,7 +75,8 @@ public class Enemy : MonoBehaviour {
     private Vector2 velocity = Vector2.zero;    // current speed of player movement, will be modified by Move()
 
     // Enemey patrol related parameters
-    private int destPoint = -1; // which point of pointSet enemy should go now
+    private int nextPoint = 1;      // which point of pointSet enemy should go now
+    private bool isWaiting = false; // whether the emeny is in waiting phrase before switching to next destination  
 
     // Enemey view related
     protected float m_TimeSinceLastTargetView;
@@ -252,7 +255,7 @@ public class Enemy : MonoBehaviour {
         characterController.SetVelocity(smoothedSpeed);
     }
 
-    public void MoveTo(Vector3 destination)
+    public void MoveTo(Vector3 destination, float speed)
     {
         float distance = destination.x - transform.position.x;
 
@@ -263,7 +266,7 @@ public class Enemy : MonoBehaviour {
             return;
         }
 
-        float move = Mathf.Sign(distance) * runSpeed * Time.fixedDeltaTime * 10;
+        float move = Mathf.Sign(distance) * speed * Time.fixedDeltaTime * 10;
 
         UpdateFacing(move);
 
@@ -287,7 +290,7 @@ public class Enemy : MonoBehaviour {
         }
 
         // Player is at the right if distance is positive, vice versa.
-        float move = Mathf.Sign(distance) * runSpeed * Time.fixedDeltaTime * 10;
+        float move = Mathf.Sign(distance) * chaseSpeed * Time.fixedDeltaTime * 10;
 
         UpdateFacing(move);
 
@@ -302,29 +305,48 @@ public class Enemy : MonoBehaviour {
         if (points.Length == 0)
             return;
 
-        // Inital phase (destPoint = -1)
-        if (destPoint == -1)
-            destPoint = 1;
+        // In switching rountine, refer to SwitchToNextPoint()
+        if (isWaiting)
+            return;
 
-        float distance = transform.position.x - points[destPoint].position.x;
+        // Run out f point (nextPoint = -1), refer to SwitchToNextPoint()
+        if (nextPoint == -1)
+            return;
 
-        // If close to current destination
-        if (Mathf.Abs(distance) < 0.5f)
+        float distance = transform.position.x - points[nextPoint].position.x;
+
+        // If far from current destination
+        if (Mathf.Abs(distance) >= 0.5f)
         {
-            // Choose the next point in the array as the destination
-            destPoint += 1;
-
-            // If running out of destination
-            if (destPoint >= points.Length)
-            {
-                // repeat the set again
-                if (repeatingPointSet)
-                    destPoint = destPoint % points.Length;
-                else
-                    return;
-            }
+            MoveTo(points[nextPoint].position, patrolSpeed);
         }
-        MoveTo(points[destPoint].position);
+        else
+        {
+            StartCoroutine(SwitchToNextPoint());
+        }
+        
+    }
+
+    public IEnumerator SwitchToNextPoint()
+    {
+        isWaiting = true;
+
+        yield return new WaitForSeconds(waitAtPoint);
+
+        // Choose the next point in the array as the destination
+        nextPoint += 1;
+
+        // If running out of destination
+        if (nextPoint >= points.Length)
+        {
+            // repeat the set again
+            if (repeatingPointSet)
+                nextPoint = nextPoint % points.Length;
+            else
+                nextPoint = -1;
+        }
+
+        isWaiting = false;
     }
 
     public void TryMeleeAttack()
@@ -348,9 +370,17 @@ public class Enemy : MonoBehaviour {
     public IEnumerator AttackCoroutine()
     {
         enableMovement = false;
+
+        // Avoid dead enemy attack player.
+        if (stats.curHealth <= 0.0f)
+            yield break;
         PlayAttackAnimation();
 
         yield return new WaitForSeconds(m_AttackPreparePeriod);
+
+        // Avoid dead enemy attack player.
+        if (stats.curHealth <= 0.0f)
+            yield break;
 
         // Check if the player is in the enemy's melee range and angle
         // If yes, cast damage to player
