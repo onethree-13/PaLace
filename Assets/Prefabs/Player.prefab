@@ -314,7 +314,7 @@ MonoBehaviour:
   m_JumpSpeed: 20
   m_JumpCancelSpeed: 10
   m_AirControl: 1
-  m_airborneSpeed: 0.419
+  m_airborneSpeed: 1
   detectable: 1
   invincible: 0
   sceneInitialSpawnPoint: {fileID: 0}
