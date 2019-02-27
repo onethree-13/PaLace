@@ -141,17 +141,8 @@ public class Player : MonoBehaviour {
             else if (joystick.Vertical > -0.6f)
                 crouch = false;
 
-            if (joystick.Vertical >= 0.1f && isGrounded && jump == false)
-            {
-                // The player starts to jump from any ground
-                jump = true;
-            }
-            else if (joystick.Vertical < 0.6f && !isGrounded && jumpCancel == false)
-            {
-                // The player starts to cancel jumping in the air
-                jumpCancel = true;
-            }
-
+            // Jump and attack is handle by Event System.
+            
         }
         else
         {
@@ -188,6 +179,24 @@ public class Player : MonoBehaviour {
     {
         if (!attack)
             StartCoroutine(AttackCoroutine());
+    }
+
+    public void PressJump()
+    {
+        if (isGrounded && jump == false)
+        {
+            // The player starts to jump from any ground
+            jump = true;
+        }
+    }
+
+    public void ReleaseJump()
+    {
+        if (!isGrounded && jumpCancel == false)
+        {
+            // The player starts to cancel jumping in the air
+            jumpCancel = true;
+        }
     }
 
     private void FixedUpdate()
