@@ -198,8 +198,8 @@ public class Enemy : MonoBehaviour {
 
         // Check if there are obstacle between player and this enemy
         RaycastHit2D hit = Physics2D.Raycast(transform.position, dir);
-        if (hit)
-            Debug.Log(hit.transform.gameObject.name);
+        //if (hit)
+            //Debug.Log(hit.transform.gameObject.name);
         if (hit && hit.transform.gameObject.tag == "Player")
             return true;
         else

@@ -124,11 +124,11 @@ public class Player : MonoBehaviour {
         // Warning!!!
         // Please put operation not related to player input above this line,
         // Or it may not work when input is disabled.
-        
-        if (!enableControl || stats.curHealth <= 0.0f)
-            return;
 
         horizontalMove = 0f;
+
+        if (!enableControl || stats.curHealth <= 0.0f)
+            return;
 
         if (joystick != null)
         {
@@ -178,13 +178,19 @@ public class Player : MonoBehaviour {
 
     public void PressAttack()
     {
+        if (!enableControl || stats.curHealth <= 0.0f)
+            return;
+
         if (!attack)
             StartCoroutine(AttackCoroutine());
     }
 
     public void PressJump()
     {
-        if (isGrounded && jump == false)
+        if (!enableControl || stats.curHealth <= 0.0f)
+            return;
+
+        if (isGrounded && jump == false && jumpCancel == false)
         {
             // The player starts to jump from any ground
             jump = true;
@@ -193,7 +199,10 @@ public class Player : MonoBehaviour {
 
     public void ReleaseJump()
     {
-        if (!isGrounded && jumpCancel == false)
+        if (!enableControl || stats.curHealth <= 0.0f)
+            return;
+
+        if (!isGrounded && jump == false && jumpCancel == false)
         {
             // The player starts to cancel jumping in the air
             jumpCancel = true;
@@ -215,12 +224,12 @@ public class Player : MonoBehaviour {
     {
         // Ensure the sprite faces right when facing is larger than zero
         // And it faces left when facing is smaller than zero
-        if (facing > 0 && !m_FacingRight)
+        if (facing > 0.0f && !m_FacingRight)
         {
             m_FacingRight = true;
             characterController2d.Flip();
         }
-        else if (facing < 0 && m_FacingRight)
+        else if (facing < 0.0f && m_FacingRight)
         {
             m_FacingRight = false;
             characterController2d.Flip();
@@ -276,13 +285,13 @@ public class Player : MonoBehaviour {
 
     public void Damage (int damage, bool respawn = false) {
         // when the player is dead or invincible, player should not recieve any damage.
-        if (stats.curHealth <= 0 || invincible)
+        if (stats.curHealth <= 0.0f || invincible)
             return;
 
         Debug.Log(string.Format("Player get {0} damage", damage));
         stats.curHealth -= damage;
 
-        if (stats.curHealth <= 0)
+        if (stats.curHealth <= 0.0f)
         {
             StartCoroutine(RespawnPlayer(sceneInitialSpawnPoint));
         }
@@ -296,11 +305,13 @@ public class Player : MonoBehaviour {
 
     public IEnumerator RespawnPlayer (Transform spawnPoint)
     {
+        Debug.Log(stats.curHealth);
         // Unfixed Bug: Player flip for no reason before respawn
-
-        characterController2d.SetRagdoll(false);
-        PlayDeathAnimation();
         enableControl = false;
+        characterController2d.SetVelocity(Vector2.zero);
+        characterController2d.SetRagdoll(false);
+
+        PlayDeathAnimation();
 
         yield return new WaitForSeconds(spawnDelay);
         
@@ -312,10 +323,6 @@ public class Player : MonoBehaviour {
         // Relaod Scence
         gameController.ResetScene();
 
-        // ToDo: reset the level
-        // Maybe calling gameMaster.resetLevel() ?
-
-        //characterController2d.SetRagdoll(false);
         //PlayRespawnAnimation();
         //m_renderer.enabled = true;
         //enableControl = true;
