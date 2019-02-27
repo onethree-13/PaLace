@@ -4,10 +4,18 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class MainMenu : MonoBehaviour
-{
+{ 
+    private GameController gameController;
+
+    private void Awake()
+    {
+        gameController = GameObject.FindGameObjectWithTag("GameCtrl").GetComponent<GameController>();
+    }
+
     public void PlayGame()
     {
         Inventory.instance.Reset();
+        gameController.lastLoadedScene = null;
         SceneManager.LoadScene("wharf");
     }
 
