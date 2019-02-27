@@ -131,22 +131,22 @@ public class Player : MonoBehaviour {
 
         if (joystick != null)
         {
-            if (Mathf.Abs(joystick.Horizontal) >= 0.3f)
+            if (Mathf.Abs(joystick.Horizontal) >= 0.1f)
             {
                 horizontalMove = joystick.Horizontal * runSpeed;
             }
 
-            if (joystick.Vertical <= -0.3f)
+            if (joystick.Vertical <= -0.6f)
                 crouch = true;
-            else if (joystick.Vertical > -0.3f)
+            else if (joystick.Vertical > -0.6f)
                 crouch = false;
 
-            if (joystick.Vertical >= 0.3f && isGrounded && jump == false)
+            if (joystick.Vertical >= 0.1f && isGrounded && jump == false)
             {
                 // The player starts to jump from any ground
                 jump = true;
             }
-            else if (joystick.Vertical < 0.3f && !isGrounded && jumpCancel == false)
+            else if (joystick.Vertical < 0.6f && !isGrounded && jumpCancel == false)
             {
                 // The player starts to cancel jumping in the air
                 jumpCancel = true;

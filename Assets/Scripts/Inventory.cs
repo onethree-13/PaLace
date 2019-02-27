@@ -41,9 +41,16 @@ public class Inventory : MonoBehaviour
 
     public void Reset()
     {
-        items = new Item[space];
-        if (onItemChangedCallback != null)
-            onItemChangedCallback.Invoke();
+        if(items == null)
+        {
+            items = new Item[space];
+        }
+        for (int i=0; i < space ; i++)
+        {
+            items[i] = null;
+        }
+        //if (onItemChangedCallback != null)
+        //    onItemChangedCallback.Invoke();
     }
 
     public bool checkItemStatus(int id)
