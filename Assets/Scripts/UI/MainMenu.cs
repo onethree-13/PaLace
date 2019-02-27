@@ -7,6 +7,7 @@ public class MainMenu : MonoBehaviour
 {
     public void PlayGame()
     {
+        Inventory.instance.Reset();
         SceneManager.LoadScene("wharf");
     }
 

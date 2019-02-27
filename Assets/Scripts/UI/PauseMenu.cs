@@ -9,7 +9,13 @@ public class PauseMenu : MonoBehaviour
 {
     public static bool GameIsPaused = false;
     public GameObject pauseMenuUI;
-    
+    private GameController gameController;
+
+    private void Awake()
+    {
+        gameController = GameObject.FindGameObjectWithTag("GameCtrl").GetComponent<GameController>();
+    }
+
     public void Pause()
     {
         pauseMenuUI.SetActive(true);
@@ -35,6 +41,7 @@ public class PauseMenu : MonoBehaviour
     {
         Debug.Log("Quit game.");
         Time.timeScale = 1f;
+        gameController.lastLoadedScene = null;
         SceneManager.LoadScene("start_menu");
     }
 }
