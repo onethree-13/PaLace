@@ -123,8 +123,9 @@ public class Player : MonoBehaviour {
 	void Update () {
         // Warning!!!
         // Please put operation not related to player input above this line,
-        // Or it may not work when input is disabled. 
-        if (!enableControl)
+        // Or it may not work when input is disabled.
+        
+        if (!enableControl || stats.curHealth <= 0.0f)
             return;
 
         horizontalMove = 0f;
