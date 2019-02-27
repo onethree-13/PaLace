@@ -23,4 +23,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/underground.unity
     guid: 9bf7395e093d04faab652d230d667385
+  - enabled: 1
+    path: Assets/Scenes/good_ending.unity
+    guid: bd6902e7265245447a5486c0cc58d9c9
   m_configObjects: {}

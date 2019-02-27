@@ -12,6 +12,10 @@ TagManager:
   - SpawnPoint
   - wharf
   - Enemy
+  - central
+  - underground
+  - RollingStone
+  - good_ending
   layers:
   - Default
   - TransparentFX
