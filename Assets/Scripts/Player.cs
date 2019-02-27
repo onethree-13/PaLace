@@ -1,11 +1,12 @@
 using UnityEngine;
 using System.Collections;
 
+
 [RequireComponent(typeof(CharacterController2D))]
 [RequireComponent(typeof(Animator))]
 [RequireComponent(typeof(SpriteRenderer))]
 public class Player : MonoBehaviour {
-
+    public Joystick joystick;
     public bool enableControl = true;                                           // Enable player input.
     [SerializeField] private float runSpeed = 32f;                              // setting the rate of horizontal move
     [Range(0, 1)] [SerializeField] private float m_CrouchSpeed = .36f;          // Amount of maxSpeed applied to crouching movement. 1 = 100%
@@ -129,32 +130,66 @@ public class Player : MonoBehaviour {
             return;
         }
 
-        horizontalMove = Input.GetAxisRaw("Horizontal") * runSpeed;
-
-        if (Input.GetButtonDown("Crouch"))
-            crouch = true;
-        else if (Input.GetButtonUp("Crouch"))
-            crouch = false;
-
-        if (Input.GetButtonDown("Jump") && isGrounded && jump == false)
+        
+        if(joystick != null)
         {
-            // The player starts to jump from any ground
-            jump = true;
+            if (Mathf.Abs(joystick.Horizontal) >= 0.3f)
+            {
+                horizontalMove = joystick.Horizontal * runSpeed;
+            }
+
+            if (joystick.Vertical <= -0.3f)
+                crouch = true;
+            else if (joystick.Vertical > -0.3f)
+                crouch = false;
+
+            if (joystick.Vertical >= 0.3f && isGrounded && jump == false)
+            {
+                // The player starts to jump from any ground
+                jump = true;
+            }
+            else if (joystick.Vertical < 0.3f && !isGrounded && jumpCancel == false)
+            {
+                // The player starts to cancel jumping in the air
+                jumpCancel = true;
+            }
+
         }
-        else if (Input.GetButtonUp("Jump") && !isGrounded && jumpCancel == false)
+        else
         {
-            // The player starts to cancel jumping in the air
-            jumpCancel = true;
+            horizontalMove = Input.GetAxisRaw("Horizontal") * runSpeed;
+
+            if (Input.GetButtonDown("Crouch"))
+                crouch = true;
+            else if (Input.GetButtonUp("Crouch"))
+                crouch = false;
+
+            if (Input.GetButtonDown("Jump") && isGrounded && jump == false)
+            {
+                // The player starts to jump from any ground
+                jump = true;
+            }
+            else if (Input.GetButtonUp("Jump") && !isGrounded && jumpCancel == false)
+            {
+                // The player starts to cancel jumping in the air
+                jumpCancel = true;
+            }
+
+            // Player begins to attack 
+            if (Input.GetButtonDown("Fire1") && !attack)
+                StartCoroutine(AttackCoroutine());
         }
-
-        // Player begins to attack 
-        if (Input.GetButtonDown("Fire1") && !attack)
-            StartCoroutine(AttackCoroutine());
-
+        
         // Update animation
         m_Animator.SetFloat("Speed", Mathf.Abs(horizontalMove));
         m_Animator.SetBool("IsGrounded", isGrounded);
         m_Animator.SetBool("Sneaking", crouch);
+    }
+
+    public void PressAttack()
+    {
+        if (Input.GetButtonDown("Fire1") && !attack)
+            StartCoroutine(AttackCoroutine());
     }
 
     private void FixedUpdate()
