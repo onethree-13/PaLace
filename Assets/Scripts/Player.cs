@@ -125,13 +125,11 @@ public class Player : MonoBehaviour {
         // Please put operation not related to player input above this line,
         // Or it may not work when input is disabled. 
         if (!enableControl)
-        {
-            horizontalMove = 0f;
             return;
-        }
 
-        
-        if(joystick != null)
+        horizontalMove = 0f;
+
+        if (joystick != null)
         {
             if (Mathf.Abs(joystick.Horizontal) >= 0.3f)
             {
@@ -188,7 +186,7 @@ public class Player : MonoBehaviour {
 
     public void PressAttack()
     {
-        if (Input.GetButtonDown("Fire1") && !attack)
+        if (!attack)
             StartCoroutine(AttackCoroutine());
     }
 
