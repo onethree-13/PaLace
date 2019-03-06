@@ -281,18 +281,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &381294464 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 114859347672209646, guid: c658f7b7675a3644890c68187d6fdb79,
-    type: 3}
-  m_PrefabInstance: {fileID: 1722240157}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cecce8d3f549de045bea5fd79de9e7cb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &464041662
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -15340,6 +15328,16 @@ PrefabInstance:
       propertyPath: m_Delegates.Array.data[1].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 135838495}
+    - target: {fileID: 8920584073119898581, guid: c658f7b7675a3644890c68187d6fdb79,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8921424304867278539, guid: c658f7b7675a3644890c68187d6fdb79,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c658f7b7675a3644890c68187d6fdb79, type: 3}
 --- !u!1 &1889144599
@@ -15899,6 +15897,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 5984079264817500203, guid: d59fb6d11c3e14559aa83390fdf6ae28,
+        type: 3}
+      propertyPath: joystick
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 7835878199792621699, guid: d59fb6d11c3e14559aa83390fdf6ae28,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -15954,11 +15957,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5984079264817500203, guid: d59fb6d11c3e14559aa83390fdf6ae28,
-        type: 3}
-      propertyPath: joystick
-      value: 
-      objectReference: {fileID: 381294464}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d59fb6d11c3e14559aa83390fdf6ae28, type: 3}
 --- !u!1001 &8332981020714805485
@@ -16036,12 +16034,12 @@ PrefabInstance:
     - target: {fileID: 8332981020335968365, guid: 115fa7c6cfe0e421eb12ae15d5463ade,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -3.2123833
+      value: -3.2194939
       objectReference: {fileID: 0}
     - target: {fileID: 8332981020335968365, guid: 115fa7c6cfe0e421eb12ae15d5463ade,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -3.2123833
+      value: -3.2194939
       objectReference: {fileID: 0}
     - target: {fileID: 8332981020335968365, guid: 115fa7c6cfe0e421eb12ae15d5463ade,
         type: 3}
@@ -16056,12 +16054,12 @@ PrefabInstance:
     - target: {fileID: 8332981020980108596, guid: 115fa7c6cfe0e421eb12ae15d5463ade,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -11.223331
+      value: -11.223385
       objectReference: {fileID: 0}
     - target: {fileID: 8332981020980108596, guid: 115fa7c6cfe0e421eb12ae15d5463ade,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -11.223331
+      value: -11.223385
       objectReference: {fileID: 0}
     - target: {fileID: 8332981020980108596, guid: 115fa7c6cfe0e421eb12ae15d5463ade,
         type: 3}
