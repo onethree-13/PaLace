@@ -13,9 +13,21 @@ public class DialogTrigger : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.name == "Player")
-        {
-            TriggerDialog();
-        }
+        // gameObject.SetActive(false);
+        TriggerDialog();
     }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        
+    }
+
+    void OnMouseDown()
+    {
+        // gameObject.SetActive(false);
+        Debug.Log("Mouse Over.");
+        TriggerDialog();
+        // gameObject.SetActive(true);
+    }
+    
 }

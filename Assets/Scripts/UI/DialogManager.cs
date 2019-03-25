@@ -2,6 +2,7 @@
 using System.Collections ;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 
 public class DialogManager : MonoBehaviour
@@ -14,6 +15,7 @@ public class DialogManager : MonoBehaviour
         {
             instance = this;
             DontDestroyOnLoad(gameObject);
+            SceneManager.activeSceneChanged += LoadMenu;
         }
         else if (instance != this)
         {
@@ -22,21 +24,48 @@ public class DialogManager : MonoBehaviour
     }
     #endregion
 
-    private Queue<string> sentences;
-    public Text nameText;
-    public Text dialogText;
-    public Animator animator;
 
-    // Start is called before the first frame update
+    private Queue<string> sentences;
+    private GameObject menu;
+    private GameObject dialogBox;
+    private Text nameText;
+    private Text dialogText;
+    private Animator animator;
+    private Image avatar;
+    private GameObject floatMenu;
+    private Button continueButton;
+
     void Start()
     {
         sentences = new Queue<string>();
     }
 
+    private void LoadMenu(Scene current, Scene next)
+    {
+        Debug.Log("Menu loaded.");
+        menu = GameObject.FindGameObjectWithTag("Menu");
+        if (menu == null)
+            return;
+        dialogBox = menu.transform.Find("DialogBox").gameObject;
+        floatMenu = menu.transform.Find("FloatingMenu").gameObject;
+        animator = menu.transform.Find("DialogBox").GetComponent<Animator>();
+        nameText = dialogBox.transform.Find("Name").GetComponent<Text>();
+        dialogText = dialogBox.transform.Find("Dialog").GetComponent<Text>();
+        avatar = dialogBox.transform.Find("Image").GetComponent<Image>();
+        continueButton = dialogBox.transform.Find("Continue").GetComponent<Button>();
+        if (floatMenu == null || animator == null || avatar == null || dialogText == null || nameText == null || continueButton == null)
+        {
+            Debug.LogWarning("DialogManager: Initialization failed.");
+        }
+        continueButton.onClick.AddListener(delegate () { DisplayNextSentence(); });
+    }
+
     public void StartDialogue (Dialog dialog) {
 
+        floatMenu.SetActive(false);
         animator.SetBool("IsOpen", true);
         nameText.text = dialog.name;
+        avatar.sprite = dialog.image;
         sentences.Clear();
         foreach (string sentence in dialog.sentences)
         {
@@ -70,6 +99,6 @@ public class DialogManager : MonoBehaviour
     public void EndDialog()
     {
         animator.SetBool("IsOpen", false);
-        Debug.Log("End of Dialog");
+        floatMenu.SetActive(true);
     }
 }

@@ -16,6 +16,7 @@ TagManager:
   - underground
   - RollingStone
   - good_ending
+  - Menu
   layers:
   - Default
   - TransparentFX
