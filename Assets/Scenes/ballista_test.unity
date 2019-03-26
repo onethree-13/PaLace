@@ -449,7 +449,7 @@ Transform:
   - {fileID: 222584386}
   - {fileID: 2069305664}
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &989837398
 GameObject:
@@ -531,7 +531,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &1042918602 stripped
 Transform:
@@ -612,6 +612,26 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 5065212742605933618, guid: c658f7b7675a3644890c68187d6fdb79,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5064372512062236972, guid: c658f7b7675a3644890c68187d6fdb79,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8920584073119898581, guid: c658f7b7675a3644890c68187d6fdb79,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8921424304867278539, guid: c658f7b7675a3644890c68187d6fdb79,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7465890027725294361, guid: c658f7b7675a3644890c68187d6fdb79,
         type: 3}
       propertyPath: m_Name
@@ -736,6 +756,17 @@ PrefabInstance:
       propertyPath: m_Name
       value: Ballista_1
       objectReference: {fileID: 0}
+    - target: {fileID: 4810161037617337283, guid: 78fc9803f50da8f429ce1859f433aa59,
+        type: 3}
+      propertyPath: ArrowPrefab
+      value: 
+      objectReference: {fileID: 2283816224499550183, guid: e8a8ac858f7b5de4bab89caa12f441d9,
+        type: 3}
+    - target: {fileID: 4810161037617337283, guid: 78fc9803f50da8f429ce1859f433aa59,
+        type: 3}
+      propertyPath: FirePoint
+      value: 
+      objectReference: {fileID: 1042918602}
     - target: {fileID: 4810161037617337281, guid: 78fc9803f50da8f429ce1859f433aa59,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -791,17 +822,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4810161037617337283, guid: 78fc9803f50da8f429ce1859f433aa59,
-        type: 3}
-      propertyPath: ArrowPrefab
-      value: 
-      objectReference: {fileID: 2283816224499550183, guid: e8a8ac858f7b5de4bab89caa12f441d9,
-        type: 3}
-    - target: {fileID: 4810161037617337283, guid: 78fc9803f50da8f429ce1859f433aa59,
-        type: 3}
-      propertyPath: FirePoint
-      value: 
-      objectReference: {fileID: 1042918602}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 78fc9803f50da8f429ce1859f433aa59, type: 3}
 --- !u!114 &2021228938 stripped
