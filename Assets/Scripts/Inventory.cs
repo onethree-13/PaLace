@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class Inventory : MonoBehaviour
 {
-
     #region Singleton
     public static Inventory instance;
     void Awake()
@@ -57,5 +56,20 @@ public class Inventory : MonoBehaviour
     {
         Debug.Assert(id < space);
         return (items[id] != null);
+    }
+
+    public int getItemNumber()
+    {
+        int count = 0;
+
+        for(int i = 0; i < items.Length; i++)
+        {
+            if(items[i] != null)
+            {
+                count = count + 1;
+            }
+        }
+
+        return count;
     }
 }

@@ -1,10 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class DialogTrigger : MonoBehaviour
 {
+    public string dialogName;
     public Dialog dialog;
+    public bool triggerOnlyOnce;
 
     public void TriggerDialog()
     {
@@ -13,6 +16,14 @@ public class DialogTrigger : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        // If dialog should trigger only one time and is already triggered
+        GameController gameController = GameObject.FindGameObjectWithTag("GameCtrl").GetComponent<GameController>();
+
+        if (triggerOnlyOnce == true && gameController.IsDialogNotTriggered(dialogName) == false)
+        {
+            return;
+        }
+
         // gameObject.SetActive(false);
         TriggerDialog();
     }

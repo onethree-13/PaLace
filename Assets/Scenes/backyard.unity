@@ -4858,6 +4858,142 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 55bc548e378cf67408e08c3072250017, type: 3}
+--- !u!1 &437200289
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 437200290}
+  - component: {fileID: 437200293}
+  - component: {fileID: 437200292}
+  - component: {fileID: 437200291}
+  m_Layer: 0
+  m_Name: Talk (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &437200290
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 437200289}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0.062951565}
+  m_LocalScale: {x: 0.384, y: 0.384, z: 1.51475}
+  m_Children: []
+  m_Father: {fileID: 640245673}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 1}
+  m_AnchorMax: {x: 0.5, y: 1}
+  m_AnchoredPosition: {x: 67.49, y: -0.89}
+  m_SizeDelta: {x: 5.91, y: 5.51}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!61 &437200291
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 437200289}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.21920872, y: 0.25906515}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 5.922, y: 5.042}
+    newSize: {x: 5.12, y: 5.12}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 6.594679, y: 5.63813}
+  m_EdgeRadius: 0
+--- !u!114 &437200292
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 437200289}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c842d738bb8a5fa4c952b73075dd30ab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dialogName: 
+  dialog:
+    name: John Doe
+    sentences:
+    - 'So this is backyard of Fireiron''s palace... '
+    - Something wrong with this place. It is too quiet. The smell of wind... It is
+      blood
+    - There must be traps here. I gotta be careful
+    - I also feel the existence of Mahjong tiles of Nine. Some of them must be here.
+    - Things are going to be tricky...
+    image: {fileID: 21300000, guid: d3620218957314f46b4f3e1034149bd9, type: 3}
+  triggerOnlyOneTime: 0
+--- !u!212 &437200293
+SpriteRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 437200289}
+  m_Enabled: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 0
+  m_SelectedEditorRenderState: 0
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_Sprite: {fileID: 21300000, guid: 2ac0aae395f81a34fa073790907022c4, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_FlipX: 0
+  m_FlipY: 0
+  m_DrawMode: 0
+  m_Size: {x: 5.12, y: 5.12}
+  m_AdaptiveModeThreshold: 0.5
+  m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1
+  m_MaskInteraction: 0
+  m_SpriteSortPoint: 0
 --- !u!4 &439384371 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 447290, guid: ffb0330b28dfc07479b3c043390e584e,
@@ -28053,7 +28189,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 498666607}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -11.53, y: 1.02, z: 0}
+  m_LocalPosition: {x: -8.89, y: 0.92, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -29278,6 +29414,38 @@ Transform:
   - {fileID: 602430913}
   m_Father: {fileID: 907430316}
   m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &640245672
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 640245673}
+  m_Layer: 0
+  m_Name: Talks
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &640245673
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 640245672}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -4.9119887, y: 1.9166353, z: -0.062951565}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 1198956289}
+  - {fileID: 437200290}
+  m_Father: {fileID: 0}
+  m_RootOrder: 22
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &641077755
 PrefabInstance:
@@ -31327,6 +31495,30 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 871517251, guid: c658f7b7675a3644890c68187d6fdb79, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5065212742605933618, guid: c658f7b7675a3644890c68187d6fdb79,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5064372512062236972, guid: c658f7b7675a3644890c68187d6fdb79,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8920584073119898581, guid: c658f7b7675a3644890c68187d6fdb79,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8921424304867278539, guid: c658f7b7675a3644890c68187d6fdb79,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5886773825109646156, guid: c658f7b7675a3644890c68187d6fdb79,
         type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -31372,30 +31564,6 @@ PrefabInstance:
     - target: {fileID: 1037968885, guid: c658f7b7675a3644890c68187d6fdb79, type: 3}
       propertyPath: m_Delegates.Array.data[1].callback.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: ReleaseJump
-      objectReference: {fileID: 0}
-    - target: {fileID: 871517251, guid: c658f7b7675a3644890c68187d6fdb79, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5065212742605933618, guid: c658f7b7675a3644890c68187d6fdb79,
-        type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5064372512062236972, guid: c658f7b7675a3644890c68187d6fdb79,
-        type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8920584073119898581, guid: c658f7b7675a3644890c68187d6fdb79,
-        type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8921424304867278539, guid: c658f7b7675a3644890c68187d6fdb79,
-        type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c658f7b7675a3644890c68187d6fdb79, type: 3}
@@ -34351,7 +34519,7 @@ GameObject:
   - component: {fileID: 1198956287}
   - component: {fileID: 1198956286}
   m_Layer: 0
-  m_Name: talk
+  m_Name: Talk
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -34395,13 +34563,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c842d738bb8a5fa4c952b73075dd30ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dialogName: backyard_first_entered_dialog
   dialog:
-    name: Yiming
+    name: John Doe
     sentences:
-    - Hey Buddy
-    - "Say Hello to your mum\t"
-    - Bye
+    - 'So this is backyard of Fireiron''s palace... '
+    - Something wrong with this place. It is too quiet. The smell of wind... It is
+      blood
+    - There must be traps here. I gotta be careful
+    - I also feel the existence of Mahjong tiles of Nine. Some of them must be here.
+    - Things are going to be tricky...
     image: {fileID: 21300000, guid: d3620218957314f46b4f3e1034149bd9, type: 3}
+  triggerOnlyOneTime: 1
 --- !u!212 &1198956288
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -34409,7 +34582,7 @@ SpriteRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1198956285}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
@@ -34458,15 +34631,15 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1198956285}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0.062951565}
   m_LocalScale: {x: 0.384, y: 0.384, z: 1.514752}
   m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 22
+  m_Father: {fileID: 640245673}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: -3.93, y: 1.52}
+  m_AnchoredPosition: {x: -4.018011, y: -0.3966353}
   m_SizeDelta: {x: 5.91, y: 5.51}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!4 &1199210215 stripped
@@ -40866,7 +41039,7 @@ PrefabInstance:
     - target: {fileID: 8332981020335968365, guid: 115fa7c6cfe0e421eb12ae15d5463ade,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -1.689023
+      value: -1.7021389
       objectReference: {fileID: 0}
     - target: {fileID: 8332981020335968365, guid: 115fa7c6cfe0e421eb12ae15d5463ade,
         type: 3}
@@ -40881,7 +41054,7 @@ PrefabInstance:
     - target: {fileID: 8332981020980108596, guid: 115fa7c6cfe0e421eb12ae15d5463ade,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -8.493332
+      value: -8.49343
       objectReference: {fileID: 0}
     - target: {fileID: 8332981020980108596, guid: 115fa7c6cfe0e421eb12ae15d5463ade,
         type: 3}

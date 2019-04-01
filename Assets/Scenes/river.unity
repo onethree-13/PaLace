@@ -271,12 +271,12 @@ PrefabInstance:
     - target: {fileID: 8332981020335968365, guid: 115fa7c6cfe0e421eb12ae15d5463ade,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 8.810223
+      value: 8.810139
       objectReference: {fileID: 0}
     - target: {fileID: 8332981020335968365, guid: 115fa7c6cfe0e421eb12ae15d5463ade,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.04784584
+      value: 0.031383514
       objectReference: {fileID: 0}
     - target: {fileID: 8332981020335968365, guid: 115fa7c6cfe0e421eb12ae15d5463ade,
         type: 3}
@@ -311,7 +311,7 @@ PrefabInstance:
     - target: {fileID: 8332981020980108596, guid: 115fa7c6cfe0e421eb12ae15d5463ade,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -11.936131
+      value: -11.9362545
       objectReference: {fileID: 0}
     - target: {fileID: 8332981020980108596, guid: 115fa7c6cfe0e421eb12ae15d5463ade,
         type: 3}
@@ -11635,7 +11635,7 @@ Transform:
   m_Children:
   - {fileID: 1722312727}
   m_Father: {fileID: 0}
-  m_RootOrder: 19
+  m_RootOrder: 18
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &740273286
 GameObject:
@@ -11661,7 +11661,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 740273286}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -13.300001, y: 8.9, z: 0}
+  m_LocalPosition: {x: -12.3, y: 8.9, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -23186,7 +23186,7 @@ GameObject:
   - component: {fileID: 1086524520}
   - component: {fileID: 1086524519}
   m_Layer: 0
-  m_Name: talk
+  m_Name: Talk
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -23230,13 +23230,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c842d738bb8a5fa4c952b73075dd30ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dialogName: river_first_entered_dialog
   dialog:
-    name: Yiming
+    name: John Doe
     sentences:
-    - Hey Buddy
-    - "Say Hello to your mum\t"
-    - Bye
+    - I am at the river now
+    - 'There are some floating woods on the river... I can use them to jump. '
+    - Just need to be careful to the weight, I should not eat too much with Junpeng
+      yesterday.
     image: {fileID: 21300000, guid: d3620218957314f46b4f3e1034149bd9, type: 3}
+  triggerOnlyOneTime: 1
 --- !u!212 &1086524521
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -23244,7 +23247,7 @@ SpriteRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1086524518}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
@@ -23293,15 +23296,15 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1086524518}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0.5}
   m_LocalScale: {x: 0.384, y: 0.384, z: 1.514752}
   m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 18
+  m_Father: {fileID: 1678277517}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: -7.12, y: 9.5}
+  m_AnchoredPosition: {x: -44.18, y: -2.996704}
   m_SizeDelta: {x: 5.91, y: 5.51}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1155660927
@@ -29318,6 +29321,37 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &1678277516
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1678277517}
+  m_Layer: 0
+  m_Name: Talks
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1678277517
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1678277516}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 32.064346, y: 12.496703, z: -0.5}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 1086524522}
+  m_Father: {fileID: 0}
+  m_RootOrder: 19
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1678765181
 PrefabInstance:
   m_ObjectHideFlags: 0

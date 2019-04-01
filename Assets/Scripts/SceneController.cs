@@ -15,10 +15,10 @@ public class SceneController : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        // If player entered the switch scene trigger
         if(collision.CompareTag("Player"))
         {
             gameController.lastLoadedScene = SceneManager.GetActiveScene().name;
-            Debug.Log(gameObject.tag);
             SceneManager.LoadScene(gameObject.tag);
         }
     }
