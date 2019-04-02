@@ -8,7 +8,8 @@ using System.Collections;
 [RequireComponent(typeof(AudioSource))]
 public class Player : MonoBehaviour {
     public bool enableControl = true;                                           // Enable player input.
-    [SerializeField] private float runSpeed = 32f;                              // setting the rate of horizontal move
+    public float runSpeed = 32f;                                                // setting the rate of horizontal move
+    public float inertia = 0.9f;                                                // setting the decreasing rate of horizontal speed when disabling controller
     [Range(0, 1)] [SerializeField] private float m_CrouchSpeed = .36f;          // Amount of maxSpeed applied to crouching movement. 1 = 100%
     [Range(0, .3f)] [SerializeField] private float m_MovementSmoothing = .05f;  // How much to smooth out the movement
 
@@ -137,39 +138,32 @@ public class Player : MonoBehaviour {
     }
 
 	void Update () {
-        // Update isGrounded form characterController2d
-        isGrounded = characterController2d.isGrounded;
+        horizontalMove = inertia * horizontalMove;
 
-        // Warning!!!
-        // Please put operation not related to player input above this line,
-        // Or it may not work when input is disabled.
-
-        horizontalMove = 0f;
-
-        if (!enableControl || stats.curHealth <= 0.0f)
-            return;
-
-        horizontalMove = SimpleInput.GetAxisRaw("Horizontal") * runSpeed;
-
-        if (SimpleInput.GetButtonDown("Crouch"))
-            crouch = true;
-        else if (Input.GetButtonUp("Crouch"))
-            crouch = false;
-
-        if (SimpleInput.GetButtonDown("Jump") && isGrounded && jump == false)
+        if (enableControl)
         {
-            // The player starts to jump from any ground
-            jump = true;
-        }
-        else if (SimpleInput.GetButtonUp("Jump") && !isGrounded && jumpCancel == false)
-        {
-            // The player starts to cancel jumping in the air
-            jumpCancel = true;
-        }
+            horizontalMove = SimpleInput.GetAxisRaw("Horizontal") * runSpeed;
 
-        // Player begins to attack 
-        if (SimpleInput.GetButtonDown("Fire1") && !attack)
-            StartCoroutine(AttackCoroutine());
+            if (SimpleInput.GetButtonDown("Crouch"))
+                crouch = true;
+            else if (Input.GetButtonUp("Crouch"))
+                crouch = false;
+
+            if (SimpleInput.GetButtonDown("Jump") && isGrounded && jump == false)
+            {
+                // The player starts to jump from any ground
+                jump = true;
+            }
+            else if (SimpleInput.GetButtonUp("Jump") && !isGrounded && jumpCancel == false)
+            {
+                // The player starts to cancel jumping in the air
+                jumpCancel = true;
+            }
+
+            // Player begins to attack 
+            if (SimpleInput.GetButtonDown("Fire1") && !attack)
+                StartCoroutine(AttackCoroutine());
+        }
         
         // Update animation
         m_Animator.SetFloat("Speed", Mathf.Abs(horizontalMove));
@@ -289,7 +283,6 @@ public class Player : MonoBehaviour {
 
     public IEnumerator RespawnPlayer (Transform spawnPoint)
     {
-        Debug.Log(stats.curHealth);
         // Unfixed Bug: Player flip for no reason before respawn
         enableControl = false;
         characterController2d.SetVelocity(Vector2.zero);

@@ -15,8 +15,9 @@ TagManager:
   - central
   - underground
   - RollingStone
-  - good_ending
   - Menu
+  - good_ending
+  - Panel
   layers:
   - Default
   - TransparentFX
