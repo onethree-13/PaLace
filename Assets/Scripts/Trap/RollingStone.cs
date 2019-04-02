@@ -15,7 +15,7 @@ public class RollingStone : MonoBehaviour
     float stopTimer = 0f;
     bool isRolling = false;
 
-    public void Awake()
+    void Awake()
     {
         m_stoneSFXSource = GetComponent<AudioSource>();
 
@@ -24,11 +24,11 @@ public class RollingStone : MonoBehaviour
         m_stoneSFXSource.loop = true;
     }
 
-    public void FixedUpdate()
+    void FixedUpdate()
     {
         // Stop rolling SFX when stone stops moving for stopCountDown
 
-        if (Mathf.Abs(rb.velocity.x) > 0.05f && Mathf.Abs(rb.velocity.y) > 0.05f)
+        if (rb.velocity.sqrMagnitude > 0.05f)
             stopTimer = stopCountDown;
 
         if (stopTimer <= 0f && isRolling) {
