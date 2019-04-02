@@ -15,8 +15,13 @@ TagManager:
   - central
   - underground
   - RollingStone
-  - good_ending
   - Menu
+  - BadEnding
+  - GoodEnding
+  - NormalEnding
+  - HiddenEnding
+  - good_ending
+  - Panel
   layers:
   - Default
   - TransparentFX
