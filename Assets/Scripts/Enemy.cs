@@ -52,7 +52,8 @@ public class Enemy : MonoBehaviour {
     public int meleeDamage = 1;
     public float meleeRange = 1.0f;
     public float meleeAngle = 60.0f;
-    [SerializeField] private float m_AttackPreparePeriod = .9f; // How long the attacking animation plays before the enemy can really cause damage
+    [SerializeField] private float m_AttackDelay = 1f;          // How long enemy attack after approaching player
+    [SerializeField] private float m_AttackPreparePeriod = 1f;  // How long the attacking animation plays before the enemy can really cause damage
     [SerializeField] private float m_AttackColdDown = 1f;       // How long the enemy freezes after finish an attack
 
     [Header("Scan settings")]
@@ -370,6 +371,8 @@ public class Enemy : MonoBehaviour {
     public IEnumerator AttackCoroutine()
     {
         enableMovement = false;
+
+        yield return new WaitForSeconds(m_AttackDelay);
 
         // Avoid dead enemy attack player.
         if (stats.curHealth <= 0.0f)

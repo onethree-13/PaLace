@@ -183,11 +183,14 @@ MonoBehaviour:
   brakingDirection: 0
   repeatingPointSet: 1
   waitAtPoint: 2
-  points: []
-  touchDamage: 1
+  points:
+  - {fileID: 0}
+  - {fileID: 0}
+  touchDamage: 0
   meleeDamage: 1
   meleeRange: 1.65
   meleeAngle: 120
+  m_AttackDelay: 1
   m_AttackPreparePeriod: 0.9
   m_AttackColdDown: 1
   viewDirection: 0
