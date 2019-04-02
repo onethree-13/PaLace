@@ -8,6 +8,7 @@ using UnityEditor;
 
 [RequireComponent(typeof(CharacterController2D))]
 [RequireComponent(typeof(Animator))]
+[RequireComponent(typeof(AudioSource))]
 public class Enemy : MonoBehaviour {
 
     public bool enableMovement = true;  // Enable AI of this enemy.
@@ -81,11 +82,29 @@ public class Enemy : MonoBehaviour {
     // Enemey view related
     protected float m_TimeSinceLastTargetView;
 
+    // SFX Raleted
+    protected AudioSource m_EnemySFXource;
+    public AudioClip attackSFXClip;
+    public AudioClip hitSFXClip;
+    public AudioClip dieSFXClip;
+
     // Animation Related
     protected Animator m_Animator;   // Animation controller of player
-    public void PlayAttackAnimation() => m_Animator.SetTrigger("Attacking");
-    public void PlayHitAnimation() => m_Animator.SetTrigger("NormalHit");
-    public void PlayDeathAnimation() => m_Animator.SetTrigger("DeadlyHit");
+    public void PlayAttackAnimation()
+    {
+        m_Animator.SetTrigger("Attacking");
+        m_EnemySFXource.PlayOneShot(attackSFXClip);
+    }
+    public void PlayHitAnimation()
+    {
+        m_Animator.SetTrigger("NormalHit");
+        m_EnemySFXource.PlayOneShot(hitSFXClip);
+    }
+    public void PlayDeathAnimation()
+    {
+        m_Animator.SetTrigger("DeadlyHit");
+        m_EnemySFXource.PlayOneShot(dieSFXClip);
+    }
 
     // Other Controller and entity
     private CharacterController2D characterController;
@@ -97,6 +116,7 @@ public class Enemy : MonoBehaviour {
         gameController = GameObject.FindGameObjectWithTag("GameCtrl").GetComponent<GameController>();
         characterController = GetComponent<CharacterController2D>();
         m_Animator = GetComponent<Animator>();
+        m_EnemySFXource = GetComponent<AudioSource>();
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
 
         if (spriteFaceRight)
