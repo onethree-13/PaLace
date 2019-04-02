@@ -11,11 +11,23 @@ public class CutSceneScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        timeline = GetComponent<PlayableDirector>();
+        timeline.stopped += OnPlayableDirectorStopped;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        player.enableControl = false;
         timeline.Play();
+        GetComponent<BoxCollider2D>().enabled = false;
+    }
+
+    void OnPlayableDirectorStopped(PlayableDirector aDirector)
+    {
+        if (timeline == aDirector)
+        {
+            Debug.Log("PlayableDirector named " + aDirector.name + " is now stopped.");
+            Debug.Log(player.transform.position);
+            player.enableControl = true;
+        }
     }
 }
