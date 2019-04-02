@@ -26,8 +26,10 @@ public class EndingController : MonoBehaviour
 
         int itemCollectedNum = Inventory.instance.getItemNumber();
 
+        // Hardcode for testing all ending
         itemCollectedNum = 9;
 
+        // Select Ending
         switch (itemCollectedNum)
         {
             case int n when (n == 0):
@@ -62,6 +64,7 @@ public class EndingController : MonoBehaviour
 
         DialogManager dialogManager = DialogManager.instance;
 
+        // Deactivate
         for(int i = 0; i < gameObjects.Length; i++)
         {
             gameObjects[i].SetActive(false);
@@ -73,7 +76,7 @@ public class EndingController : MonoBehaviour
             yield return new WaitForSeconds(0.1f);
         }
 
-        // set panel to activated
+        // Activate
         for (int i = 0; i < gameObjects.Length; i++)
         {
             gameObjects[i].SetActive(true);
