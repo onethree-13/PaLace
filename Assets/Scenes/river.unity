@@ -271,12 +271,12 @@ PrefabInstance:
     - target: {fileID: 8332981020335968365, guid: 115fa7c6cfe0e421eb12ae15d5463ade,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 8.810139
+      value: 8.810143
       objectReference: {fileID: 0}
     - target: {fileID: 8332981020335968365, guid: 115fa7c6cfe0e421eb12ae15d5463ade,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.031383514
+      value: 0.032201767
       objectReference: {fileID: 0}
     - target: {fileID: 8332981020335968365, guid: 115fa7c6cfe0e421eb12ae15d5463ade,
         type: 3}
@@ -311,7 +311,7 @@ PrefabInstance:
     - target: {fileID: 8332981020980108596, guid: 115fa7c6cfe0e421eb12ae15d5463ade,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -11.9362545
+      value: -11.936249
       objectReference: {fileID: 0}
     - target: {fileID: 8332981020980108596, guid: 115fa7c6cfe0e421eb12ae15d5463ade,
         type: 3}
@@ -23239,7 +23239,7 @@ MonoBehaviour:
     - Just need to be careful to the weight, I should not eat too much with Junpeng
       yesterday.
     image: {fileID: 21300000, guid: d3620218957314f46b4f3e1034149bd9, type: 3}
-  triggerOnlyOneTime: 1
+  triggerOnlyOnce: 1
 --- !u!212 &1086524521
 SpriteRenderer:
   m_ObjectHideFlags: 0

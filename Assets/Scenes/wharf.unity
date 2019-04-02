@@ -539,7 +539,7 @@ MonoBehaviour:
     sentences:
     - Press A to attack.
     image: {fileID: 21300000, guid: d3620218957314f46b4f3e1034149bd9, type: 3}
-  triggerOnlyOneTime: 0
+  triggerOnlyOnce: 0
 --- !u!212 &614648672
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -670,7 +670,7 @@ MonoBehaviour:
     sentences:
     - Press B longer to jump higher.
     image: {fileID: 21300000, guid: d3620218957314f46b4f3e1034149bd9, type: 3}
-  triggerOnlyOneTime: 0
+  triggerOnlyOnce: 0
 --- !u!212 &832875245
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -807,7 +807,7 @@ MonoBehaviour:
     sentences:
     - Press B to jump.
     image: {fileID: 21300000, guid: d3620218957314f46b4f3e1034149bd9, type: 3}
-  triggerOnlyOneTime: 0
+  triggerOnlyOnce: 0
 --- !u!212 &951566920
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -16270,7 +16270,7 @@ MonoBehaviour:
     - 'I can infiltrate his palace via that laker. '
     - Time to go...
     image: {fileID: 21300000, guid: d3620218957314f46b4f3e1034149bd9, type: 3}
-  triggerOnlyOneTime: 1
+  triggerOnlyOnce: 1
 --- !u!212 &1771116405
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -17056,12 +17056,12 @@ PrefabInstance:
     - target: {fileID: 8332981020335968365, guid: 115fa7c6cfe0e421eb12ae15d5463ade,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -3.2254992
+      value: -3.2248478
       objectReference: {fileID: 0}
     - target: {fileID: 8332981020335968365, guid: 115fa7c6cfe0e421eb12ae15d5463ade,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -3.2254992
+      value: -3.2248478
       objectReference: {fileID: 0}
     - target: {fileID: 8332981020335968365, guid: 115fa7c6cfe0e421eb12ae15d5463ade,
         type: 3}
@@ -17076,12 +17076,12 @@ PrefabInstance:
     - target: {fileID: 8332981020980108596, guid: 115fa7c6cfe0e421eb12ae15d5463ade,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -11.22343
+      value: -11.223425
       objectReference: {fileID: 0}
     - target: {fileID: 8332981020980108596, guid: 115fa7c6cfe0e421eb12ae15d5463ade,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -11.22343
+      value: -11.223425
       objectReference: {fileID: 0}
     - target: {fileID: 8332981020980108596, guid: 115fa7c6cfe0e421eb12ae15d5463ade,
         type: 3}
