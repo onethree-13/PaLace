@@ -27,7 +27,7 @@ public class EndingController : MonoBehaviour
         int itemCollectedNum = Inventory.instance.getItemNumber();
 
         // Hardcode for testing all ending
-        itemCollectedNum = 9;
+        // itemCollectedNum = 9;
 
         // Select Ending
         switch (itemCollectedNum)
