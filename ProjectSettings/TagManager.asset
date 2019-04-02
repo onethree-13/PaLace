@@ -16,10 +16,6 @@ TagManager:
   - underground
   - RollingStone
   - Menu
-  - BadEnding
-  - GoodEnding
-  - NormalEnding
-  - HiddenEnding
   - good_ending
   - Panel
   layers:

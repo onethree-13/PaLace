@@ -599,6 +599,61 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &500192147
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 500192148}
+  - component: {fileID: 500192149}
+  m_Layer: 0
+  m_Name: Bad Ending Talk
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &500192148
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 500192147}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -464.65192, y: -176.22441, z: 11.5}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1525159572}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &500192149
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 500192147}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c842d738bb8a5fa4c952b73075dd30ab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dialogName: bad_ending_dialog
+  dialog:
+    name: Storyteller
+    sentences:
+    - Although John Doe did safely made his way out of Fireiron's palace, he does
+      not find any Mahjong tile.
+    - Even worse, Fireiron knew John Doe had been to his palace...
+    - Fireiron swallowed all the tiles so that nobody can touch it.
+    - Despair covers all the land and we do not know if we can shine the lights of
+      hope again...
+    image: {fileID: 0}
+  triggerOnlyOnce: 0
 --- !u!1 &590378130
 GameObject:
   m_ObjectHideFlags: 0
@@ -976,7 +1031,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 100}
-  m_SizeDelta: {x: 200, y: 50}
+  m_SizeDelta: {x: 645.9, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &866587735
 MonoBehaviour:
@@ -1026,7 +1081,7 @@ MonoBehaviour:
   m_outlineColor:
     serializedVersion: 2
     rgba: 4278190080
-  m_fontSize: 57.5
+  m_fontSize: 72
   m_fontSizeBase: 39.9
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -1064,7 +1119,7 @@ MonoBehaviour:
   m_firstVisibleCharacter: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: -22.930481, y: -10.365845, z: -24.919891, w: -26.490479}
+  m_margin: {x: -39.905514, y: -10.365845, z: -24.919891, w: -26.490479}
   m_textInfo:
     textComponent: {fileID: 866587735}
     characterCount: 8
@@ -1101,6 +1156,121 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 866587733}
   m_CullTransparentMesh: 0
+--- !u!1 &1249983804
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1249983805}
+  - component: {fileID: 1249983806}
+  m_Layer: 0
+  m_Name: Hidden Ending Talk
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1249983805
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1249983804}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -464.65192, y: -176.22441, z: 11.5}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1525159572}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1249983806
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1249983804}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c842d738bb8a5fa4c952b73075dd30ab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dialogName: hidden_ending_dialog
+  dialog:
+    name: Storyteller
+    sentences:
+    - John Doe successfully got all Mahjong tiles, which led to the fall of Fireiron.
+    - ' John Doe took along the night Mahjong tiles all the time, make sure no one
+      can touch them.'
+    - But the Night Mahjong tiles had a will of their own...
+    - After only one year of peace, a man with the Night Mahjong appeared, and no
+      one know his name.
+    - People called him Fireiron II.
+    - With the power of the Night Mahjong, Fireiron II forces everyone yield to him.
+    - Many warriors stand against him, yet no one success...
+    - Still, people believe, that the legendary John Doe would return and save them
+      someday.
+    - Will him?
+    image: {fileID: 0}
+  triggerOnlyOnce: 0
+--- !u!1 &1480517530
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1480517531}
+  - component: {fileID: 1480517532}
+  m_Layer: 0
+  m_Name: Good Ending Talk
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1480517531
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1480517530}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -464.65192, y: -176.22441, z: 11.5}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1525159572}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1480517532
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1480517530}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c842d738bb8a5fa4c952b73075dd30ab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dialogName: good_ending_dialog
+  dialog:
+    name: Storyteller
+    sentences:
+    - John Doe got most of the Nine Mahjong tiles and the power of Fireiron and now
+      in reduced circumstances.
+    - With the Nine Mahjong John Doe had, he joined the resistance to fight with Fireiron
+    - After so many death, including John Doe, Fireiron is finally defeated.
+    - Peace finally come to this land and John Doe would never be forgotten.
+    image: {fileID: 0}
+  triggerOnlyOnce: 0
 --- !u!1 &1503012957
 GameObject:
   m_ObjectHideFlags: 0
@@ -1194,7 +1364,10 @@ Transform:
   m_LocalPosition: {x: 773.1519, y: 279.10916, z: -11.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
+  - {fileID: 500192148}
   - {fileID: 1934928686}
+  - {fileID: 1480517531}
+  - {fileID: 1249983805}
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1471,7 +1644,7 @@ GameObject:
   - component: {fileID: 1934928686}
   - component: {fileID: 1934928685}
   m_Layer: 0
-  m_Name: Bad Ending Talk
+  m_Name: Normal Ending Talk
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1489,11 +1662,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c842d738bb8a5fa4c952b73075dd30ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dialogName: test
+  dialogName: normal_ending_dialog
   dialog:
-    name: test
+    name: Storyteller
     sentences:
-    - test
+    - John Doe stolen some Mahjong tiles from Fireiron, but not enough to stop him.
+    - In order to fight against Fireiron, John Doe gave away all the Mahjong Tiles
+      he had to some warriors.
+    - After years of fight, warriors finally defeat Fireiron.
+    - But peace does not come as people expected...
+    - Warriors, who once stand together, have different opinions about how to deal
+      with Nine Mahjong tiles.
+    - Finally, in order to take others' tiles, those warriors parted away and start
+      fighting each other.
+    - It seems that John Doe's fight will continue...
     image: {fileID: 0}
   triggerOnlyOnce: 0
 --- !u!4 &1934928686
@@ -1508,5 +1690,5 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1525159572}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
