@@ -34,6 +34,7 @@ public class DialogManager : MonoBehaviour
     private Image avatar;
     private GameObject floatMenu;
     private Button continueButton;
+    private bool isDialogPlaying;         // for getting status of co-routine
 
     void Start()
     {
@@ -71,6 +72,10 @@ public class DialogManager : MonoBehaviour
         {
             sentences.Enqueue(sentence);
         }
+
+        // Set not playing to false
+        isDialogPlaying = true;
+
         DisplayNextSentence();
     }
     
@@ -98,7 +103,16 @@ public class DialogManager : MonoBehaviour
 
     public void EndDialog()
     {
+        // Set dialog playing to false
+        isDialogPlaying = false;
+
         animator.SetBool("IsOpen", false);
         floatMenu.SetActive(true);
+    }
+
+    // Get dialog playing status
+    public bool getDialogPlayStatus()
+    {
+        return isDialogPlaying;
     }
 }
