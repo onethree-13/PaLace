@@ -534,11 +534,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dialogName: 
-  dialog:
-    name: Mysterious Voice
-    sentences:
-    - Press A to attack.
-    image: {fileID: 21300000, guid: d3620218957314f46b4f3e1034149bd9, type: 3}
+  dialogs: []
   triggerOnlyOnce: 0
 --- !u!212 &614648672
 SpriteRenderer:
@@ -698,11 +694,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dialogName: 
-  dialog:
-    name: Mysterious Voice
-    sentences:
-    - Press B longer to jump higher.
-    image: {fileID: 21300000, guid: d3620218957314f46b4f3e1034149bd9, type: 3}
+  dialogs: []
   triggerOnlyOnce: 0
 --- !u!212 &832875245
 SpriteRenderer:
@@ -835,11 +827,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dialogName: 
-  dialog:
-    name: Mysterious Voice
+  dialogs:
+  - name: yiming
     sentences:
-    - Press B to jump.
+    - hello
+    image: {fileID: 21300000, guid: 1fecd75b50d99624ea2bbe2f029d4b6f, type: 3}
+  - name: John Doe
+    sentences:
+    - Hola
     image: {fileID: 21300000, guid: d3620218957314f46b4f3e1034149bd9, type: 3}
+  - name: yiming
+    sentences:
+    - Bye
+    image: {fileID: 21300000, guid: 1fecd75b50d99624ea2bbe2f029d4b6f, type: 3}
   triggerOnlyOnce: 0
 --- !u!212 &951566920
 SpriteRenderer:
@@ -16203,11 +16203,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Menu
       objectReference: {fileID: 0}
-    - target: {fileID: 5886773824318900591, guid: c658f7b7675a3644890c68187d6fdb79,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 5886773824318900595, guid: c658f7b7675a3644890c68187d6fdb79,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -16333,10 +16328,6 @@ PrefabInstance:
       propertyPath: m_SizeDelta.x
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 871517251, guid: c658f7b7675a3644890c68187d6fdb79, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c658f7b7675a3644890c68187d6fdb79, type: 3}
 --- !u!1 &1771116402
@@ -16397,16 +16388,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dialogName: wharf_first_entered_dialog
-  dialog:
-    name: John Doe
-    sentences:
-    - "Fireiron\u2019s palace is impenetrable\u2026 \n"
-    - "But that\u2019s for nobes\u2026 I am John Doe, the legendary greenhood! \n"
-    - "Fireiron\u2019s palace has a pretty good backyard which is side by a big lake.
-      I can infiltrate his palace via that laker. \n"
-    - 'I can infiltrate his palace via that laker. '
-    - Time to go...
-    image: {fileID: 21300000, guid: d3620218957314f46b4f3e1034149bd9, type: 3}
+  dialogs: []
   triggerOnlyOnce: 1
 --- !u!212 &1771116405
 SpriteRenderer:
@@ -17292,12 +17274,12 @@ PrefabInstance:
     - target: {fileID: 8332981020335968365, guid: 115fa7c6cfe0e421eb12ae15d5463ade,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -3.2194939
+      value: -6.7750483
       objectReference: {fileID: 0}
     - target: {fileID: 8332981020335968365, guid: 115fa7c6cfe0e421eb12ae15d5463ade,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -3.2194939
+      value: -6.7750483
       objectReference: {fileID: 0}
     - target: {fileID: 8332981020335968365, guid: 115fa7c6cfe0e421eb12ae15d5463ade,
         type: 3}
@@ -17312,12 +17294,12 @@ PrefabInstance:
     - target: {fileID: 8332981020980108596, guid: 115fa7c6cfe0e421eb12ae15d5463ade,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -11.223385
+      value: -11.250039
       objectReference: {fileID: 0}
     - target: {fileID: 8332981020980108596, guid: 115fa7c6cfe0e421eb12ae15d5463ade,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -11.223385
+      value: -11.250039
       objectReference: {fileID: 0}
     - target: {fileID: 8332981020980108596, guid: 115fa7c6cfe0e421eb12ae15d5463ade,
         type: 3}

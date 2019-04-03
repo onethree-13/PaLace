@@ -10,4 +10,11 @@ public class Dialog {
     public string[] sentences;
 
     public Sprite image;
+
+    public Dialog(string name, string sentence, Sprite image)
+    {
+        this.name = name;
+        this.sentences = new string[1] { sentence };
+        this.image = image;
+    }
 }
