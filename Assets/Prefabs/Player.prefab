@@ -309,6 +309,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enableControl: 1
   runSpeed: 42
+  inertia: 0.9
   m_CrouchSpeed: 0.36
   m_MovementSmoothing: 0.05
   m_JumpSpeed: 20
@@ -424,7 +425,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 1
+      value: 0
       inSlope: 0
       outSlope: 0
       tangentMode: 0
