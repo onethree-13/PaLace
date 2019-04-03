@@ -6,6 +6,8 @@ public class ItemPickup : MonoBehaviour
 {
     public Item item;
 
+    public AudioClip pickUpSFXClip;
+
     private void Start()
     {
         if (Inventory.instance.checkItemStatus(item.id))
@@ -18,14 +20,15 @@ public class ItemPickup : MonoBehaviour
     {
         if (collision.gameObject.name == "Player")
         {
-            Pickup();
+            Pickup(collision.gameObject);
             gameObject.SetActive(false);
         }
     }
 
-    void Pickup()
+    void Pickup(GameObject playerObj)
     {
         Debug.Log("Picking up " + item.name);
         Inventory.instance.Add(item);
+        playerObj.GetComponent<AudioSource>().PlayOneShot(pickUpSFXClip);
     }
 }

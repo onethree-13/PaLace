@@ -16,5 +16,8 @@ public class RollingStoneTrigger : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         rigidbody2D.gravityScale = 2;
+
+        // Play rolling stone SFX
+        rollingStone.GetComponent<RollingStone>().StartRollingSFX();
     }
 }
