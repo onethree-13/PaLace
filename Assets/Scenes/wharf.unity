@@ -16399,7 +16399,7 @@ MonoBehaviour:
     - Fireiron's backyard is connected to a river.
     - 'I can infiltrate his palace via that. '
     - Time to go...
-    image: {fileID: 0}
+    image: {fileID: 21300000, guid: 1ad752d83fc23144ba4c0f67a9f506cf, type: 3}
   triggerOnlyOnce: 1
 --- !u!212 &1771116405
 SpriteRenderer:
@@ -17285,12 +17285,12 @@ PrefabInstance:
     - target: {fileID: 8332981020335968365, guid: 115fa7c6cfe0e421eb12ae15d5463ade,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -3.2212734
+      value: -3.229681
       objectReference: {fileID: 0}
     - target: {fileID: 8332981020335968365, guid: 115fa7c6cfe0e421eb12ae15d5463ade,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -3.2212734
+      value: -3.229681
       objectReference: {fileID: 0}
     - target: {fileID: 8332981020335968365, guid: 115fa7c6cfe0e421eb12ae15d5463ade,
         type: 3}
@@ -17305,12 +17305,12 @@ PrefabInstance:
     - target: {fileID: 8332981020980108596, guid: 115fa7c6cfe0e421eb12ae15d5463ade,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -11.223398
+      value: -11.223461
       objectReference: {fileID: 0}
     - target: {fileID: 8332981020980108596, guid: 115fa7c6cfe0e421eb12ae15d5463ade,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -11.223398
+      value: -11.223461
       objectReference: {fileID: 0}
     - target: {fileID: 8332981020980108596, guid: 115fa7c6cfe0e421eb12ae15d5463ade,
         type: 3}

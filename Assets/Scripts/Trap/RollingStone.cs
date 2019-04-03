@@ -57,7 +57,7 @@ public class RollingStone : MonoBehaviour
             m_stoneSFXSource.PlayOneShot(hitSFXClip);
 
             player.Damage(1);
-            Invoke("Destructor", 0.5f);
+            // Invoke("Destructor", 0.5f);
         }
     }
 
