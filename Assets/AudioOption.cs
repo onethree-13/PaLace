@@ -20,12 +20,12 @@ public class AudioOption : MonoBehaviour
     public void BGMSliderChanged(float vol)
     {
         AudioController.audioController.SetBGMVolume(vol);
-        Debug.Log(string.Format("Current BGM Volume: {0}", AudioController.audioController.GetBGMVolume()));
+        //Debug.Log(string.Format("Current BGM Volume: {0}", AudioController.audioController.GetBGMVolume()));
     }
 
     public void SFXSliderChanged(float vol)
     {
         AudioController.audioController.SetSFXVolume(vol);
-        Debug.Log(string.Format("Current SFX Volume: {0}", AudioController.audioController.GetSFXVolume()));
+        //Debug.Log(string.Format("Current SFX Volume: {0}", AudioController.audioController.GetSFXVolume()));
     }
 }
