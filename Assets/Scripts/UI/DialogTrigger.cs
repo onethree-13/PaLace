@@ -6,13 +6,15 @@ using UnityEngine.SceneManagement;
 public class DialogTrigger : MonoBehaviour
 {
     public string dialogName;
-    public Dialog dialog;
+    public Dialog[] dialogs;
     public bool triggerOnlyOnce;
 
     public void TriggerDialog()
     {
-        Debug.Log('1');
-        DialogManager.instance.StartDialogue(dialog);
+        foreach (Dialog dialog in dialogs)
+        {
+            DialogManager.instance.StartDialogue(dialog);
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

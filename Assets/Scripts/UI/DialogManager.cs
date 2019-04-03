@@ -24,8 +24,8 @@ public class DialogManager : MonoBehaviour
     }
     #endregion
 
-
-    private Queue<string> sentences;
+    
+    private Queue<Dialog> dialogs;
     private GameObject menu;
     private GameObject dialogBox;
     private Text nameText;
@@ -38,7 +38,7 @@ public class DialogManager : MonoBehaviour
 
     void Start()
     {
-        sentences = new Queue<string>();
+        dialogs = new Queue<Dialog>();
     }
 
     private void LoadMenu(Scene current, Scene next)
@@ -65,30 +65,30 @@ public class DialogManager : MonoBehaviour
 
         floatMenu.SetActive(false);
         animator.SetBool("IsOpen", true);
-        nameText.text = dialog.name;
-        avatar.sprite = dialog.image;
-        sentences.Clear();
         foreach (string sentence in dialog.sentences)
         {
-            sentences.Enqueue(sentence);
+            dialogs.Enqueue(new Dialog(dialog.name, sentence, dialog.image));
         }
 
-        // Set not playing to false
-        isDialogPlaying = true;
-
-        DisplayNextSentence();
+        if (!isDialogPlaying) {
+            // Set not playing to false
+            isDialogPlaying = true;
+            DisplayNextSentence();
+        }
     }
     
     public void DisplayNextSentence()
     {
-        if(sentences.Count == 0)
+        if (dialogs.Count == 0)
         {
             EndDialog();
             return;
         }
-        string sentence = sentences.Dequeue();
+        Dialog dialog = dialogs.Dequeue();
+        nameText.text = dialog.name;
+        avatar.sprite = dialog.image;
         StopAllCoroutines();
-        StartCoroutine(TypeSentence(sentence));
+        StartCoroutine(TypeSentence(dialog.sentences[0]));
     }
 
     IEnumerator TypeSentence(string sentence)
