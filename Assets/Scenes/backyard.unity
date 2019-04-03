@@ -4975,7 +4975,7 @@ MonoBehaviour:
     image: {fileID: 0}
   - name: Land Spirit
     sentences:
-    - No... don't be...
+    - Remember... don't be greedy...
     image: {fileID: 0}
   triggerOnlyOnce: 1
 --- !u!212 &437200293
@@ -34899,6 +34899,9 @@ MonoBehaviour:
   traceViewDistance: 6
   timeBeforeTargetLost: 3
   isChasingPlayer: 0
+  attackSFXClip: {fileID: 0}
+  hitSFXClip: {fileID: 0}
+  dieSFXClip: {fileID: 0}
 --- !u!114 &1221236601
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -43214,6 +43217,9 @@ MonoBehaviour:
   traceViewDistance: 6
   timeBeforeTargetLost: 3
   isChasingPlayer: 0
+  attackSFXClip: {fileID: 0}
+  hitSFXClip: {fileID: 0}
+  dieSFXClip: {fileID: 0}
 --- !u!1 &2877079195637235513
 GameObject:
   m_ObjectHideFlags: 0

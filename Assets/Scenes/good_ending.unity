@@ -643,15 +643,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dialogName: bad_ending_dialog
-  dialog:
-    name: Storyteller
+  dialogs:
+  - name: Storyteller
     sentences:
-    - Although John Doe did safely made his way out of Fireiron's palace, he does
-      not find any Mahjong tile.
-    - Even worse, Fireiron knew John Doe had been to his palace...
-    - Fireiron swallowed all the tiles so that nobody can touch it.
-    - Despair covers all the land and we do not know if we can shine the lights of
-      hope again...
+    - John Doe did safely made his way out of Fireiron's palace
+    - With no Mahjong Tiles found.
+    - Even worse...
+    - Fireiron knew John Doe had been to his palace...
+    - Fireiron swallows all the tiles
+    - Making sure no one can touch it.
+    - Despair still covers all the land
+    - We do not know if we can shine the lights of hope again...
     image: {fileID: 0}
   triggerOnlyOnce: 0
 --- !u!1 &590378130
@@ -1200,21 +1202,25 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dialogName: hidden_ending_dialog
-  dialog:
-    name: Storyteller
+  dialogs:
+  - name: John Doe
     sentences:
-    - John Doe successfully got all Mahjong tiles, which led to the fall of Fireiron.
-    - John Doe took along the night Mahjong tiles all the time, make sure no one can
-      touch them.
-    - But the Night Mahjong tiles had a will of their own...
-    - After only one year of peace, a man with the Night Mahjong appeared, and no
-      one know his name.
-    - People called him Fireiron II.
-    - With the power of the Night Mahjong, Fireiron II forces everyone yield to him.
-    - Many warriors stand against him, yet no one success...
-    - Still, people believe, that the legendary John Doe would return and save them
-      someday.
-    - Will him?
+    - I made it!!! I got all the Mahjong Tiles
+    - I can finally bring a end to Fireiron's tyranny.
+    - These Mahjong Tiles, look at them, such evils...
+    - '...'
+    - '... ...'
+    - '... .... ....'
+    - '... My PRECIOUS !!!'
+    image: {fileID: 0}
+  - name: Storyteller
+    sentences:
+    - Fireiron is defeated after losing all Mahjong Tiles
+    - Peace finally come to this land
+    - However, after only one year, a new tyrant arises
+    - No one know where he came from
+    - People only know,
+    - That this new tyrant also have the Nine Mahjong Tiles
     image: {fileID: 0}
   triggerOnlyOnce: 0
 --- !u!1 &1480517530
@@ -1261,14 +1267,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dialogName: good_ending_dialog
-  dialog:
-    name: Storyteller
+  dialogs:
+  - name: Storyteller
     sentences:
-    - John Doe got most of the Nine Mahjong tiles and the power of Fireiron and now
-      in reduced circumstances.
-    - With the Nine Mahjong John Doe had, he joined the resistance to fight with Fireiron
-    - After so many death, including John Doe, Fireiron is finally defeated.
-    - Peace finally come to this land and John Doe would never be forgotten.
+    - 'John Doe get most of the Nine Mahjong tiles and '
+    - The power of Fireiron is weaker than ever.
+    - John Doe joins the resistance to fight against Fireiron.
+    - After so many death, Fireiron is finally defeated.
+    - 'Peace finally come to this land. '
     image: {fileID: 0}
   triggerOnlyOnce: 0
 --- !u!1 &1503012957
@@ -1663,19 +1669,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dialogName: normal_ending_dialog
-  dialog:
-    name: Storyteller
+  dialogs:
+  - name: Storyteller
     sentences:
-    - John Doe stolen some Mahjong tiles from Fireiron, but not enough to stop him.
-    - In order to fight against Fireiron, John Doe gave away all the Mahjong Tiles
-      he had to some warriors.
-    - After years of fight, warriors finally defeat Fireiron.
-    - But peace does not come as people expected...
-    - Warriors, who once stand together, have different opinions about how to deal
-      with Nine Mahjong tiles.
-    - Finally, in order to take others' tiles, those warriors parted away and start
-      fighting each other.
-    - It seems that John Doe's fight will continue...
+    - John Doe gets some Mahjong tiles from Fireiron
+    - However it's not enought to stop Fireiron.
+    - John Doe gave away all the Mahjong Tiles to resistance
+    - In order to fight against Fireiron
+    - After years of fight, Fireiron finally falls
+    - But peace does not come as hope...
+    - Warriors havingt Mahjong Tiles from John Doe start fighting each other
+    - For getting all the Mahjong Tiles
+    - To put an end to this, John Doe joins new battles...
     image: {fileID: 0}
   triggerOnlyOnce: 0
 --- !u!4 &1934928686

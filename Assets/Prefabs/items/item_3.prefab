@@ -95,6 +95,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   item: {fileID: 11400000, guid: 4b4289569d467f4459b8e357377b54b8, type: 2}
+  pickUpSFXClip: {fileID: 8300000, guid: 52320e590bf774734a288886eba557ba, type: 3}
 --- !u!50 &5056169244589880592
 Rigidbody2D:
   serializedVersion: 4

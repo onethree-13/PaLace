@@ -330,11 +330,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dialogName: game_exit_dialog
-  dialog:
-    name: Mysterious Voice
+  dialogs:
+  - name: Mysterious Voice
     sentences:
-    - '** This is the end of the game, once continue game would finish'
-    image: {fileID: 21300000, guid: d3620218957314f46b4f3e1034149bd9, type: 3}
+    - '** This is the path to the end of the game'
+    image: {fileID: 0}
   triggerOnlyOnce: 0
 --- !u!212 &390987465
 SpriteRenderer:
@@ -11518,22 +11518,22 @@ PrefabInstance:
     - target: {fileID: 8332981020335968365, guid: 115fa7c6cfe0e421eb12ae15d5463ade,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -1.0739591
+      value: -3.3136923
       objectReference: {fileID: 0}
     - target: {fileID: 8332981020335968365, guid: 115fa7c6cfe0e421eb12ae15d5463ade,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -1.6765356
+      value: -1.7107515
       objectReference: {fileID: 0}
     - target: {fileID: 8332981020980108596, guid: 115fa7c6cfe0e421eb12ae15d5463ade,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -1.0600007
+      value: -3.3000004
       objectReference: {fileID: 0}
     - target: {fileID: 8332981020980108596, guid: 115fa7c6cfe0e421eb12ae15d5463ade,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -10.503331
+      value: -10.503398
       objectReference: {fileID: 0}
     - target: {fileID: 8332981020335968402, guid: 115fa7c6cfe0e421eb12ae15d5463ade,
         type: 3}
@@ -11701,11 +11701,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dialogName: central_statue_dialog
-  dialog:
-    name: Statue
-    sentences:
-    - God is in his heaven, all is right with the world.
-    image: {fileID: 0}
+  dialogs: []
   triggerOnlyOnce: 0
 --- !u!61 &1333672421
 BoxCollider2D:
@@ -12219,11 +12215,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dialogName: backyard_entrance_dialog
-  dialog:
-    name: Mysterious Voice
+  dialogs:
+  - name: Mysterious Voice
     sentences:
-    - If you want to come in, leave the hope behind.
-    image: {fileID: 21300000, guid: d3620218957314f46b4f3e1034149bd9, type: 3}
+    - YOU ARE NOT PREPARED!!!
+    image: {fileID: 0}
   triggerOnlyOnce: 0
 --- !u!212 &1610058638
 SpriteRenderer:
@@ -12473,18 +12469,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dialogName: central_first_entered_dialog
-  dialog:
-    name: John Doe
+  dialogs:
+  - name: John Doe
     sentences:
-    - "So this is the grand central\u2026 "
-    - What a huge Buddha here. I never know Fireiron, such a cruel landlord, believes
-      in god.
-    - There is a escape route there, I can get a hell out of this place anytime from
-      there.
-    - I also see the path to the underground. There may be some tiles there but...
-      I senses blood over there.
-    - Should I just leave...?
-    image: {fileID: 21300000, guid: d3620218957314f46b4f3e1034149bd9, type: 3}
+    - This is the central of palace.
+    - I can leave this place by just going straight forward.
+    - But there is another path
+    - Looks like that path is to the underground.
+    - I do not get all the tiles, some of them must be there.
+    - Shall I keep searching?
+    image: {fileID: 0}
   triggerOnlyOnce: 1
 --- !u!212 &2069421302
 SpriteRenderer:
