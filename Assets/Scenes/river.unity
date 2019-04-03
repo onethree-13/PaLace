@@ -271,12 +271,12 @@ PrefabInstance:
     - target: {fileID: 8332981020335968365, guid: 115fa7c6cfe0e421eb12ae15d5463ade,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 8.810143
+      value: 8.810165
       objectReference: {fileID: 0}
     - target: {fileID: 8332981020335968365, guid: 115fa7c6cfe0e421eb12ae15d5463ade,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.032201767
+      value: 0.036685944
       objectReference: {fileID: 0}
     - target: {fileID: 8332981020335968365, guid: 115fa7c6cfe0e421eb12ae15d5463ade,
         type: 3}
@@ -311,7 +311,7 @@ PrefabInstance:
     - target: {fileID: 8332981020980108596, guid: 115fa7c6cfe0e421eb12ae15d5463ade,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -11.936249
+      value: -11.936214
       objectReference: {fileID: 0}
     - target: {fileID: 8332981020980108596, guid: 115fa7c6cfe0e421eb12ae15d5463ade,
         type: 3}
@@ -23231,14 +23231,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dialogName: river_first_entered_dialog
-  dialog:
-    name: John Doe
+  dialogs:
+  - name: John Doe
     sentences:
-    - I am at the river now
-    - 'There are some floating woods on the river... I can use them to jump. '
-    - Just need to be careful to the weight, I should not eat too much with Junpeng
-      yesterday.
-    image: {fileID: 21300000, guid: d3620218957314f46b4f3e1034149bd9, type: 3}
+    - I am almost at the river right now.
+    - The water seems to flow pretty fast.
+    - There are some floating woods.
+    - I can use them for jumping.
+    image: {fileID: 0}
   triggerOnlyOnce: 1
 --- !u!212 &1086524521
 SpriteRenderer:
