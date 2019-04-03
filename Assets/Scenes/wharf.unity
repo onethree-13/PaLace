@@ -533,8 +533,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c842d738bb8a5fa4c952b73075dd30ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dialogName: 
-  dialogs: []
+  dialogName: attact_guide
+  dialogs:
+  - name: Mysterious Voice
+    sentences:
+    - Press A to attack.
+    image: {fileID: 0}
   triggerOnlyOnce: 0
 --- !u!212 &614648672
 SpriteRenderer:
@@ -693,8 +697,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c842d738bb8a5fa4c952b73075dd30ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dialogName: 
-  dialogs: []
+  dialogName: higher_jump_guide
+  dialogs:
+  - name: Mysterious Voice
+    sentences:
+    - Press B longer to jump higher.
+    image: {fileID: 0}
   triggerOnlyOnce: 0
 --- !u!212 &832875245
 SpriteRenderer:
@@ -826,19 +834,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c842d738bb8a5fa4c952b73075dd30ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dialogName: 
+  dialogName: jump_guide
   dialogs:
-  - name: yiming
+  - name: Mysterious Voice
     sentences:
-    - hello
-    image: {fileID: 21300000, guid: 1fecd75b50d99624ea2bbe2f029d4b6f, type: 3}
-  - name: John Doe
-    sentences:
-    - Hola
-    image: {fileID: 21300000, guid: d3620218957314f46b4f3e1034149bd9, type: 3}
-  - name: yiming
-    sentences:
-    - Bye
+    - Press B to jump.
     image: {fileID: 21300000, guid: 1fecd75b50d99624ea2bbe2f029d4b6f, type: 3}
   triggerOnlyOnce: 0
 --- !u!212 &951566920
@@ -16388,7 +16388,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dialogName: wharf_first_entered_dialog
-  dialogs: []
+  dialogs:
+  - name: John Doe
+    sentences:
+    - "Fireiron\u2019s palace is impenetrable\u2026 \n"
+    - "But that\u2019s for nobes\u2026 "
+    - "I am John Doe, the legendary greenhood! \n"
+    - I will steal the Nine Mahjong Tiles from him.
+    - And bring peace back to the land!
+    - Fireiron's backyard is connected to a river.
+    - 'I can infiltrate his palace via that. '
+    - Time to go...
+    image: {fileID: 0}
   triggerOnlyOnce: 1
 --- !u!212 &1771116405
 SpriteRenderer:
@@ -17274,12 +17285,12 @@ PrefabInstance:
     - target: {fileID: 8332981020335968365, guid: 115fa7c6cfe0e421eb12ae15d5463ade,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -6.7750483
+      value: -3.2212734
       objectReference: {fileID: 0}
     - target: {fileID: 8332981020335968365, guid: 115fa7c6cfe0e421eb12ae15d5463ade,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -6.7750483
+      value: -3.2212734
       objectReference: {fileID: 0}
     - target: {fileID: 8332981020335968365, guid: 115fa7c6cfe0e421eb12ae15d5463ade,
         type: 3}
@@ -17294,12 +17305,12 @@ PrefabInstance:
     - target: {fileID: 8332981020980108596, guid: 115fa7c6cfe0e421eb12ae15d5463ade,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -11.250039
+      value: -11.223398
       objectReference: {fileID: 0}
     - target: {fileID: 8332981020980108596, guid: 115fa7c6cfe0e421eb12ae15d5463ade,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -11.250039
+      value: -11.223398
       objectReference: {fileID: 0}
     - target: {fileID: 8332981020980108596, guid: 115fa7c6cfe0e421eb12ae15d5463ade,
         type: 3}
