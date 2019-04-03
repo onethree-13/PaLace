@@ -8,6 +8,37 @@ public class RollingStone : MonoBehaviour
     public Rigidbody2D rb;
     public float gravityThreshold;
 
+    // SFX Raleted
+    protected AudioSource m_stoneSFXSource;
+    public AudioClip rollingSFXClip;
+    public float stopCountDown = 1f;
+    float stopTimer = 0f;
+    bool isRolling = false;
+
+    void Awake()
+    {
+        m_stoneSFXSource = GetComponent<AudioSource>();
+
+        // Rolling sfx
+        m_stoneSFXSource.clip = rollingSFXClip;
+        m_stoneSFXSource.loop = true;
+    }
+
+    void FixedUpdate()
+    {
+        // Stop rolling SFX when stone stops moving for stopCountDown
+
+        if (rb.velocity.sqrMagnitude > 0.05f)
+            stopTimer = stopCountDown;
+
+        if (stopTimer <= 0f && isRolling) {
+            m_stoneSFXSource.Stop();
+        }
+
+        if (stopTimer > 0f)
+            stopTimer -= Time.fixedDeltaTime;
+    }
+
     public void Fall()
     {
         rb.gravityScale = gravityThreshold;
@@ -26,6 +57,14 @@ public class RollingStone : MonoBehaviour
 
     public void Destructor()
     {
+        isRolling = false;
         Destroy(gameObject);
+    }
+
+    public void StartRollingSFX()
+    {
+        isRolling = true;
+        stopTimer = stopCountDown;
+        m_stoneSFXSource.Play();
     }
 }

@@ -5,16 +5,17 @@ using System.Collections;
 [RequireComponent(typeof(CharacterController2D))]
 [RequireComponent(typeof(Animator))]
 [RequireComponent(typeof(SpriteRenderer))]
+[RequireComponent(typeof(AudioSource))]
 public class Player : MonoBehaviour {
     public bool enableControl = true;                                           // Enable player input.
     public float runSpeed = 32f;                                                // setting the rate of horizontal move
     public float inertia = 0.9f;                                                // setting the decreasing rate of horizontal speed when disabling controller
     [Range(0, 1)] [SerializeField] private float m_CrouchSpeed = .36f;          // Amount of maxSpeed applied to crouching movement. 1 = 100%
     [Range(0, .3f)] [SerializeField] private float m_MovementSmoothing = .05f;  // How much to smooth out the movement
-    
+
     [SerializeField] private float m_JumpSpeed = 20f;                           // Amount of vertical velocity added when the player jumps.
     [SerializeField] private float m_JumpCancelSpeed = 10f;                     // Amount of vertical velocity added when the player jumps.
-    
+
     [SerializeField] private bool m_AirControl = false;                         // Whether or not a player can steer while jumping;
     [Range(0, 1)] [SerializeField] private float m_airborneSpeed = .8f;         // Amount of maxSpeed applied to airborne movement. 1 = 100%
 
@@ -36,31 +37,31 @@ public class Player : MonoBehaviour {
     [SerializeField] private float m_AttackColdDown = .02f;         // How long the player cannot cast another attack after finish one
 
     [System.Serializable]
-	public class PlayerStats {
+    public class PlayerStats {
         private float _curHealth;
-        
+
         public float maxHealth = 1.0f;
 
-		public float curHealth
-		{
-			get { return _curHealth; }
+        public float curHealth
+        {
+            get { return _curHealth; }
             // Ensure the range of _curHealth is [0, maxHealth]
-            set { _curHealth = Mathf.Clamp(value, 0, maxHealth); } 
+            set { _curHealth = Mathf.Clamp(value, 0, maxHealth); }
         }
 
-		public void Init()
-		{
-			curHealth = maxHealth;
-		}
+        public void Init()
+        {
+            curHealth = maxHealth;
+        }
     }
 
-	public PlayerStats stats = new PlayerStats();
+    public PlayerStats stats = new PlayerStats();
     private bool m_FacingRight = true;  // For determining which way the player is currently facing.
 
     private CharacterController2D characterController2d;
     private GameController gameController;
 
-    
+
 
     // Player input related, passing from update() to fixUpdate()
     private bool jump = false;          // Whether the player is pressing jump
@@ -76,15 +77,30 @@ public class Player : MonoBehaviour {
     // Attack related paramaters
     private bool attack = false;        // Whether the player is attacking
 
+    // SFX Raleted
+    protected AudioSource m_PlayerSFXource;
+    public AudioClip jumpSFXClip;
+    public AudioClip attackSFXClip;
+    public AudioClip hitSFXClip;
+    public AudioClip dieSFXClip;
+
     // Animation Related
     protected Animator m_Animator;   // Animation controller of player
     protected SpriteRenderer m_renderer; // Sprite renderer of player
-    public void PlayAttackAnimation() => m_Animator.SetTrigger("Attacking");
-    public void PlayHitAnimation() => m_Animator.SetTrigger("NormalHit");
-    public void PlayDeathAnimation() => m_Animator.SetTrigger("DeadlyHit");
     public void PlayRespawnAnimation() => m_Animator.SetTrigger("Respawning");
-
-    //public int fallBoundary = -20;
+    public void PlayAttackAnimation()
+    {
+        m_Animator.SetTrigger("Attacking");
+        m_PlayerSFXource.PlayOneShot(attackSFXClip);
+    }
+    public void PlayHitAnimation() { 
+        m_Animator.SetTrigger("NormalHit");
+        m_PlayerSFXource.PlayOneShot(hitSFXClip);
+    }
+    public void PlayDeathAnimation() {
+        m_Animator.SetTrigger("DeadlyHit");
+        m_PlayerSFXource.PlayOneShot(dieSFXClip);
+    }
 
     private void Awake()
     {
@@ -92,6 +108,7 @@ public class Player : MonoBehaviour {
         characterController2d = GetComponent<CharacterController2D>();
         m_Animator = GetComponent<Animator>();
         m_renderer = GetComponent<SpriteRenderer>();
+        m_PlayerSFXource = GetComponent<AudioSource>();
     }
 
     void Start()
@@ -152,6 +169,10 @@ public class Player : MonoBehaviour {
         m_Animator.SetFloat("Speed", Mathf.Abs(horizontalMove));
         m_Animator.SetBool("IsGrounded", isGrounded);
         m_Animator.SetBool("Sneaking", crouch);
+
+        // Play SFX
+        if (jump)
+            m_PlayerSFXource.PlayOneShot(jumpSFXClip);
     }
 
     public void ReleaseJump()
@@ -315,6 +336,7 @@ public class Player : MonoBehaviour {
         // Avoid dead player attack enemy.
         if (stats.curHealth <= 0.0f)
             yield break;
+
         PlayAttackAnimation();
 
         yield return new WaitForSeconds(m_AttackPreparePeriod);
