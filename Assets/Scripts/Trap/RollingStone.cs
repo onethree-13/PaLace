@@ -11,9 +11,10 @@ public class RollingStone : MonoBehaviour
     // SFX Raleted
     protected AudioSource m_stoneSFXSource;
     public AudioClip rollingSFXClip;
-    public float stopCountDown = 1f;
-    float stopTimer = 0f;
+    public AudioClip stopRollingSFXClip;
+    public AudioClip hitSFXClip;
     bool isRolling = false;
+    float last_speed = 0f;
 
     void Awake()
     {
@@ -26,17 +27,19 @@ public class RollingStone : MonoBehaviour
 
     void FixedUpdate()
     {
-        // Stop rolling SFX when stone stops moving for stopCountDown
+        if (isRolling)
+        {
+            // Stop rolling SFX when stone stops moving for stopCountDown
+            float current_speed = rb.velocity.sqrMagnitude;
 
-        if (rb.velocity.sqrMagnitude > 0.05f)
-            stopTimer = stopCountDown;
+            if (current_speed < last_speed && current_speed < 0.01f)
+            {
+                m_stoneSFXSource.Stop();
+                m_stoneSFXSource.PlayOneShot(stopRollingSFXClip);
+            }
 
-        if (stopTimer <= 0f && isRolling) {
-            m_stoneSFXSource.Stop();
+            last_speed = current_speed;
         }
-
-        if (stopTimer > 0f)
-            stopTimer -= Time.fixedDeltaTime;
     }
 
     public void Fall()
@@ -50,6 +53,9 @@ public class RollingStone : MonoBehaviour
         Player player = collision.GetComponent<Player>();
         if (player != null)
         {
+            m_stoneSFXSource.Stop();
+            m_stoneSFXSource.PlayOneShot(hitSFXClip);
+
             player.Damage(1);
             Invoke("Destructor", 0.5f);
         }
@@ -57,14 +63,12 @@ public class RollingStone : MonoBehaviour
 
     public void Destructor()
     {
-        isRolling = false;
         Destroy(gameObject);
     }
 
     public void StartRollingSFX()
     {
         isRolling = true;
-        stopTimer = stopCountDown;
         m_stoneSFXSource.Play();
     }
 }

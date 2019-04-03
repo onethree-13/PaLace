@@ -99,7 +99,7 @@ Rigidbody2D:
   m_Mass: 100
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 0
+  m_GravityScale: 2
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
@@ -152,7 +152,8 @@ MonoBehaviour:
   rb: {fileID: 2748003267265788331}
   gravityThreshold: 0
   rollingSFXClip: {fileID: 8300000, guid: fa7e985a5035bbd438c26af19fc932c2, type: 3}
-  stopCountDown: 1
+  stopRollingSFXClip: {fileID: 8300000, guid: cabfae866cab347928b74b7d0ca6bfa9, type: 3}
+  hitSFXClip: {fileID: 8300000, guid: 7e26c9daf4c32483b9c2790e662d3f1b, type: 3}
 --- !u!82 &4597399947272125430
 AudioSource:
   m_ObjectHideFlags: 0
