@@ -85070,7 +85070,7 @@ PrefabInstance:
     - target: {fileID: 8332981020335968365, guid: 115fa7c6cfe0e421eb12ae15d5463ade,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 9.413121
+      value: 10.300229
       objectReference: {fileID: 0}
     - target: {fileID: 8332981020335968365, guid: 115fa7c6cfe0e421eb12ae15d5463ade,
         type: 3}
@@ -85080,7 +85080,7 @@ PrefabInstance:
     - target: {fileID: 8332981020980108596, guid: 115fa7c6cfe0e421eb12ae15d5463ade,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 3.7799516
+      value: 3.7866018
       objectReference: {fileID: 0}
     - target: {fileID: 8332981020980108596, guid: 115fa7c6cfe0e421eb12ae15d5463ade,
         type: 3}
@@ -96754,7 +96754,7 @@ MonoBehaviour:
   - name: Mysterious Voice
     sentences:
     - TURN BACK!!!
-    image: {fileID: 0}
+    image: {fileID: 21300000, guid: c341f9a0b34f84cfeb6ae23e8843c974, type: 3}
   triggerOnlyOnce: 0
 --- !u!212 &1512567143
 SpriteRenderer:

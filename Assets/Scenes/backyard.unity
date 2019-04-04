@@ -4939,7 +4939,7 @@ MonoBehaviour:
   - name: Mysterious Voice
     sentences:
     - John...Doe...
-    image: {fileID: 0}
+    image: {fileID: 21300000, guid: b2983c4999c844fba953ab9db365c2bd, type: 3}
   - name: John Doe
     sentences:
     - WHO IS THERE!!!
@@ -4952,7 +4952,7 @@ MonoBehaviour:
     - I was like you when I alive
     - I tried to beat Fireiron but I failed...
     - Now my spirit is in this statue...
-    image: {fileID: 0}
+    image: {fileID: 21300000, guid: b2983c4999c844fba953ab9db365c2bd, type: 3}
   - name: John Doe
     sentences:
     - Ha! That's due to your weakness.
@@ -4965,7 +4965,7 @@ MonoBehaviour:
     - The Nine Mahjong Tiles are.
     - They would bewitch you, twist you.
     - No man can resist the might of them.
-    image: {fileID: 0}
+    image: {fileID: 21300000, guid: b2983c4999c844fba953ab9db365c2bd, type: 3}
   - name: John Doe
     sentences:
     - 'I have my creed. It is deep in my heart. '
@@ -4976,7 +4976,7 @@ MonoBehaviour:
   - name: Land Spirit
     sentences:
     - Remember... don't be greedy...
-    image: {fileID: 0}
+    image: {fileID: 21300000, guid: b2983c4999c844fba953ab9db365c2bd, type: 3}
   triggerOnlyOnce: 1
 --- !u!212 &437200293
 SpriteRenderer:
@@ -41075,12 +41075,12 @@ PrefabInstance:
     - target: {fileID: 8332981020335968365, guid: 115fa7c6cfe0e421eb12ae15d5463ade,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -1.7063208
+      value: -1.6979132
       objectReference: {fileID: 0}
     - target: {fileID: 8332981020335968365, guid: 115fa7c6cfe0e421eb12ae15d5463ade,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.1974013
+      value: 1.1974037
       objectReference: {fileID: 0}
     - target: {fileID: 8332981020335968365, guid: 115fa7c6cfe0e421eb12ae15d5463ade,
         type: 3}
@@ -41090,7 +41090,7 @@ PrefabInstance:
     - target: {fileID: 8332981020980108596, guid: 115fa7c6cfe0e421eb12ae15d5463ade,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -8.493462
+      value: -8.493399
       objectReference: {fileID: 0}
     - target: {fileID: 8332981020980108596, guid: 115fa7c6cfe0e421eb12ae15d5463ade,
         type: 3}

@@ -334,7 +334,7 @@ MonoBehaviour:
   - name: Mysterious Voice
     sentences:
     - '** This is the path to the end of the game'
-    image: {fileID: 0}
+    image: {fileID: 21300000, guid: 2ac0aae395f81a34fa073790907022c4, type: 3}
   triggerOnlyOnce: 0
 --- !u!212 &390987465
 SpriteRenderer:
@@ -12219,7 +12219,7 @@ MonoBehaviour:
   - name: Mysterious Voice
     sentences:
     - YOU ARE NOT PREPARED!!!
-    image: {fileID: 0}
+    image: {fileID: 21300000, guid: 2ac0aae395f81a34fa073790907022c4, type: 3}
   triggerOnlyOnce: 0
 --- !u!212 &1610058638
 SpriteRenderer:
@@ -12478,7 +12478,7 @@ MonoBehaviour:
     - Looks like that path is to the underground.
     - I do not get all the tiles, some of them must be there.
     - Shall I keep searching?
-    image: {fileID: 0}
+    image: {fileID: 21300000, guid: 1ad752d83fc23144ba4c0f67a9f506cf, type: 3}
   triggerOnlyOnce: 1
 --- !u!212 &2069421302
 SpriteRenderer:

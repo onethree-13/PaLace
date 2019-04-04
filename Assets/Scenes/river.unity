@@ -271,12 +271,12 @@ PrefabInstance:
     - target: {fileID: 8332981020335968365, guid: 115fa7c6cfe0e421eb12ae15d5463ade,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 8.810177
+      value: 8.810165
       objectReference: {fileID: 0}
     - target: {fileID: 8332981020335968365, guid: 115fa7c6cfe0e421eb12ae15d5463ade,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.03892231
+      value: 0.036685944
       objectReference: {fileID: 0}
     - target: {fileID: 8332981020335968365, guid: 115fa7c6cfe0e421eb12ae15d5463ade,
         type: 3}
@@ -311,7 +311,7 @@ PrefabInstance:
     - target: {fileID: 8332981020980108596, guid: 115fa7c6cfe0e421eb12ae15d5463ade,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -11.936198
+      value: -11.936214
       objectReference: {fileID: 0}
     - target: {fileID: 8332981020980108596, guid: 115fa7c6cfe0e421eb12ae15d5463ade,
         type: 3}
@@ -23383,7 +23383,7 @@ MonoBehaviour:
     - The water seems to flow pretty fast.
     - There are some floating woods.
     - I can use them for jumping.
-    image: {fileID: 0}
+    image: {fileID: 21300000, guid: 1ad752d83fc23144ba4c0f67a9f506cf, type: 3}
   triggerOnlyOnce: 1
 --- !u!212 &1086524521
 SpriteRenderer:
