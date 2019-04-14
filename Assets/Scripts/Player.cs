@@ -7,9 +7,18 @@ using System.Collections;
 [RequireComponent(typeof(SpriteRenderer))]
 [RequireComponent(typeof(AudioSource))]
 public class Player : MonoBehaviour {
-    public bool enableControl = true;                                           // Enable player input.
+    public bool enableControl = true;
+    public bool EnableControl
+    {
+        get { return enableControl; }
+        set {
+            enableControl = value;
+            horizontalMove = 0f;
+        }
+    }
+    public SimpleInputNamespace.AxisInputUI axisUI;
+
     public float runSpeed = 32f;                                                // setting the rate of horizontal move
-    public float inertia = 0.9f;                                                // setting the decreasing rate of horizontal speed when disabling controller
     [Range(0, 1)] [SerializeField] private float m_CrouchSpeed = .36f;          // Amount of maxSpeed applied to crouching movement. 1 = 100%
     [Range(0, .3f)] [SerializeField] private float m_MovementSmoothing = .05f;  // How much to smooth out the movement
 
@@ -60,9 +69,7 @@ public class Player : MonoBehaviour {
 
     private CharacterController2D characterController2d;
     private GameController gameController;
-
-
-
+       
     // Player input related, passing from update() to fixUpdate()
     private bool jump = false;          // Whether the player is pressing jump
     private bool jumpCancel = false;    // Whether the player is releasing jump
@@ -137,16 +144,14 @@ public class Player : MonoBehaviour {
         m_DamageArea.enabled = false;
     }
 
-	void Update () {
-        horizontalMove = inertia * horizontalMove;
-
+	void Update () {      
         if (enableControl)
         {
             horizontalMove = SimpleInput.GetAxisRaw("Horizontal") * runSpeed;
 
             if (SimpleInput.GetButtonDown("Crouch"))
                 crouch = true;
-            else if (Input.GetButtonUp("Crouch"))
+            else if (SimpleInput.GetButtonUp("Crouch"))
                 crouch = false;
 
             if (SimpleInput.GetButtonDown("Jump") && isGrounded && jump == false)

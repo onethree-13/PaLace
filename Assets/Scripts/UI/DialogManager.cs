@@ -36,15 +36,19 @@ public class DialogManager : MonoBehaviour
     private Button continueButton;
     private bool isDialogPlaying;         // for getting status of co-routine
 
+    Player player;
+
     void Start()
     {
         dialogs = new Queue<Dialog>();
+        
     }
 
     private void LoadMenu(Scene current, Scene next)
     {
         Debug.Log("Menu loaded.");
         menu = GameObject.FindGameObjectWithTag("Menu");
+        player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
         if (menu == null)
             return;
         dialogBox = menu.transform.Find("DialogBox").gameObject;
@@ -64,6 +68,8 @@ public class DialogManager : MonoBehaviour
     public void StartDialogue (Dialog dialog) {
 
         floatMenu.SetActive(false);
+        player.EnableControl = false;
+
         animator.SetBool("IsOpen", true);
         foreach (string sentence in dialog.sentences)
         {
@@ -107,6 +113,7 @@ public class DialogManager : MonoBehaviour
         isDialogPlaying = false;
 
         animator.SetBool("IsOpen", false);
+        player.EnableControl = true;
         floatMenu.SetActive(true);
     }
 

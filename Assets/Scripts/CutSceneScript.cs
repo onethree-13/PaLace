@@ -16,7 +16,7 @@ public class CutSceneScript : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        player.enableControl = false;
+        player.EnableControl = false;
         timeline.Play();
         GetComponent<BoxCollider2D>().enabled = false;
     }
@@ -27,7 +27,7 @@ public class CutSceneScript : MonoBehaviour
         {
             Debug.Log("PlayableDirector named " + aDirector.name + " is now stopped.");
             Debug.Log(player.transform.position);
-            player.enableControl = true;
+            player.EnableControl = true;
         }
     }
 }
