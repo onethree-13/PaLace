@@ -19,6 +19,12 @@ public class DialogTrigger : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        // If not player entered
+        if(collision.name != "Player")
+        {
+            return;
+        }
+
         // If dialog should trigger only one time and is already triggered
         GameController gameController = GameObject.FindGameObjectWithTag("GameCtrl").GetComponent<GameController>();
 

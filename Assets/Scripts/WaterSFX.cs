@@ -27,7 +27,6 @@ public class WaterSFX : MonoBehaviour
         {
             audioPosX = waterPos.x + Mathf.Sign(audioPosX - waterPos.x) * waterRadius;
         }
-        Debug.Log(audioPosX);
 
         transform.position = new Vector3(audioPosX, transform.position.y, transform.position.z);
     }

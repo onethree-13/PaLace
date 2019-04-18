@@ -85018,7 +85018,7 @@ PrefabInstance:
     - target: {fileID: 8332981020335968365, guid: 115fa7c6cfe0e421eb12ae15d5463ade,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 10.304088
+      value: 10.299506
       objectReference: {fileID: 0}
     - target: {fileID: 8332981020335968365, guid: 115fa7c6cfe0e421eb12ae15d5463ade,
         type: 3}
@@ -85028,7 +85028,7 @@ PrefabInstance:
     - target: {fileID: 8332981020980108596, guid: 115fa7c6cfe0e421eb12ae15d5463ade,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 3.7866304
+      value: 3.786596
       objectReference: {fileID: 0}
     - target: {fileID: 8332981020980108596, guid: 115fa7c6cfe0e421eb12ae15d5463ade,
         type: 3}
@@ -85731,6 +85731,10 @@ PrefabInstance:
       propertyPath: m_Delegates.Array.data[1].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1645741898}
+    - target: {fileID: 871517251, guid: c658f7b7675a3644890c68187d6fdb79, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c658f7b7675a3644890c68187d6fdb79, type: 3}
 --- !u!1 &267356220
@@ -91347,14 +91351,14 @@ RectTransform:
   m_GameObject: {fileID: 1024403695}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0.22663814}
-  m_LocalScale: {x: 0.384, y: 0.384, z: 1.51475}
+  m_LocalScale: {x: 0.78239995, y: 1.5679199, z: 1.51475}
   m_Children: []
   m_Father: {fileID: 455262494}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 195.4, y: -29.5}
+  m_AnchoredPosition: {x: 197.57, y: -28.62}
   m_SizeDelta: {x: 5.91, y: 5.51}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!61 &1024403697
@@ -91404,8 +91408,8 @@ MonoBehaviour:
     - I hear footsteps from up, it must be heaveliy guarded.
     - No guards are in the left
     - Maybe they think there is no need to guard that place?
-    image: {fileID: 0}
-  triggerOnlyOnce: 0
+    image: {fileID: 21300000, guid: 1ad752d83fc23144ba4c0f67a9f506cf, type: 3}
+  triggerOnlyOnce: 1
 --- !u!212 &1024403699
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -96292,7 +96296,7 @@ MonoBehaviour:
   - name: Mysterious Voice
     sentences:
     - TURN BACK!!!
-    image: {fileID: 21300000, guid: c341f9a0b34f84cfeb6ae23e8843c974, type: 3}
+    image: {fileID: 21300000, guid: 2ac0aae395f81a34fa073790907022c4, type: 3}
   triggerOnlyOnce: 0
 --- !u!212 &1512567143
 SpriteRenderer:
