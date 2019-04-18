@@ -43,4 +43,10 @@ public class GameController : MonoBehaviour
     {
         return dialogTriggeredSet.Add(dialogName);
     }
+
+    public void ResetGameCtrl()
+    {
+        lastLoadedScene = null;
+        dialogTriggeredSet.Clear();
+    }
 }

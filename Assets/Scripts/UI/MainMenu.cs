@@ -15,7 +15,7 @@ public class MainMenu : MonoBehaviour
     public void PlayGame()
     {
         Inventory.instance.Reset();
-        gameController.lastLoadedScene = null;
+        gameController.ResetGameCtrl();
         SceneManager.LoadScene("wharf");
     }
 

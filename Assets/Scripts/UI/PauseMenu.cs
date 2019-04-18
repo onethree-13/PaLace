@@ -41,7 +41,7 @@ public class PauseMenu : MonoBehaviour
     {
         Debug.Log("Quit game.");
         Time.timeScale = 1f;
-        gameController.lastLoadedScene = null;
+        gameController.ResetGameCtrl();
         SceneManager.LoadScene("start_menu");
     }
 }

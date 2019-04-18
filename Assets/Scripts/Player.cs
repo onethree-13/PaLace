@@ -125,7 +125,6 @@ public class Player : MonoBehaviour {
         // Change player's pos and respawn point based on entrance if lastLoadedScene is not null. 
         if(!string.IsNullOrEmpty(gameController.lastLoadedScene))
         {
-            Debug.Log(gameController.lastLoadedScene);
             sceneInitialSpawnPoint = GameObject.Find(gameController.lastLoadedScene + "_sp").transform;
             transform.position = sceneInitialSpawnPoint.position;
         }
