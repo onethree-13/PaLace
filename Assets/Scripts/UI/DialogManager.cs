@@ -1,4 +1,5 @@
 ﻿using UnityEngine.UI;
+using System;
 using System.Collections ;
 using System.Collections.Generic;
 using UnityEngine;
@@ -48,7 +49,14 @@ public class DialogManager : MonoBehaviour
     {
         Debug.Log("Menu loaded.");
         menu = GameObject.FindGameObjectWithTag("Menu");
-        player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
+        try
+        {
+            player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
+        }
+        catch (NullReferenceException ex)
+        {
+            Debug.Log("Warning: no player found, check if not start scence");
+        }
         if (menu == null)
             return;
         dialogBox = menu.transform.Find("DialogBox").gameObject;
