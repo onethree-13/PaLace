@@ -125,6 +125,7 @@ public class Player : MonoBehaviour {
         // Change player's pos and respawn point based on entrance if lastLoadedScene is not null. 
         if(!string.IsNullOrEmpty(gameController.lastLoadedScene))
         {
+            Debug.Log(gameController.lastLoadedScene);
             sceneInitialSpawnPoint = GameObject.Find(gameController.lastLoadedScene + "_sp").transform;
             transform.position = sceneInitialSpawnPoint.position;
         }
@@ -265,7 +266,7 @@ public class Player : MonoBehaviour {
         }
     }
 
-    public void Damage (int damage, bool respawn = false) {
+    public void Damage (float damage, bool respawn = false) {
         // when the player is dead or invincible, player should not recieve any damage.
         if (stats.curHealth <= 0.0f || invincible)
             return;
