@@ -1089,6 +1089,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 1
+  enemyDamage: 100
 --- !u!61 &56292510
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -2318,6 +2319,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 1
+  enemyDamage: 100
 --- !u!61 &182052859
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -2634,6 +2636,7 @@ GameObject:
   m_Component:
   - component: {fileID: 205696421}
   - component: {fileID: 205696422}
+  - component: {fileID: 205696423}
   m_Layer: 0
   m_Name: Lethal Trap
   m_TagString: Untagged
@@ -2682,6 +2685,20 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &205696423
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 205696420}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6a394ebaaa85846e8937e57f6bb768fe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damage: 1
+  enemyDamage: 100
 --- !u!114 &206594000 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4810161037617337283, guid: 78fc9803f50da8f429ce1859f433aa59,
@@ -32095,6 +32112,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 1
+  enemyDamage: 100
 --- !u!61 &881724215
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -41028,7 +41046,7 @@ PrefabInstance:
     - target: {fileID: 8332981020335968365, guid: 115fa7c6cfe0e421eb12ae15d5463ade,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -1.6940546
+      value: -1.6961336
       objectReference: {fileID: 0}
     - target: {fileID: 8332981020335968365, guid: 115fa7c6cfe0e421eb12ae15d5463ade,
         type: 3}
@@ -41043,7 +41061,7 @@ PrefabInstance:
     - target: {fileID: 8332981020980108596, guid: 115fa7c6cfe0e421eb12ae15d5463ade,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -8.49337
+      value: -8.493385
       objectReference: {fileID: 0}
     - target: {fileID: 8332981020980108596, guid: 115fa7c6cfe0e421eb12ae15d5463ade,
         type: 3}
