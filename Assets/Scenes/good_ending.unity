@@ -654,7 +654,7 @@ MonoBehaviour:
     - Making sure no one can touch it.
     - Despair still covers all the land
     - We do not know if we can shine the lights of hope again...
-    image: {fileID: 0}
+    image: {fileID: 21300000, guid: 2ac0aae395f81a34fa073790907022c4, type: 3}
   triggerOnlyOnce: 0
 --- !u!1 &590378130
 GameObject:
@@ -1212,7 +1212,7 @@ MonoBehaviour:
     - '... ...'
     - '... .... ....'
     - '... My PRECIOUS !!!'
-    image: {fileID: 0}
+    image: {fileID: 21300000, guid: 1ad752d83fc23144ba4c0f67a9f506cf, type: 3}
   - name: Storyteller
     sentences:
     - Fireiron is defeated after losing all Mahjong Tiles
@@ -1275,7 +1275,7 @@ MonoBehaviour:
     - John Doe joins the resistance to fight against Fireiron.
     - After so many death, Fireiron is finally defeated.
     - 'Peace finally come to this land. '
-    image: {fileID: 0}
+    image: {fileID: 21300000, guid: 2ac0aae395f81a34fa073790907022c4, type: 3}
   triggerOnlyOnce: 0
 --- !u!1 &1503012957
 GameObject:
@@ -1681,7 +1681,7 @@ MonoBehaviour:
     - Warriors havingt Mahjong Tiles from John Doe start fighting each other
     - For getting all the Mahjong Tiles
     - To put an end to this, John Doe joins new battles...
-    image: {fileID: 0}
+    image: {fileID: 21300000, guid: 2ac0aae395f81a34fa073790907022c4, type: 3}
   triggerOnlyOnce: 0
 --- !u!4 &1934928686
 Transform:
